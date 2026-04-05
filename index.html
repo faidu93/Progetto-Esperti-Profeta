@@ -4,245 +4,251 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "surface-container": "#201f1f",
-              "on-primary-fixed": "#351000",
-              "surface-container-high": "#2a2a2a",
-              "on-primary-fixed-variant": "#7a3000",
-              "surface-container-low": "#1c1b1b",
-              "on-error-container": "#ffdad6",
-              "tertiary-container": "#059eff",
-              "on-surface-variant": "#e2bfb0",
-              "primary-fixed": "#ffdbcc",
-              "on-secondary-container": "#ffa173",
-              "surface-container-lowest": "#0e0e0e",
-              "error-container": "#93000a",
-              "primary-fixed-dim": "#ffb693",
-              "error": "#ffb4ab",
-              "surface-container-highest": "#353534",
-              "outline-variant": "#5a4136",
-              "secondary-fixed": "#ffdbcc",
-              "on-tertiary-container": "#003357",
-              "on-surface": "#e5e2e1",
-              "secondary": "#ffb693",
-              "on-secondary": "#561f00",
-              "surface-bright": "#393939",
-              "secondary-container": "#7b3409",
-              "inverse-primary": "#a04100",
-              "on-tertiary-fixed": "#001d35",
-              "surface": "#131313",
-              "on-primary-container": "#ff6b00",
-              "surface-tint": "#ffb693",
-              "primary": "#ffb693",
-              "outline": "#a98a7d",
-              "on-background": "#e5e2e1",
-              "tertiary": "#9ccaff",
-              "inverse-surface": "#e5e2e1",
-              "background": "#131313",
-              "primary-container": "#ff6b00",
-              "tertiary-fixed": "#d0e4ff",
-              "surface-variant": "#353534",
-              "on-primary": "#561f00",
-              "surface-dim": "#131313",
-              "tertiary-fixed-dim": "#9ccaff",
-              "on-error": "#690005",
-              "on-tertiary-fixed-variant": "#00497b",
-              "on-secondary-fixed": "#351000",
-              "inverse-on-surface": "#313030",
-              "secondary-fixed-dim": "#ffb693",
-              "on-secondary-fixed-variant": "#783207",
-              "on-tertiary": "#003257"
-            },
-            fontFamily: {
-              "headline": ["Space Grotesk"],
-              "body": ["Plus Jakarta Sans"],
-              "label": ["Plus Jakarta Sans"]
-            },
-            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
-          },
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container": "#201f1f",
+          "on-primary-fixed": "#351000",
+          "surface-container-high": "#2a2a2a",
+          "on-primary-fixed-variant": "#7a3000",
+          "surface-container-low": "#1c1b1b",
+          "on-error-container": "#ffdad6",
+          "tertiary-container": "#059eff",
+          "on-surface-variant": "#e2bfb0",
+          "primary-fixed": "#ffdbcc",
+          "on-secondary-container": "#ffa173",
+          "surface-container-lowest": "#0e0e0e",
+          "error-container": "#93000a",
+          "primary-fixed-dim": "#ffb693",
+          "error": "#ffb4ab",
+          "surface-container-highest": "#353534",
+          "outline-variant": "#5a4136",
+          "secondary-fixed": "#ffdbcc",
+          "on-tertiary-container": "#003357",
+          "on-surface": "#e5e2e1",
+          "secondary": "#ffb693",
+          "on-secondary": "#561f00",
+          "surface-bright": "#393939",
+          "secondary-container": "#7b3409",
+          "inverse-primary": "#a04100",
+          "on-tertiary-fixed": "#001d35",
+          "surface": "#131313",
+          "on-primary-container": "#ff6b00",
+          "surface-tint": "#ffb693",
+          "primary": "#ffb693",
+          "outline": "#a98a7d",
+          "on-background": "#e5e2e1",
+          "tertiary": "#9ccaff",
+          "inverse-surface": "#e5e2e1",
+          "background": "#131313",
+          "primary-container": "#ff6b00",
+          "tertiary-fixed": "#d0e4ff",
+          "surface-variant": "#353534",
+          "on-primary": "#561f00",
+          "surface-dim": "#131313",
+          "tertiary-fixed-dim": "#9ccaff",
+          "on-error": "#690005",
+          "on-tertiary-fixed-variant": "#00497b",
+          "on-secondary-fixed": "#351000",
+          "inverse-on-surface": "#313030",
+          "secondary-fixed-dim": "#ffb693",
+          "on-secondary-fixed-variant": "#783207",
+          "on-tertiary": "#003257"
         },
-      }
-    </script>
+        fontFamily: {
+          "headline": ["Space Grotesk"],
+          "body": ["Plus Jakarta Sans"],
+          "label": ["Plus Jakarta Sans"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
 <style>
-      .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-      }
-      .editorial-shadow {
-        box-shadow: 0px 24px 48px rgba(255,107,0,0.06);
-      }
-      .glass-card {
-        background: rgba(53, 53, 52, 0.7);
-        backdrop-filter: blur(20px);
-      }
-    </style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .editorial-shadow {
+    box-shadow: 0px 24px 48px rgba(255,107,0,0.06);
+  }
+  .glass-card {
+    background: rgba(53, 53, 52, 0.7);
+    backdrop-filter: blur(20px);
+  }
+</style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
+
 <!-- TopNavBar -->
 <nav class="w-full top-0 sticky z-50 bg-[#131313] border-b border-white/5">
-<div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
-<div class="flex items-center gap-10">
-<a class="flex items-center gap-2" href="{{DATA:SCREEN:SCREEN_105}}">
-<img alt="Logo" class="w-8 h-8 invert brightness-0" src="https://lh3.googleusercontent.com/aida/ADBb0uhX3W1lOCUvGvAlHNDrnwPtpw7rXGsTG55Hjuy3D9-sBudJPv6l9MCCnoVNiDkFbWGcbv2Jclfxu_vdCMay4q7ZDx-gP-4sKMPG8P6Hu3OgtPbX_Fj0rEzSh_IWYaRWLnzjuVxbCAeLPTCyTQt9XY0W0bAC_m9DXxsD1P25yVWjGiAB0qqfc671vhGsOKWcaHT11r8HS6xKQPuZ6G-9TP-Fwv4ief0Jp4T-70TuDq9M3B_RWoSNttv3QFLVi0jPoy2o43svNnlHzYI"/>
-<span class="text-lg font-bold text-white tracking-tight font-headline">Progetto Esperti Profeta</span>
-</a>
-<div class="hidden lg:flex gap-8 items-center ml-4">
-<a class="font-headline font-medium text-[13px] tracking-wide text-[#ff6b00] border-b border-[#ff6b00]" href="{{DATA:SCREEN:SCREEN_105}}">Il Progetto Esperti</a>
-<a class="font-headline font-medium text-[13px] tracking-wide text-gray-400 hover:text-white transition-colors" href="{{DATA:SCREEN:SCREEN_107}}">Iscriviti</a>
-<a class="font-headline font-medium text-[13px] tracking-wide text-gray-400 hover:text-white transition-colors" href="{{DATA:SCREEN:SCREEN_110}}">C'è asta per te</a>
-</div>
-</div>
-</div>
+  <div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
+    <div class="flex items-center gap-10">
+      <a class="flex items-center gap-2" href="index.html">
+        <img alt="Logo" class="w-8 h-8 invert brightness-0" src="https://lh3.googleusercontent.com/aida/ADBb0uhX3W1lOCUvGvAlHNDrnwPtpw7rXGsTG55Hjuy3D9-sBudJPv6l9MCCnoVNiDkFbWGcbv2Jclfxu_vdCMay4q7ZDx-gP-4sKMPG8P6Hu3OgtPbX_Fj0rEzSh_IWYaRWLnzjuVxbCAeLPTCyTQt9XY0W0bAC_m9DXxsD1P25yVWjGiAB0qqfc671vhGsOKWcaHT11r8HS6xKQPuZ6G-9TP-Fwv4ief0Jp4T-70TuDq9M3B_RWoSNttv3QFLVi0jPoy2o43svNnlHzYI"/>
+        <span class="text-lg font-bold text-white tracking-tight font-headline">Progetto Esperti Profeta</span>
+      </a>
+      <div class="hidden lg:flex gap-8 items-center ml-4">
+        <a class="font-headline font-medium text-[13px] tracking-wide text-[#ff6b00] border-b border-[#ff6b00]" href="index.html">Il Progetto Esperti</a>
+        <a class="font-headline font-medium text-[13px] tracking-wide text-gray-400 hover:text-white transition-colors" href="iscriviti.html">Iscriviti</a>
+        <a class="font-headline font-medium text-[13px] tracking-wide text-gray-400 hover:text-white transition-colors" href="asta.html">C'è asta per te</a>
+      </div>
+    </div>
+  </div>
 </nav>
+
 <main>
 <!-- Hero Section -->
 <section class="relative min-h-[819px] flex items-center overflow-hidden pt-12">
-<div class="absolute inset-0 z-0">
-<div class="absolute inset-0 bg-gradient-to-br from-surface via-surface to-surface-container-low opacity-90"></div>
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-container/5 rounded-full blur-[120px]"></div>
-</div>
-<div class="max-w-7xl mx-auto px-8 relative z-10 w-full">
-<div class="grid md:grid-cols-12 gap-12 items-center">
-<div class="md:col-span-6 space-y-8">
-<h1 class="text-6xl md:text-7xl font-headline font-bold leading-[1.1] tracking-tighter text-on-surface">
-                        La nostra idea di <span class="text-primary-container">Fantacalcio</span>
-</h1>
-<div class="space-y-4">
-<p class="text-xl text-on-surface leading-relaxed font-medium">
-                            Il Progetto Esperti nasce da un'idea di aggregare un gruppo di ragazzi appassionati di calcio e della loro squadra preferita. Ogni esperto segue la la propria squadra giorno dopo giorno e partita dopo partita offendo un punto di vista preciso e puntuale.
-                        </p>
-<p class="text-lg text-on-surface-variant leading-relaxed">Il nostro gruppo è composto da oltre 30 esperti  garantisce una copertura su tutte le 20 squadre di Serie A, catturando dettagli che sfuggono agli youtuber imrovvisati. Offriamo competenza pura per trasformare ogni tua scelta in un vantaggio per la tua squadra.
-                        </p>
-</div>
-<div class="flex flex-wrap gap-8 pt-4">
-<div class="space-y-1">
-<div class="text-4xl font-headline font-bold text-on-surface">3300+</div>
-<div class="text-xs font-label text-gray-500 uppercase tracking-widest flex items-center gap-2">
-<span class="material-symbols-outlined text-red-500 text-base">play_circle</span> YouTube Community
-                            </div>
-</div>
-<div class="space-y-1">
-<div class="text-4xl font-headline font-bold text-on-surface">150+</div>
-<div class="text-xs font-label text-gray-500 uppercase tracking-widest flex items-center gap-2">
-<span class="material-symbols-outlined text-blue-400 text-base">send</span> Telegram Insiders
-                            </div>
-</div>
-</div>
-<div class="flex gap-4 pt-4">
-<a class="px-8 py-4 bg-primary-container text-on-primary font-bold rounded-lg shadow-lg hover:shadow-primary-container/20 transition-all inline-block" href="{{DATA:SCREEN:SCREEN_107}}">Entra nel progetto</a>
-</div>
-</div>
-<div class="md:col-span-6">
-<div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl editorial-shadow bg-surface-container-lowest">
-<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" class="w-full h-full" frameborder="0" src="https://www.youtube.com/embed/gVHg3Ok12so?autoplay=0&amp;rel=0" title="Progetto Esperti Profeta Video">
-</iframe>
-</div>
-</div>
-</div>
-</div>
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-surface via-surface to-surface-container-low opacity-90"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-container/5 rounded-full blur-[120px]"></div>
+  </div>
+  <div class="max-w-7xl mx-auto px-8 relative z-10 w-full">
+    <div class="grid md:grid-cols-12 gap-12 items-center">
+      <div class="md:col-span-6 space-y-8">
+        <h1 class="text-6xl md:text-7xl font-headline font-bold leading-[1.1] tracking-tighter text-on-surface">
+          La nostra idea di <span class="text-primary-container">Fantacalcio</span>
+        </h1>
+        <div class="space-y-4">
+          <p class="text-xl text-on-surface leading-relaxed font-medium">
+            Il Progetto Esperti nasce da un'idea di aggregare un gruppo di ragazzi appassionati di calcio e della loro squadra preferita. Ogni esperto segue la la propria squadra giorno dopo giorno e partita dopo partita offendo un punto di vista preciso e puntuale.
+          </p>
+          <p class="text-lg text-on-surface-variant leading-relaxed">Il nostro gruppo è composto da oltre 30 esperti  garantisce una copertura su tutte le 20 squadre di Serie A, catturando dettagli che sfuggono agli youtuber imrovvisati. Offriamo competenza pura per trasformare ogni tua scelta in un vantaggio per la tua squadra.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-8 pt-4">
+          <div class="space-y-1">
+            <div class="text-4xl font-headline font-bold text-on-surface">3300+</div>
+            <div class="text-xs font-label text-gray-500 uppercase tracking-widest flex items-center gap-2">
+              <span class="material-symbols-outlined text-red-500 text-base">play_circle</span> YouTube Community
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-4xl font-headline font-bold text-on-surface">150+</div>
+            <div class="text-xs font-label text-gray-500 uppercase tracking-widest flex items-center gap-2">
+              <span class="material-symbols-outlined text-blue-400 text-base">send</span> Telegram Insiders
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-4 pt-4">
+          <a class="px-8 py-4 bg-primary-container text-on-primary font-bold rounded-lg shadow-lg hover:shadow-primary-container/20 transition-all inline-block" href="iscriviti.html">Entra nel progetto</a>
+        </div>
+      </div>
+      <div class="md:col-span-6">
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl editorial-shadow bg-surface-container-lowest">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" class="w-full h-full" frameborder="0" src="https://www.youtube.com/embed/gVHg3Ok12so?autoplay=0&rel=0" title="Progetto Esperti Profeta Video">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
 <!-- Cosa offre il progetto Section -->
 <section class="py-32 bg-surface-container-low relative">
-<div class="max-w-7xl mx-auto px-8">
-<div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-<div class="max-w-2xl">
-<h2 class="text-5xl font-headline font-bold text-on-surface mb-6">Cosa offre il <span class="text-primary-container">progetto?</span></h2>
-<p class="text-lg text-on-surface-variant font-light">Abbiamo trasformato la nostra passione in idee per fare le scelte giuste al fantacalcio.</p>
-</div>
-</div>
-<div class="grid md:grid-cols-3 gap-8">
-<!-- Method Card 1 -->
-<div class="p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/30 transition-all duration-500 group">
-<span class="material-symbols-outlined text-primary-container text-4xl mb-6 block group-hover:scale-110 transition-transform">groups</span>
-<h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Copertura per tutte le 20 squadre Serie A</h3>
-<p class="text-on-surface-variant leading-relaxed">Oltre 30 esperti appassionati. Garantiamo almeno un analista dedicato esclusivamente a ciascuna delle 20 squadre di Serie A.</p>
-</div>
-<!-- Method Card 2 -->
-<div class="p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/30 transition-all duration-500 group">
-<span class="material-symbols-outlined text-primary-container text-4xl mb-6 block group-hover:scale-110 transition-transform">visibility</span>
-<h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Monitoraggio H24</h3>
-<p class="text-on-surface-variant leading-relaxed">Guardiamo ogni singola partita e ogni intervista post-gara. Nulla sfugge al nostro radar, dai movimenti tattici alle parole dei mister.</p>
-</div>
-<!-- Method Card 3 -->
-<div class="p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/30 transition-all duration-500 group">
-<span class="material-symbols-outlined text-primary-container text-4xl mb-6 block group-hover:scale-110 transition-transform">event_repeat</span>
-<h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Focus Estivo</h3>
-<p class="text-on-surface-variant leading-relaxed">Il nostro lavoro inizia a Luglio. Analizziamo ogni amichevole estiva per captare i segnali del mercato e delle nuove gerarchie.</p>
-</div>
-</div>
-<!-- Manifesto CTA -->
-<div class="mt-24 relative p-12 rounded-3xl overflow-hidden bg-gradient-to-r from-surface-container-highest to-surface-container">
-<div class="absolute right-0 top-0 w-1/3 h-full opacity-20 grayscale pointer-events-none">
-<img alt="Professional camera lens" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8RtgyRPSY18llMM_Mf2d6mPhlDpGrANrtCPzcPelBwZQNqHOJ46Z6-0cowbYL6LpIrS_ae2J6zES3FUv66do5BvjvnTkA-y56Q4RceHUJmsBnu_Pbt1XJB4_5gHnTx4I_8R8AFKmN_i6S-cDRbxAL806mPjib9MCrRHIvJfxVr_dKof8REoy7_F8xoZ7OT3MG4B5g2aCUR9Lbg59KJmr1mPW9tBgewgG5aIkpgzxD-TQpbGUKnCvdk5FJbvUOdWDPt5yqmo9f_d_y"/>
-</div>
-<div class="relative z-10 max-w-2xl">
-<blockquote class="text-4xl md:text-5xl font-headline font-bold text-on-surface leading-tight mb-8 italic">
-                        "Non spariamo nomi a caso. Noi guardiamo le partite."
-                    </blockquote>
-<p class="text-on-surface-variant mb-8">L'unico modo per vincere al fantacalcio è conoscere ciò che gli altri ignorano. La nostra analisi è la tua arma segreta.</p>
-<a class="group flex items-center gap-3 text-primary-container font-bold text-lg hover:text-white transition-colors" href="{{DATA:SCREEN:SCREEN_107}}">
-                        Diventa un insider <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
-</a>
-</div>
-</div>
-</div>
+  <div class="max-w-7xl mx-auto px-8">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+      <div class="max-w-2xl">
+        <h2 class="text-5xl font-headline font-bold text-on-surface mb-6">Cosa offre il <span class="text-primary-container">progetto?</span></h2>
+        <p class="text-lg text-on-surface-variant font-light">Abbiamo trasformato la nostra passione in idee per fare le scelte giuste al fantacalcio.</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Method Card 1 -->
+      <div class="p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/30 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary-container text-4xl mb-6 block group-hover:scale-110 transition-transform">groups</span>
+        <h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Copertura per tutte le 20 squadre Serie A</h3>
+        <p class="text-on-surface-variant leading-relaxed">Oltre 30 esperti appassionati. Garantiamo almeno un analista dedicato esclusivamente a ciascuna delle 20 squadre di Serie A.</p>
+      </div>
+      <!-- Method Card 2 -->
+      <div class="p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/30 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary-container text-4xl mb-6 block group-hover:scale-110 transition-transform">visibility</span>
+        <h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Monitoraggio H24</h3>
+        <p class="text-on-surface-variant leading-relaxed">Guardiamo ogni singola partita e ogni intervista post-gara. Nulla sfugge al nostro radar, dai movimenti tattici alle parole dei mister.</p>
+      </div>
+      <!-- Method Card 3 -->
+      <div class="p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/30 transition-all duration-500 group">
+        <span class="material-symbols-outlined text-primary-container text-4xl mb-6 block group-hover:scale-110 transition-transform">event_repeat</span>
+        <h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Focus Estivo</h3>
+        <p class="text-on-surface-variant leading-relaxed">Il nostro lavoro inizia a Luglio. Analizziamo ogni amichevole estiva per captare i segnali del mercato e delle nuove gerarchie.</p>
+      </div>
+    </div>
+    <!-- Manifesto CTA -->
+    <div class="mt-24 relative p-12 rounded-3xl overflow-hidden bg-gradient-to-r from-surface-container-highest to-surface-container">
+      <div class="absolute right-0 top-0 w-1/3 h-full opacity-20 grayscale pointer-events-none">
+        <img alt="Professional camera lens" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8RtgyRPSY18llMM_Mf2d6mPhlDpGrANrtCPzcPelBwZQNqHOJ46Z6-0cowbYL6LpIrS_ae2J6zES3FUv66do5BvjvnTkA-y56Q4RceHUJmsBnu_Pbt1XJB4_5gHnTx4I_8R8AFKmN_i6S-cDRbxAL806mPjib9MCrRHIvJfxVr_dKof8REoy7_F8xoZ7OT3MG4B5g2aCUR9Lbg59KJmr1mPW9tBgewgG5aIkpgzxD-TQpbGUKnCvdk5FJbvUOdWDPt5yqmo9f_d_y"/>
+      </div>
+      <div class="relative z-10 max-w-2xl">
+        <blockquote class="text-4xl md:text-5xl font-headline font-bold text-on-surface leading-tight mb-8 italic">
+          "Non spariamo nomi a caso. Noi guardiamo le partite."
+        </blockquote>
+        <p class="text-on-surface-variant mb-8">L'unico modo per vincere al fantacalcio è conoscere ciò che gli altri ignorano. La nostra analisi è la tua arma segreta.</p>
+        <a class="group flex items-center gap-3 text-primary-container font-bold text-lg hover:text-white transition-colors" href="iscriviti.html">
+          Diventa un insider <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
+
 <!-- Community Section -->
 <section class="py-24 bg-surface relative overflow-hidden border-t border-outline-variant/10">
-<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary-container/30 to-transparent"></div>
-<div class="max-w-7xl mx-auto px-8 relative z-10">
-<div class="text-center mb-16">
-<h2 class="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-4">Unisciti alla nostra <span class="text-primary-container">Community</span></h2>
-<p class="text-on-surface-variant max-w-2xl mx-auto">Seguici su tutti i nostri canali per non perdere nemmeno un'analisi, un video o un consiglio last-minute per la tua rosa.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- YouTube -->
-<a class="group p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://youtube.com/@progettoespertiprofeta?si=FnO4iwX2WroTdoNf" target="_blank">
-<div class="w-16 h-16 flex items-center justify-center mb-6"><img alt="YouTube Logo" class="w-12 h-12 object-cover group-hover:scale-110 transition-all duration-300" src="https://lh3.googleusercontent.com/aida/ADBb0uiM7pNo8TCRrM9y7IG-wAFeJLEJfjID_ddi-8XyHdByqnsgZVc9AA8hhoy22oe5L4YSlyzj8hUsLvch2H-y-1oiEDHzxTBQvhZP1-NRdTcErd3iZcLJeUvGfZs8hSW3FXfO_3X5HGv-W0H9XuogLY5gE04LAdLSJFCObWwyq-my_-kswCv5vUSjQ66HFgG_qtM7_6CpuyFrAniGrIQDLgGHYKSKu1S_F72FfTGhyJnApIT-zTwLBM429mGJc21oDUn2HOYRLil2AQ" style="object-position: 75% 8%; filter: invert(1) brightness(2); width: 48px; height: 48px;"/></div>
-<h3 class="text-xl font-headline font-bold text-on-surface mb-2">YouTube</h3>
-<p class="text-sm text-on-surface-variant mb-6">Analisi approfondite, live e focus tattici sui singoli match.</p>
-<span class="text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Iscriviti Ora <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-</a>
-<!-- Instagram -->
-<a class="group p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://www.instagram.com/esperti_profeta_fantacalcio?igsh=N2p1ZXMxbHVmOWow&amp;utm_source=qr" target="_blank">
-<div class="w-16 h-16 flex items-center justify-center mb-6"><img alt="Instagram Logo" class="w-12 h-12 object-cover group-hover:scale-110 transition-all duration-300" src="https://lh3.googleusercontent.com/aida/ADBb0uiM7pNo8TCRrM9y7IG-wAFeJLEJfjID_ddi-8XyHdByqnsgZVc9AA8hhoy22oe5L4YSlyzj8hUsLvch2H-y-1oiEDHzxTBQvhZP1-NRdTcErd3iZcLJeUvGfZs8hSW3FXfO_3X5HGv-W0H9XuogLY5gE04LAdLSJFCObWwyq-my_-kswCv5vUSjQ66HFgG_qtM7_6CpuyFrAniGrIQDLgGHYKSKu1S_F72FfTGhyJnApIT-zTwLBM429mGJc21oDUn2HOYRLil2AQ" style="object-position: 59% 8%; filter: invert(1) brightness(2); width: 48px; height: 48px;"/></div>
-<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Instagram</h3>
-<p class="text-sm text-on-surface-variant mb-6">Infografiche, news flash e contenuti esclusivi dal campo.</p>
-<span class="text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Seguici <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-</a>
-<!-- TikTok -->
-<a class="group p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="#" target="_blank">
-<div class="w-16 h-16 flex items-center justify-center mb-6"><img alt="TikTok Logo" class="w-12 h-12 object-cover group-hover:scale-110 transition-all duration-300" src="https://lh3.googleusercontent.com/aida/ADBb0uiM7pNo8TCRrM9y7IG-wAFeJLEJfjID_ddi-8XyHdByqnsgZVc9AA8hhoy22oe5L4YSlyzj8hUsLvch2H-y-1oiEDHzxTBQvhZP1-NRdTcErd3iZcLJeUvGfZs8hSW3FXfO_3X5HGv-W0H9XuogLY5gE04LAdLSJFCObWwyq-my_-kswCv5vUSjQ66HFgG_qtM7_6CpuyFrAniGrIQDLgGHYKSKu1S_F72FfTGhyJnApIT-zTwLBM429mGJc21oDUn2HOYRLil2AQ" style="object-position: 41% 92%; filter: invert(1) brightness(2); width: 48px; height: 48px;"/></div>
-<h3 class="text-xl font-headline font-bold text-on-surface mb-2">TikTok</h3>
-<p class="text-sm text-on-surface-variant mb-6">Pillole di fantacalcio e i momenti più caldi della giornata.</p>
-<span class="text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Scopri i Video <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-</a>
-</div>
-</div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary-container/30 to-transparent"></div>
+  <div class="max-w-7xl mx-auto px-8 relative z-10">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-4">Unisciti alla nostra <span class="text-primary-container">Community</span></h2>
+      <p class="text-on-surface-variant max-w-2xl mx-auto">Seguici su tutti i nostri canali per non perdere nemmeno un'analisi, un video o un consiglio last-minute per la tua rosa.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- YouTube -->
+      <a class="group p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://youtube.com/@progettoespertiprofeta?si=FnO4iwX2WroTdoNf" target="_blank">
+        <div class="w-16 h-16 flex items-center justify-center mb-6"><img alt="YouTube Logo" class="w-12 h-12 object-cover group-hover:scale-110 transition-all duration-300" src="https://lh3.googleusercontent.com/aida/ADBb0uiM7pNo8TCRrM9y7IG-wAFeJLEJfjID_ddi-8XyHdByqnsgZVc9AA8hhoy22oe5L4YSlyzj8hUsLvch2H-y-1oiEDHzxTBQvhZP1-NRdTcErd3iZcLJeUvGfZs8hSW3FXfO_3X5HGv-W0H9XuogLY5gE04LAdLSJFCObWwyq-my_-kswCv5vUSjQ66HFgG_qtM7_6CpuyFrAniGrIQDLgGHYKSKu1S_F72FfTGhyJnApIT-zTwLBM429mGJc21oDUn2HOYRLil2AQ" style="object-position: 75% 8%; filter: invert(1) brightness(2); width: 48px; height: 48px;"/></div>
+        <h3 class="text-xl font-headline font-bold text-on-surface mb-2">YouTube</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Analisi approfondite, live e focus tattici sui singoli match.</p>
+        <span class="text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Iscriviti Ora <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+      </a>
+      <!-- Instagram -->
+      <a class="group p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://www.instagram.com/esperti_profeta_fantacalcio?igsh=N2p1ZXMxbHVmOWow&utm_source=qr" target="_blank">
+        <div class="w-16 h-16 flex items-center justify-center mb-6"><img alt="Instagram Logo" class="w-12 h-12 object-cover group-hover:scale-110 transition-all duration-300" src="https://lh3.googleusercontent.com/aida/ADBb0uiM7pNo8TCRrM9y7IG-wAFeJLEJfjID_ddi-8XyHdByqnsgZVc9AA8hhoy22oe5L4YSlyzj8hUsLvch2H-y-1oiEDHzxTBQvhZP1-NRdTcErd3iZcLJeUvGfZs8hSW3FXfO_3X5HGv-W0H9XuogLY5gE04LAdLSJFCObWwyq-my_-kswCv5vUSjQ66HFgG_qtM7_6CpuyFrAniGrIQDLgGHYKSKu1S_F72FfTGhyJnApIT-zTwLBM429mGJc21oDUn2HOYRLil2AQ" style="object-position: 59% 8%; filter: invert(1) brightness(2); width: 48px; height: 48px;"/></div>
+        <h3 class="text-xl font-headline font-bold text-on-surface mb-2">Instagram</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Infografiche, news flash e contenuti esclusivi dal campo.</p>
+        <span class="text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Seguici <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+      </a>
+      <!-- TikTok -->
+      <a class="group p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="#" target="_blank">
+        <div class="w-16 h-16 flex items-center justify-center mb-6"><img alt="TikTok Logo" class="w-12 h-12 object-cover group-hover:scale-110 transition-all duration-300" src="https://lh3.googleusercontent.com/aida/ADBb0uiM7pNo8TCRrM9y7IG-wAFeJLEJfjID_ddi-8XyHdByqnsgZVc9AA8hhoy22oe5L4YSlyzj8hUsLvch2H-y-1oiEDHzxTBQvhZP1-NRdTcErd3iZcLJeUvGfZs8hSW3FXfO_3X5HGv-W0H9XuogLY5gE04LAdLSJFCObWwyq-my_-kswCv5vUSjQ66HFgG_qtM7_6CpuyFrAniGrIQDLgGHYKSKu1S_F72FfTGhyJnApIT-zTwLBM429mGJc21oDUn2HOYRLil2AQ" style="object-position: 41% 92%; filter: invert(1) brightness(2); width: 48px; height: 48px;"/></div>
+        <h3 class="text-xl font-headline font-bold text-on-surface mb-2">TikTok</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Pillole di fantacalcio e i momenti più caldi della giornata.</p>
+        <span class="text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Scopri i Video <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+      </a>
+    </div>
+  </div>
 </section>
 </main>
+
 <!-- Footer -->
 <footer class="w-full border-t border-outline-variant/15 bg-surface">
-<div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 py-12 gap-8">
-<div class="flex flex-col items-center md:items-start gap-4">
-<div class="flex items-center gap-3">
-<img alt="Progetto Esperti Profeta Logo" class="w-8 h-8 opacity-50 invert brightness-0" src="https://lh3.googleusercontent.com/aida/ADBb0uhX3W1lOCUvGvAlHNDrnwPtpw7rXGsTG55Hjuy3D9-sBudJPv6l9MCCnoVNiDkFbWGcbv2Jclfxu_vdCMay4q7ZDx-gP-4sKMPG8P6Hu3OgtPbX_Fj0rEzSh_IWYaRWLnzjuVxbCAeLPTCyTQt9XY0W0bAC_m9DXxsD1P25yVWjGiAB0qqfc671vhGsOKWcaHT11r8HS6xKQPuZ6G-9TP-Fwv4ief0Jp4T-70TuDq9M3B_RWoSNttv3QFLVi0jPoy2o43svNnlHzYI"/>
-<div class="text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
-</div>
-<p class="text-gray-500 text-sm font-body">© 2024 Progetto Esperti Profeta. Editorial Authority.</p>
-</div>
-<div class="flex gap-8">
-<a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
-<a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
-<a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="#">TikTok</a>
-<a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="#">Privacy Policy</a>
-</div>
-</div>
+  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 py-12 gap-8">
+    <div class="flex flex-col items-center md:items-start gap-4">
+      <div class="flex items-center gap-3">
+        <img alt="Progetto Esperti Profeta Logo" class="w-8 h-8 opacity-50 invert brightness-0" src="https://lh3.googleusercontent.com/aida/ADBb0uhX3W1lOCUvGvAlHNDrnwPtpw7rXGsTG55Hjuy3D9-sBudJPv6l9MCCnoVNiDkFbWGcbv2Jclfxu_vdCMay4q7ZDx-gP-4sKMPG8P6Hu3OgtPbX_Fj0rEzSh_IWYaRWLnzjuVxbCAeLPTCyTQt9XY0W0bAC_m9DXxsD1P25yVWjGiAB0qqfc671vhGsOKWcaHT11r8HS6xKQPuZ6G-9TP-Fwv4ief0Jp4T-70TuDq9M3B_RWoSNttv3QFLVi0jPoy2o43svNnlHzYI"/>
+        <div class="text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
+      </div>
+      <p class="text-gray-500 text-sm font-body">© 2024 Progetto Esperti Profeta. Editorial Authority.</p>
+    </div>
+    <div class="flex gap-8">
+      <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
+      <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
+      <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="#">TikTok</a>
+      <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="#">Privacy Policy</a>
+    </div>
+  </div>
 </footer>
+
 </body></html>
