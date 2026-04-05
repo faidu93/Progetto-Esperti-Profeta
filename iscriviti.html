@@ -75,6 +75,8 @@
   .editorial-shadow {
     box-shadow: 0px 24px 48px rgba(255,107,0,0.06);
   }
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: block; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
@@ -93,8 +95,37 @@
         <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/asta.html">C'è Asta per Te</a>
       </div>
     </div>
+    <!-- Hamburger -->
+    <button id="hamburger" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden bg-[#131313] border-t border-white/5 px-6 pb-6">
+    <div class="flex flex-col gap-5 pt-5">
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
+      <a class="font-headline font-semibold text-sm tracking-wide text-primary-container" href="/iscriviti.html">Iscriviti</a>
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/asta.html">C'è Asta per Te</a>
+    </div>
   </div>
 </nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const isOpen = mobileMenu.classList.contains('open');
+    bar1.style.transform = isOpen ? 'translateY(8px) rotate(45deg)' : '';
+    bar2.style.opacity = isOpen ? '0' : '1';
+    bar3.style.transform = isOpen ? 'translateY(-8px) rotate(-45deg)' : '';
+  });
+</script>
 
 <main class="relative">
   <div class="absolute inset-0 z-0 pointer-events-none">
@@ -207,7 +238,7 @@
         <img alt="Progetto Esperti Profeta Logo" class="h-8 w-auto opacity-50" src="/logo.png">
         <div class="text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
       </div>
-      <p class="text-gray-500 text-sm font-body">© 2024 Progetto Esperti Profeta. Editorial Authority.</p>
+      <p class="text-gray-500 text-sm font-body">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
     </div>
     <div class="flex gap-8">
       <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
