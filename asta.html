@@ -96,14 +96,12 @@
         <a class="font-headline font-semibold text-xs tracking-wide text-primary-container border-b-2 border-primary-container pb-1" href="/asta.html">C'è Asta per Te</a>
       </div>
     </div>
-    <!-- Hamburger -->
     <button id="hamburger" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
     </button>
   </div>
-  <!-- Mobile menu -->
   <div id="mobile-menu" class="lg:hidden bg-[#131313] border-t border-white/5 px-6 pb-6">
     <div class="flex flex-col gap-5 pt-5">
       <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
@@ -126,6 +124,70 @@
     bar2.style.opacity = isOpen ? '0' : '1';
     bar3.style.transform = isOpen ? 'translateY(-8px) rotate(-45deg)' : '';
   });
+
+  // ============================================================
+  // CONFIGURAZIONE ASTE — modifica solo questi valori!
+  // Per ogni asta: posti_occupati va da 0 a max_posti
+  // Quando posti_occupati === max_posti → "Posti esauriti"
+  // ============================================================
+  const aste = [
+    { id: 1, nome: "Asta 1", data: "1 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/kdA6Wo", posti_occupati: 0, max_posti: 10 },
+    { id: 2, nome: "Asta 2", data: "2 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/1A266l", posti_occupati: 0, max_posti: 10 },
+    { id: 3, nome: "Asta 3", data: "3 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/gDNvv4", posti_occupati: 0, max_posti: 10 },
+    { id: 4, nome: "Asta 4", data: "4 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/yPqzzx", posti_occupati: 0, max_posti: 10 },
+    { id: 5, nome: "Asta 5", data: "5 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/81pMMP", posti_occupati: 0, max_posti: 10 },
+    { id: 6, nome: "Asta 6", data: "6 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/GxB55k", posti_occupati: 0, max_posti: 10 },
+  ];
+
+  function renderAste() {
+    const container = document.getElementById('aste-grid');
+    container.innerHTML = '';
+    aste.forEach(asta => {
+      const piena = asta.posti_occupati >= asta.max_posti;
+      const percentuale = Math.round((asta.posti_occupati / asta.max_posti) * 100);
+      const postiLiberi = asta.max_posti - asta.posti_occupati;
+      const coloreModalita = asta.modalita === 'Mantra' ? 'text-purple-400 bg-purple-400/10 border-purple-400/20' : 'text-[#ff6b00] bg-[#ff6b00]/10 border-[#ff6b00]/20';
+
+      container.innerHTML += `
+        <div class="bg-surface-container-low rounded-2xl border ${piena ? 'border-red-500/20' : 'border-outline-variant/15 hover:border-primary-container/40'} transition-all duration-300 overflow-hidden">
+          <div class="p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-widest ${coloreModalita} px-3 py-1 rounded-full border">${asta.modalita}</span>
+              ${piena
+                ? `<span class="text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-3 py-1 rounded-full">Completa</span>`
+                : `<span class="text-xs font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-3 py-1 rounded-full">Aperta</span>`
+              }
+            </div>
+            <div>
+              <h3 class="text-xl font-headline font-bold text-on-surface">${asta.nome}</h3>
+              <p class="text-on-surface-variant text-sm flex items-center gap-2 mt-1">
+                <span class="material-symbols-outlined text-base">calendar_month</span> ${asta.data}
+              </p>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <span class="text-on-surface-variant">Posti disponibili</span>
+                <span class="font-bold ${piena ? 'text-red-400' : 'text-on-surface'}">${postiLiberi}/${asta.max_posti}</span>
+              </div>
+              <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+                <div class="h-full rounded-full transition-all duration-500" style="width: ${percentuale}%; background: ${piena ? '#f87171' : '#ff6b00'};"></div>
+              </div>
+            </div>
+            ${piena
+              ? `<div class="flex items-center justify-center gap-2 w-full py-3 bg-surface-container-highest text-on-surface-variant font-bold rounded-lg cursor-not-allowed opacity-60">
+                  <span class="material-symbols-outlined text-base">block</span> Posti esauriti
+                </div>`
+              : `<a href="${asta.link}" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-primary-container text-on-primary font-bold rounded-lg hover:opacity-90 transition-all active:scale-[0.98]">
+                  Iscriviti <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </a>`
+            }
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderAste);
 </script>
 
 <main>
@@ -145,8 +207,8 @@
             Vuoi fare l'Asta come un Vero Esperto? Sfidaci a C'è Asta per Te e metti alla prova le tue capacità contro altri ragazzi e contro gli esperti. Assapora il gusto della competizione.
           </p>
           <div class="flex gap-4 pt-4">
-            <a class="px-10 py-5 bg-primary-container text-on-primary font-headline font-bold text-lg uppercase tracking-tight rounded-lg shadow-lg hover:shadow-primary-container/20 transition-all hover:opacity-90 active:scale-[0.98]" href="https://tally.so/r/kdA6Wo" target="_blank">
-              Compila il form per l'asta
+            <a class="px-10 py-5 bg-primary-container text-on-primary font-headline font-bold text-lg uppercase tracking-tight rounded-lg shadow-lg hover:shadow-primary-container/20 transition-all hover:opacity-90 active:scale-[0.98]" href="#aste">
+              Scopri le Aste Disponibili
             </a>
           </div>
         </div>
@@ -183,21 +245,17 @@
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-32 bg-surface">
-    <div class="max-w-4xl mx-auto px-8 text-center">
-      <h2 class="text-5xl md:text-6xl font-headline font-bold text-on-surface mb-8 tracking-tighter">Pronto per l'asta perfetta?</h2>
-      <p class="text-xl text-on-surface-variant mb-12 font-light">
-        I posti per la stagione 2026/2027 sono limitati. Prenota ora il tuo e assicurati il tuo posto.
-      </p>
-      <div class="flex justify-center">
-        <a class="group relative inline-flex items-center gap-4 px-12 py-6 bg-surface-container-highest text-white font-headline font-bold text-xl uppercase tracking-tighter rounded-lg transition-all hover:bg-primary-container hover:text-on-primary" href="https://tally.so/r/kdA6Wo" target="_blank">
-          <span class="relative z-10">Compila il Form</span>
-          <span class="material-symbols-outlined relative z-10 group-hover:translate-x-2 transition-transform">arrow_forward</span>
-        </a>
+  <!-- Aste Disponibili -->
+  <section id="aste" class="py-32 bg-surface relative">
+    <div class="max-w-7xl mx-auto px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-4">Aste <span class="text-primary-container">Disponibili</span></h2>
+        <p class="text-on-surface-variant max-w-2xl mx-auto">Scegli la data e la modalità che preferisci. I posti sono limitati a 10 partecipanti per asta.</p>
       </div>
+      <div id="aste-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
   </section>
+
 </main>
 
 <!-- Footer -->
