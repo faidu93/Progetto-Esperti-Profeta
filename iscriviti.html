@@ -77,9 +77,10 @@
   }
   #mobile-menu { display: none; }
   #mobile-menu.open { display: block; }
+  html, body { overflow-x: hidden; max-width: 100%; }
 </style>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
 
 <!-- TopNavBar -->
 <nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
@@ -127,8 +128,8 @@
   });
 </script>
 
-<main class="relative">
-  <div class="absolute inset-0 z-0 pointer-events-none">
+<main class="relative overflow-x-hidden">
+  <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-surface via-surface to-surface-container-low opacity-90"></div>
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary-container/5 rounded-full blur-[120px]"></div>
   </div>
@@ -150,7 +151,7 @@
             <h2 class="font-headline text-4xl font-bold text-on-surface mb-12">Perché unirti a noi?</h2>
             <div class="space-y-12">
               <div class="flex gap-8 items-start group/item">
-                <div class="bg-surface-bright p-4 rounded-xl text-primary-container transition-colors group-hover/item:bg-primary-container/20">
+                <div class="bg-surface-bright p-4 rounded-xl text-primary-container transition-colors group-hover/item:bg-primary-container/20 shrink-0">
                   <span class="material-symbols-outlined text-3xl">analytics</span>
                 </div>
                 <div>
@@ -159,7 +160,7 @@
                 </div>
               </div>
               <div class="flex gap-8 items-start group/item">
-                <div class="bg-surface-bright p-4 rounded-xl text-primary-container transition-colors group-hover/item:bg-primary-container/20">
+                <div class="bg-surface-bright p-4 rounded-xl text-primary-container transition-colors group-hover/item:bg-primary-container/20 shrink-0">
                   <span class="material-symbols-outlined text-3xl">newspaper</span>
                 </div>
                 <div>
@@ -168,7 +169,7 @@
                 </div>
               </div>
               <div class="flex gap-8 items-start group/item">
-                <div class="bg-surface-bright p-4 rounded-xl text-primary-container transition-colors group-hover/item:bg-primary-container/20">
+                <div class="bg-surface-bright p-4 rounded-xl text-primary-container transition-colors group-hover/item:bg-primary-container/20 shrink-0">
                   <span class="material-symbols-outlined text-3xl">group_work</span>
                 </div>
                 <div>
@@ -193,15 +194,15 @@
             </div>
             <ul class="space-y-5 mb-12">
               <li class="flex items-center gap-4 text-on-surface">
-                <span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                <span class="material-symbols-outlined text-primary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
                 <span class="text-sm">Accesso al gruppo Telegram</span>
               </li>
               <li class="flex items-center gap-4 text-on-surface">
-                <span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                <span class="material-symbols-outlined text-primary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
                 <span class="text-sm">30+ Esperti a disposizione</span>
               </li>
               <li class="flex items-center gap-4 text-on-surface">
-                <span class="material-symbols-outlined text-primary-container text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                <span class="material-symbols-outlined text-primary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
                 <span class="text-sm">C'è Asta per Te</span>
               </li>
             </ul>
