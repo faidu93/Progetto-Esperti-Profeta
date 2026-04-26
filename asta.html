@@ -78,9 +78,10 @@
   }
   #mobile-menu { display: none; }
   #mobile-menu.open { display: block; }
+  html, body { overflow-x: hidden; max-width: 100%; }
 </style>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
 
 <!-- TopNavBar -->
 <nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
@@ -127,8 +128,6 @@
 
   // ============================================================
   // CONFIGURAZIONE ASTE — modifica solo questi valori!
-  // Per ogni asta: posti_occupati va da 0 a max_posti
-  // Quando posti_occupati === max_posti → "Posti esauriti"
   // ============================================================
   const aste = [
     { id: 1, nome: "Asta 1", data: "1 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/kdA6Wo", posti_occupati: 0, max_posti: 10 },
@@ -150,22 +149,22 @@
 
       container.innerHTML += `
         <div class="bg-surface-container-low rounded-2xl border ${piena ? 'border-red-500/20' : 'border-outline-variant/15 hover:border-primary-container/40'} transition-all duration-300 overflow-hidden">
-          <div class="p-6 space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-widest ${coloreModalita} px-3 py-1 rounded-full border">${asta.modalita}</span>
+          <div class="p-5 md:p-6 space-y-3 md:space-y-4">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest ${coloreModalita} px-2.5 md:px-3 py-1 rounded-full border">${asta.modalita}</span>
               ${piena
-                ? `<span class="text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-3 py-1 rounded-full">Completa</span>`
-                : `<span class="text-xs font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-3 py-1 rounded-full">Aperta</span>`
+                ? `<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-2.5 md:px-3 py-1 rounded-full">Completa</span>`
+                : `<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-2.5 md:px-3 py-1 rounded-full">Aperta</span>`
               }
             </div>
             <div>
-              <h3 class="text-xl font-headline font-bold text-on-surface">${asta.nome}</h3>
-              <p class="text-on-surface-variant text-sm flex items-center gap-2 mt-1">
+              <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface">${asta.nome}</h3>
+              <p class="text-on-surface-variant text-xs md:text-sm flex items-center gap-2 mt-1">
                 <span class="material-symbols-outlined text-base">calendar_month</span> ${asta.data}
               </p>
             </div>
             <div class="space-y-2">
-              <div class="flex justify-between text-sm">
+              <div class="flex justify-between text-xs md:text-sm">
                 <span class="text-on-surface-variant">Posti disponibili</span>
                 <span class="font-bold ${piena ? 'text-red-400' : 'text-on-surface'}">${postiLiberi}/${asta.max_posti}</span>
               </div>
@@ -174,10 +173,10 @@
               </div>
             </div>
             ${piena
-              ? `<div class="flex items-center justify-center gap-2 w-full py-3 bg-surface-container-highest text-on-surface-variant font-bold rounded-lg cursor-not-allowed opacity-60">
+              ? `<div class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-surface-container-highest text-on-surface-variant text-sm md:text-base font-bold rounded-lg cursor-not-allowed opacity-60">
                   <span class="material-symbols-outlined text-base">block</span> Posti esauriti
                 </div>`
-              : `<a href="${asta.link}" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-primary-container text-on-primary font-bold rounded-lg hover:opacity-90 transition-all active:scale-[0.98]">
+              : `<a href="${asta.link}" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-primary-container text-on-primary text-sm md:text-base font-bold rounded-lg hover:opacity-90 transition-all active:scale-[0.98]">
                   Iscriviti <span class="material-symbols-outlined text-base">arrow_forward</span>
                 </a>`
             }
@@ -190,31 +189,31 @@
   document.addEventListener('DOMContentLoaded', renderAste);
 </script>
 
-<main>
+<main class="overflow-x-hidden">
   <!-- Hero Section -->
-  <section class="relative min-h-[700px] flex items-center overflow-hidden pt-12">
+  <section class="relative min-h-[600px] md:min-h-[700px] flex items-center overflow-hidden pt-8 md:pt-12">
     <div class="absolute inset-0 z-0">
       <div class="absolute inset-0 bg-gradient-to-br from-surface via-surface to-surface-container-low opacity-90"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-container/5 rounded-full blur-[120px]"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-primary-container/5 rounded-full blur-[120px]"></div>
     </div>
-    <div class="max-w-7xl mx-auto px-8 relative z-10 w-full">
-      <div class="grid md:grid-cols-12 gap-12 items-center">
-        <div class="md:col-span-7 space-y-8">
-          <h1 class="text-6xl md:text-8xl font-headline font-bold leading-[0.9] tracking-tighter text-on-surface">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full py-12 md:py-0">
+      <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
+        <div class="md:col-span-7 space-y-6 md:space-y-8 order-2 md:order-1">
+          <h1 class="text-5xl md:text-8xl font-headline font-bold leading-[0.95] md:leading-[0.9] tracking-tighter text-on-surface">
             C'è Asta <br/>per <span class="text-primary-container">Te</span>
           </h1>
-          <p class="text-xl text-on-surface-variant leading-relaxed max-w-xl">
+          <p class="text-base md:text-xl text-on-surface-variant leading-relaxed max-w-xl">
             Vuoi fare l'Asta come un Vero Esperto? Sfidaci a C'è Asta per Te e metti alla prova le tue capacità contro altri ragazzi e contro gli esperti. Assapora il gusto della competizione.
           </p>
-          <div class="flex gap-4 pt-4">
-            <a class="px-10 py-5 bg-primary-container text-on-primary font-headline font-bold text-lg uppercase tracking-tight rounded-lg shadow-lg hover:shadow-primary-container/20 transition-all hover:opacity-90 active:scale-[0.98]" href="#aste">
+          <div class="flex gap-4 pt-2 md:pt-4">
+            <a class="px-6 md:px-10 py-4 md:py-5 bg-primary-container text-on-primary font-headline font-bold text-sm md:text-lg uppercase tracking-tight rounded-lg shadow-lg hover:shadow-primary-container/20 transition-all hover:opacity-90 active:scale-[0.98]" href="#aste">
               Scopri le Aste Disponibili
             </a>
           </div>
         </div>
-        <div class="md:col-span-5">
-          <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl editorial-shadow bg-surface-container-high group flex items-center justify-center">
-            <img alt="C'è Asta per Te Logo" class="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform duration-700" src="/asta-logo.png"/>
+        <div class="md:col-span-5 order-1 md:order-2">
+          <div class="relative w-full aspect-square md:aspect-[4/5] max-w-sm md:max-w-none mx-auto rounded-2xl overflow-hidden shadow-2xl editorial-shadow bg-surface-container-high group flex items-center justify-center">
+            <img alt="C'è Asta per Te Logo" class="w-full h-full object-contain p-6 md:p-8 group-hover:scale-105 transition-transform duration-700" src="/asta-logo.png"/>
           </div>
         </div>
       </div>
@@ -222,37 +221,37 @@
   </section>
 
   <!-- Steps Section -->
-  <section class="py-32 bg-surface-container-low relative">
-    <div class="max-w-7xl mx-auto px-8">
-      <div class="grid md:grid-cols-3 gap-12 relative">
+  <section class="py-20 md:py-32 bg-surface-container-low relative">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 relative">
         <div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-outline-variant/20 z-0"></div>
         <div class="relative z-10 flex flex-col items-center text-center group">
-          <div class="w-24 h-24 rounded-full bg-surface-container-highest border-2 border-primary-container flex items-center justify-center text-primary-container text-4xl font-headline font-bold mb-8 group-hover:bg-primary-container group-hover:text-on-primary transition-all duration-300">1</div>
-          <h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Scegli la tua asta</h3>
-          <p class="text-on-surface-variant leading-relaxed">Scegli la modalità d'asta alla quale vuoi partecipare e verifica la tua disponibilità per la data dell'asta.</p>
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-surface-container-highest border-2 border-primary-container flex items-center justify-center text-primary-container text-3xl md:text-4xl font-headline font-bold mb-6 md:mb-8 group-hover:bg-primary-container group-hover:text-on-primary transition-all duration-300">1</div>
+          <h3 class="text-xl md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Scegli la tua asta</h3>
+          <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Scegli la modalità d'asta alla quale vuoi partecipare e verifica la tua disponibilità per la data dell'asta.</p>
         </div>
         <div class="relative z-10 flex flex-col items-center text-center group">
-          <div class="w-24 h-24 rounded-full bg-surface-container-highest border-2 border-primary-container flex items-center justify-center text-primary-container text-4xl font-headline font-bold mb-8 group-hover:bg-primary-container group-hover:text-on-primary transition-all duration-300">2</div>
-          <h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Compila il form</h3>
-          <p class="text-on-surface-variant leading-relaxed">Inserisci le info richieste e conferma l'asta scelta.</p>
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-surface-container-highest border-2 border-primary-container flex items-center justify-center text-primary-container text-3xl md:text-4xl font-headline font-bold mb-6 md:mb-8 group-hover:bg-primary-container group-hover:text-on-primary transition-all duration-300">2</div>
+          <h3 class="text-xl md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Compila il form</h3>
+          <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Inserisci le info richieste e conferma l'asta scelta.</p>
         </div>
         <div class="relative z-10 flex flex-col items-center text-center group">
-          <div class="w-24 h-24 rounded-full bg-surface-container-highest border-2 border-primary-container flex items-center justify-center text-primary-container text-4xl font-headline font-bold mb-8 group-hover:bg-primary-container group-hover:text-on-primary transition-all duration-300">3</div>
-          <h3 class="text-2xl font-headline font-bold text-on-surface mb-4">Prenota il tuo posto e paga la quota d'iscrizione</h3>
-          <p class="text-on-surface-variant leading-relaxed">Utilizza il link PayPal fornito e ricevi il link al gruppo Telegram esclusivo dell'asta scelta.</p>
+          <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-surface-container-highest border-2 border-primary-container flex items-center justify-center text-primary-container text-3xl md:text-4xl font-headline font-bold mb-6 md:mb-8 group-hover:bg-primary-container group-hover:text-on-primary transition-all duration-300">3</div>
+          <h3 class="text-xl md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Prenota il tuo posto e paga la quota d'iscrizione</h3>
+          <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Utilizza il link PayPal fornito e ricevi il link al gruppo Telegram esclusivo dell'asta scelta.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Aste Disponibili -->
-  <section id="aste" class="py-32 bg-surface relative">
-    <div class="max-w-7xl mx-auto px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-4">Aste <span class="text-primary-container">Disponibili</span></h2>
-        <p class="text-on-surface-variant max-w-2xl mx-auto">Scegli la data e la modalità che preferisci. I posti sono limitati a 10 partecipanti per asta.</p>
+  <section id="aste" class="py-20 md:py-32 bg-surface relative">
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+      <div class="text-center mb-10 md:mb-16">
+        <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">Aste <span class="text-primary-container">Disponibili</span></h2>
+        <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto">Scegli la data e la modalità che preferisci. I posti sono limitati a 10 partecipanti per asta.</p>
       </div>
-      <div id="aste-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="aste-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"></div>
     </div>
   </section>
 
@@ -260,19 +259,19 @@
 
 <!-- Footer -->
 <footer class="w-full border-t border-outline-variant/15 bg-surface">
-  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-8 py-12 gap-8">
-    <div class="flex flex-col items-center md:items-start gap-4">
+  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
+    <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
       <div class="flex items-center gap-3">
         <img alt="Progetto Esperti Profeta Logo" class="h-8 w-auto opacity-50" src="/logo.png"/>
-        <div class="text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
+        <div class="text-base md:text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
       </div>
-      <p class="text-gray-500 text-sm font-body">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
+      <p class="text-gray-500 text-xs md:text-sm font-body text-center md:text-left">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
     </div>
-    <div class="flex gap-8">
-      <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
-      <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
-      <span class="text-gray-500 text-sm font-body cursor-default">TikTok</span>
-      <a class="text-gray-500 hover:text-primary-container text-sm font-body transition-colors" href="#">Privacy Policy</a>
+    <div class="flex flex-wrap justify-center gap-5 md:gap-8">
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
+      <span class="text-gray-500 text-xs md:text-sm font-body cursor-default">TikTok</span>
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="#">Privacy Policy</a>
     </div>
   </div>
 </footer>
