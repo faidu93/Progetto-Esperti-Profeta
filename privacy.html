@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="dark" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Privacy Policy — Progetto Esperti Profeta</title>
+<meta name="description" content="Informativa sulla privacy e trattamento dei dati personali del Progetto Esperti Profeta.">
+<link rel="icon" type="image/png" href="/logo.png">
+<link rel="apple-touch-icon" href="/logo.png">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container": "#201f1f",
+          "surface-container-low": "#1c1b1b",
+          "surface-container-lowest": "#0e0e0e",
+          "surface-container-highest": "#353534",
+          "outline-variant": "#5a4136",
+          "on-surface": "#e5e2e1",
+          "on-surface-variant": "#e2bfb0",
+          "surface": "#131313",
+          "on-primary-container": "#ff6b00",
+          "primary": "#ffb693",
+          "primary-container": "#ff6b00",
+          "on-primary": "#561f00"
+        },
+        fontFamily: {
+          "headline": ["Space Grotesk"],
+          "body": ["Plus Jakarta Sans"],
+          "label": ["Plus Jakarta Sans"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: block; }
+  html, body { overflow-x: hidden; max-width: 100%; }
+  .privacy-content h2 { color: #ff6b00; }
+  .privacy-content a { color: #ff6b00; text-decoration: underline; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
+
+<!-- TopNavBar -->
+<nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
+  <div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
+    <div class="flex items-center gap-10">
+      <a class="flex items-center gap-3 group" href="/">
+        <img alt="Progetto Esperti Profeta Logo" class="h-12 w-auto hover:scale-105 transition-transform duration-300" src="/logo.png"/>
+        <span class="text-xl font-bold text-on-surface tracking-tight font-headline">Progetto Esperti Profeta</span>
+      </a>
+      <div class="hidden lg:flex gap-8 items-center">
+        <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
+        <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/iscriviti.html">Iscriviti</a>
+        <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/asta.html">C'è Asta per Te</a>
+      </div>
+    </div>
+    <button id="hamburger" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="lg:hidden bg-[#131313] border-t border-white/5 px-6 pb-6">
+    <div class="flex flex-col gap-5 pt-5">
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/iscriviti.html">Iscriviti</a>
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/asta.html">C'è Asta per Te</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const isOpen = mobileMenu.classList.contains('open');
+    bar1.style.transform = isOpen ? 'translateY(8px) rotate(45deg)' : '';
+    bar2.style.opacity = isOpen ? '0' : '1';
+    bar3.style.transform = isOpen ? 'translateY(-8px) rotate(-45deg)' : '';
+  });
+</script>
+
+<main class="overflow-x-hidden">
+  <section class="relative py-16 md:py-24">
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-surface via-surface to-surface-container-low opacity-90"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary-container/5 rounded-full blur-[120px]"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 md:px-8 relative z-10">
+
+      <div class="text-center mb-12 md:mb-16">
+        <h1 class="text-4xl md:text-6xl font-headline font-bold tracking-tighter text-on-surface mb-4">
+          Privacy <span class="text-primary-container">Policy</span>
+        </h1>
+        <p class="text-sm md:text-base text-on-surface-variant">Ultimo aggiornamento: 26 Aprile 2026</p>
+      </div>
+
+      <div class="bg-surface-container-low rounded-2xl border border-outline-variant/15 p-6 md:p-12 privacy-content">
+
+        <p class="text-on-surface-variant leading-relaxed mb-8">
+          La presente Privacy Policy descrive le modalità con cui <strong class="text-on-surface">Progetto Esperti Profeta</strong> raccoglie, utilizza e protegge i dati personali degli utenti che visitano il sito o che si iscrivono ai servizi offerti, nel rispetto del Regolamento UE 2016/679 (GDPR).
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">1. Titolare del trattamento</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-6">
+          Il Titolare del trattamento dei dati è <strong class="text-on-surface">Progetto Esperti Profeta</strong>. Per qualsiasi richiesta è possibile contattarci tramite i nostri canali ufficiali Instagram <a href="https://www.instagram.com/esperti_profeta_fantacalcio">@esperti_profeta_fantacalcio</a> o YouTube <a href="https://youtube.com/@progettoespertiprofeta">@progettoespertiprofeta</a>.
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">2. Dati raccolti</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-4">
+          Raccogliamo i seguenti dati personali quando l'utente si iscrive al gruppo Telegram o partecipa a "C'è Asta per Te":
+        </p>
+        <ul class="list-disc list-inside text-on-surface-variant leading-relaxed space-y-2 mb-6 ml-2">
+          <li>Nome e cognome</li>
+          <li>Nome della squadra del fantacalcio</li>
+          <li>Username Telegram</li>
+          <li>Screenshot della ricevuta di pagamento</li>
+        </ul>
+        <p class="text-on-surface-variant leading-relaxed mb-6">
+          Non raccogliamo direttamente dati relativi a carte di credito o conti bancari: i pagamenti avvengono esclusivamente tramite la piattaforma <strong class="text-on-surface">PayPal</strong>, soggetta alla propria informativa privacy.
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">3. Finalità del trattamento</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-4">
+          I dati raccolti vengono utilizzati esclusivamente per:
+        </p>
+        <ul class="list-disc list-inside text-on-surface-variant leading-relaxed space-y-2 mb-6 ml-2">
+          <li>Gestire l'iscrizione al gruppo Telegram e alle aste</li>
+          <li>Verificare l'avvenuto pagamento della quota di partecipazione</li>
+          <li>Inviare comunicazioni inerenti al servizio</li>
+          <li>Adempiere a obblighi di legge</li>
+        </ul>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">4. Base giuridica</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-6">
+          Il trattamento dei dati si basa sul consenso dell'utente al momento dell'iscrizione (art. 6 par. 1 lett. a GDPR) e sull'esecuzione del servizio richiesto (art. 6 par. 1 lett. b GDPR).
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">5. Modalità di trattamento e conservazione</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-6">
+          I dati vengono trattati con strumenti elettronici, raccolti attraverso il servizio <strong class="text-on-surface">Tally</strong> e archiviati in modo sicuro. I dati saranno conservati per il tempo necessario all'erogazione del servizio (durata della stagione del fantacalcio) e successivamente cancellati o resi anonimi, salvo obblighi di legge che ne richiedano una conservazione più estesa.
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">6. Servizi di terze parti</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-4">
+          Il sito utilizza i seguenti servizi esterni, ognuno con la propria privacy policy:
+        </p>
+        <ul class="list-disc list-inside text-on-surface-variant leading-relaxed space-y-2 mb-6 ml-2">
+          <li><strong class="text-on-surface">Tally</strong> — gestione moduli di iscrizione</li>
+          <li><strong class="text-on-surface">PayPal</strong> — gestione pagamenti</li>
+          <li><strong class="text-on-surface">Telegram</strong> — gruppi privati della community</li>
+          <li><strong class="text-on-surface">Vercel</strong> — hosting del sito</li>
+          <li><strong class="text-on-surface">YouTube, Instagram</strong> — canali social</li>
+        </ul>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">7. Diritti dell'utente</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-4">
+          In conformità al GDPR, l'utente ha diritto in qualsiasi momento di:
+        </p>
+        <ul class="list-disc list-inside text-on-surface-variant leading-relaxed space-y-2 mb-6 ml-2">
+          <li>Accedere ai propri dati personali</li>
+          <li>Richiedere la rettifica o la cancellazione dei dati</li>
+          <li>Opporsi al trattamento o richiederne la limitazione</li>
+          <li>Richiedere la portabilità dei dati</li>
+          <li>Revocare il consenso in qualsiasi momento</li>
+          <li>Proporre reclamo all'Autorità Garante per la Protezione dei Dati Personali</li>
+        </ul>
+        <p class="text-on-surface-variant leading-relaxed mb-6">
+          Per esercitare questi diritti è possibile contattarci tramite i canali social ufficiali.
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">8. Cookie</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-6">
+          Il sito non utilizza cookie di profilazione. Possono essere presenti cookie tecnici essenziali al funzionamento e cookie di terze parti generati dai servizi esterni utilizzati (es. Tally, YouTube embed).
+        </p>
+
+        <h2 class="text-xl md:text-2xl font-headline font-bold mb-4 mt-8">9. Modifiche alla privacy policy</h2>
+        <p class="text-on-surface-variant leading-relaxed mb-6">
+          Ci riserviamo il diritto di aggiornare la presente informativa in qualsiasi momento. Le modifiche saranno pubblicate su questa pagina con la data di ultimo aggiornamento.
+        </p>
+
+        <div class="mt-12 pt-8 border-t border-outline-variant/15">
+          <a href="/" class="inline-flex items-center gap-2 text-primary-container hover:text-white transition-colors font-bold">
+            <span class="material-symbols-outlined">arrow_back</span> Torna alla home
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full border-t border-outline-variant/15 bg-surface">
+  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
+    <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
+      <div class="flex items-center gap-3">
+        <img alt="Progetto Esperti Profeta Logo" class="h-8 w-auto opacity-50" src="/logo.png"/>
+        <div class="text-base md:text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
+      </div>
+      <p class="text-gray-500 text-xs md:text-sm font-body text-center md:text-left">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-5 md:gap-8">
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
+      <span class="text-gray-500 text-xs md:text-sm font-body cursor-default">TikTok</span>
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="/privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body></html>
