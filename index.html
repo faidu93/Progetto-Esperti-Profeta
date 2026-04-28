@@ -2,20 +2,16 @@
 <html class="dark" lang="it"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Progetto Esperti Profeta — Fantacalcio Serie A</title>
+<title>Progetto Esperti Profeta — Fantacalcio Serie A</title>
 <meta name="description" content="Il Progetto Esperti Profeta è una community di oltre 30 esperti che seguono ogni squadra di Serie A per offrirti analisi e consigli precisi al fantacalcio.">
 <link rel="icon" type="image/png" href="/logo.png">
 <link rel="apple-touch-icon" href="/logo.png">
-
-<!-- Open Graph (per condivisione sui social) -->
 <meta property="og:title" content="Progetto Esperti Profeta — Fantacalcio Serie A">
 <meta property="og:description" content="Una community di oltre 30 esperti che seguono ogni squadra di Serie A per darti il vantaggio al fantacalcio.">
 <meta property="og:image" content="https://progetto-esperti-profeta.vercel.app/logo.png">
 <meta property="og:url" content="https://progetto-esperti-profeta.vercel.app">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Progetto Esperti Profeta — Fantacalcio Serie A">
 <meta name="twitter:description" content="Community di esperti di Fantacalcio Serie A.">
@@ -100,10 +96,34 @@
   }
   #mobile-menu { display: none; }
   #mobile-menu.open { display: block; }
-  html, body { overflow-x: hidden; max-width: 100%; }
+  html, body { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; }
+  @keyframes loader-fill {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  .animate-loader { animation: loader-fill 0.8s ease-out forwards; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
+
+<!-- Loader iniziale -->
+<div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500">
+  <div class="flex flex-col items-center gap-4">
+    <img src="/logo.png" alt="Logo" class="w-16 h-16 animate-pulse">
+    <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+      <div class="h-full bg-primary-container rounded-full animate-loader"></div>
+    </div>
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('page-loader');
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 500);
+    }, 600);
+  });
+</script>
 
 <!-- TopNavBar -->
 <nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
@@ -150,7 +170,6 @@
 </script>
 
 <main class="overflow-x-hidden">
-<!-- Hero Section -->
 <section class="relative min-h-[600px] md:min-h-[819px] flex items-center overflow-hidden pt-8 md:pt-12">
   <div class="absolute inset-0 z-0">
     <div class="absolute inset-0 bg-gradient-to-br from-surface via-surface to-surface-container-low opacity-90"></div>
@@ -166,8 +185,7 @@
           <p class="text-base md:text-xl text-on-surface leading-relaxed font-medium">
             Il Progetto Esperti nasce da un'idea di aggregare un gruppo di ragazzi appassionati di calcio e della loro squadra preferita. Ogni esperto segue la propria squadra giorno dopo giorno e partita dopo partita offrendo un punto di vista preciso e puntuale.
           </p>
-          <p class="text-sm md:text-lg text-on-surface-variant leading-relaxed">Il nostro gruppo è composto da oltre 30 esperti e garantisce una copertura su tutte le 20 squadre di Serie A, catturando dettagli che sfuggono agli youtuber improvvisati. Offriamo competenza pura per trasformare ogni tua scelta in un vantaggio per la tua squadra.
-          </p>
+          <p class="text-sm md:text-lg text-on-surface-variant leading-relaxed">Il nostro gruppo è composto da oltre 30 esperti e garantisce una copertura su tutte le 20 squadre di Serie A, catturando dettagli che sfuggono agli youtuber improvvisati. Offriamo competenza pura per trasformare ogni tua scelta in un vantaggio per la tua squadra.</p>
         </div>
         <div class="flex flex-wrap gap-6 md:gap-8 pt-2 md:pt-4">
           <div class="space-y-1">
@@ -196,7 +214,6 @@
   </div>
 </section>
 
-<!-- Cosa offre il progetto Section -->
 <section class="py-20 md:py-32 bg-surface-container-low relative">
   <div class="max-w-7xl mx-auto px-6 md:px-8">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-24 gap-6 md:gap-8">
@@ -222,7 +239,6 @@
         <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Il nostro lavoro inizia a Luglio. Analizziamo ogni amichevole estiva per captare i segnali del mercato, le nuove gerarchie e i potenziali underdog per la nuova stagione.</p>
       </div>
     </div>
-    <!-- Manifesto CTA -->
     <div class="mt-16 md:mt-24 relative p-6 md:p-12 rounded-3xl overflow-hidden bg-gradient-to-r from-surface-container-highest to-surface-container">
       <div class="relative z-10 max-w-2xl">
         <blockquote class="text-2xl md:text-5xl font-headline font-bold text-on-surface leading-tight mb-6 md:mb-8 italic">
@@ -237,7 +253,6 @@
   </div>
 </section>
 
-<!-- Community Section -->
 <section class="py-16 md:py-24 bg-surface relative overflow-hidden border-t border-outline-variant/10">
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary-container/30 to-transparent"></div>
   <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
@@ -246,7 +261,6 @@
       <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto">Seguici su tutti i nostri canali per non perdere nemmeno un'analisi, un video o un consiglio last-minute per la tua rosa.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-      <!-- YouTube -->
       <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://youtube.com/@progettoespertiprofeta?si=FnO4iwX2WroTdoNf" target="_blank">
         <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-all duration-300">
           <svg viewBox="0 0 24 24" class="w-10 h-10 md:w-12 md:h-12" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -257,7 +271,6 @@
         <p class="text-xs md:text-sm text-on-surface-variant mb-4 md:mb-6">Analisi approfondite, live e focus tattici sui singoli match.</p>
         <span class="text-primary text-sm md:text-base font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Iscriviti Ora <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
       </a>
-      <!-- Instagram -->
       <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://www.instagram.com/esperti_profeta_fantacalcio?igsh=N2p1ZXMxbHVmOWow&utm_source=qr" target="_blank">
         <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-all duration-300">
           <svg viewBox="0 0 24 24" class="w-10 h-10 md:w-12 md:h-12" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -268,7 +281,6 @@
         <p class="text-xs md:text-sm text-on-surface-variant mb-4 md:mb-6">Infografiche, news flash e contenuti esclusivi dal campo.</p>
         <span class="text-primary text-sm md:text-base font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Seguici <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
       </a>
-      <!-- TikTok -->
       <div class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 flex flex-col items-center text-center">
         <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6">
           <svg viewBox="0 0 24 24" class="w-10 h-10 md:w-12 md:h-12" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -284,7 +296,6 @@
 </section>
 </main>
 
-<!-- Footer -->
 <footer class="w-full border-t border-outline-variant/15 bg-surface">
   <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
     <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
@@ -298,8 +309,29 @@
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
       <span class="text-gray-500 text-xs md:text-sm font-body cursor-default">TikTok</span>
-<a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="/privacy.html">Privacy Policy</a>    </div>
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="/privacy.html">Privacy Policy</a>
+    </div>
   </div>
 </footer>
+
+<!-- Pulsante torna su -->
+<button id="scroll-top-btn" aria-label="Torna su" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-primary-container text-on-primary rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:scale-110 hover:shadow-xl flex items-center justify-center">
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const scrollBtn = document.getElementById('scroll-top-btn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.remove('opacity-0', 'invisible');
+      scrollBtn.classList.add('opacity-100', 'visible');
+    } else {
+      scrollBtn.classList.add('opacity-0', 'invisible');
+      scrollBtn.classList.remove('opacity-100', 'visible');
+    }
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 
 </body></html>
