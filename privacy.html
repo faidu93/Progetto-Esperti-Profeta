@@ -44,14 +44,37 @@
   }
   #mobile-menu { display: none; }
   #mobile-menu.open { display: block; }
-  html, body { overflow-x: hidden; max-width: 100%; }
+  html, body { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; }
   .privacy-content h2 { color: #ff6b00; }
   .privacy-content a { color: #ff6b00; text-decoration: underline; }
+  @keyframes loader-fill {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  .animate-loader { animation: loader-fill 0.8s ease-out forwards; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
 
-<!-- TopNavBar -->
+<!-- Loader iniziale -->
+<div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500">
+  <div class="flex flex-col items-center gap-4">
+    <img src="/logo.png" alt="Logo" class="w-16 h-16 animate-pulse">
+    <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+      <div class="h-full bg-primary-container rounded-full animate-loader"></div>
+    </div>
+  </div>
+</div>
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('page-loader');
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 500);
+    }, 600);
+  });
+</script>
+
 <nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
   <div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
     <div class="flex items-center gap-10">
@@ -205,7 +228,6 @@
   </section>
 </main>
 
-<!-- Footer -->
 <footer class="w-full border-t border-outline-variant/15 bg-surface">
   <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
     <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
@@ -223,5 +245,24 @@
     </div>
   </div>
 </footer>
+
+<button id="scroll-top-btn" aria-label="Torna su" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-primary-container text-on-primary rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:scale-110 hover:shadow-xl flex items-center justify-center">
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const scrollBtn = document.getElementById('scroll-top-btn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.remove('opacity-0', 'invisible');
+      scrollBtn.classList.add('opacity-100', 'visible');
+    } else {
+      scrollBtn.classList.add('opacity-0', 'invisible');
+      scrollBtn.classList.remove('opacity-100', 'visible');
+    }
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 
 </body></html>
