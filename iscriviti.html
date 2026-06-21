@@ -288,7 +288,22 @@
     </div>
   </section>
   <script>
-    (function(){var d=document,s='https://tally.so/widgets/embed.js',v=function(){if(typeof Tally!=='undefined'){Tally.loadEmbeds();}else{d.querySelectorAll('iframe[data-tally-src]').forEach(function(e){e.src=e.dataset.tallySrc;});}};if(typeof Tally!=='undefined'){v();}else if(d.querySelector('script[src="'+s+'"]')===null){var sc=d.createElement('script');sc.src=s;sc.onload=v;sc.onerror=v;d.body.appendChild(sc);}})();
+    (function(){
+      var d=document, s='https://tally.so/widgets/embed.js';
+      function loadIframes(){
+        d.querySelectorAll('iframe[data-tally-src]:not([src])').forEach(function(e){ e.src = e.dataset.tallySrc; });
+      }
+      function init(){
+        if(typeof Tally!=='undefined'){ Tally.loadEmbeds(); }
+        loadIframes();
+      }
+      // carica lo script Tally se non presente
+      if(typeof Tally==='undefined' && d.querySelector('script[src="'+s+'"]')===null){
+        var sc=d.createElement('script'); sc.src=s; sc.onload=init; sc.onerror=loadIframes; d.body.appendChild(sc);
+      } else { init(); }
+      // retry di sicurezza: assicura che l'iframe abbia sempre il src
+      var tries=0; var iv=setInterval(function(){ loadIframes(); if(++tries>20) clearInterval(iv); }, 400);
+    })();
   </script>
 </main>
 
@@ -330,4 +345,5 @@
 </script>
 
 </body></html>
+
 
