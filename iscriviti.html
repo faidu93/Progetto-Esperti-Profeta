@@ -250,15 +250,15 @@
               <div class="bg-surface-container-low p-5 md:p-6 rounded-xl border border-outline-variant/15">
                 <p class="text-on-surface text-sm font-bold mb-3 flex items-center gap-2">
                   <span class="material-symbols-outlined text-primary-container text-lg">info</span>
-                  Istruzioni di pagamento:
+                  Come iscriverti:
                 </p>
                 <p class="text-xs text-on-surface-variant leading-relaxed">
-                  Invia 15€ tramite <strong class="text-on-surface">PayPal</strong> utilizzando l'opzione <strong class="text-primary-container">"Amici e Familiari"</strong> per ricevere il link al gruppo Telegram.
+                  Compila il form qui sotto con i tuoi dati, effettua il pagamento di <strong class="text-on-surface">15€</strong> e allega lo <strong class="text-primary-container">screenshot della ricevuta</strong>. Ti aggiungeremo al gruppo Telegram dopo la verifica.
                 </p>
               </div>
-              <a href="https://paypal.me/Lerry88/15EUR" target="_blank" class="paypal-btn w-full bg-primary-container py-4 md:py-5 rounded-lg text-on-primary font-bold text-base md:text-lg transition-all active:scale-[0.98] flex items-center justify-center gap-3 group">
-                <span class="material-symbols-outlined group-hover:rotate-12 transition-transform">payments</span>
-                Paga 15€ con PayPal
+              <a href="#form-iscrizione" class="paypal-btn w-full bg-primary-container py-4 md:py-5 rounded-lg text-on-primary font-bold text-base md:text-lg transition-all active:scale-[0.98] flex items-center justify-center gap-3 group">
+                <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform">arrow_downward</span>
+                Compila il form di iscrizione
               </a>
               <p class="text-[10px] text-center text-on-surface-variant/50 font-body px-4 uppercase tracking-wider">
                 Il rinnovo non è automatico. Sarai tu a decidere se restare.
@@ -269,6 +269,27 @@
       </div>
     </div>
   </div>
+
+  <section id="form-iscrizione" class="relative py-16 md:py-24 bg-surface-container-low border-t border-outline-variant/15">
+    <div class="max-w-3xl mx-auto px-6 md:px-8 relative z-10">
+      <div class="text-center mb-10 md:mb-12">
+        <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tighter text-on-surface mb-4">
+          Modulo di <span class="text-primary-container">iscrizione</span>
+        </h2>
+        <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto">
+          Inserisci i tuoi dati e allega lo screenshot del pagamento. Ti aggiungeremo al gruppo Telegram dopo la verifica.
+        </p>
+      </div>
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-2 md:p-4 shadow-2xl">
+        <iframe data-tally-src="https://tally.so/embed/9qx6dX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0"
+          title="Modulo di iscrizione" style="border:none;border-radius:12px;"></iframe>
+      </div>
+    </div>
+  </section>
+  <script>
+    (function(){var d=document,s='https://tally.so/widgets/embed.js',v=function(){if(typeof Tally!=='undefined'){Tally.loadEmbeds();}else{d.querySelectorAll('iframe[data-tally-src]').forEach(function(e){e.src=e.dataset.tallySrc;});}};if(typeof Tally!=='undefined'){v();}else if(d.querySelector('script[src="'+s+'"]')===null){var sc=d.createElement('script');sc.src=s;sc.onload=v;sc.onerror=v;d.body.appendChild(sc);}})();
+  </script>
 </main>
 
 <footer class="w-full border-t border-outline-variant/15 bg-surface">
@@ -309,3 +330,4 @@
 </script>
 
 </body></html>
+
