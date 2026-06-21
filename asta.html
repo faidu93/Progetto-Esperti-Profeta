@@ -166,6 +166,11 @@
   // ============================================================
   // CONFIGURAZIONE ASTE — modifica solo questi valori!
   // ============================================================
+  // ============================================================
+  // INTERRUTTORE ASTE — metti true quando vuoi attivare le aste
+  // ============================================================
+  const ASTE_ATTIVE = false;
+
   const aste = [
     { id: 1, nome: "Asta 1", data: "1 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/kdA6Wo", posti_occupati: 0, max_posti: 10 },
     { id: 2, nome: "Asta 2", data: "2 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/1A266l", posti_occupati: 0, max_posti: 10 },
@@ -178,6 +183,27 @@
   function renderAste() {
     const container = document.getElementById('aste-grid');
     container.innerHTML = '';
+
+    if (!ASTE_ATTIVE) {
+      const sec = document.getElementById('aste');
+      const intro = sec ? sec.querySelector('.text-center') : null;
+      if (intro) intro.style.display = 'none';
+      container.className = 'max-w-2xl mx-auto';
+      container.innerHTML = `
+        <div class="text-center bg-surface-container-low rounded-3xl border border-outline-variant/15 px-6 py-16 md:py-20">
+          <span class="material-symbols-outlined text-primary-container text-6xl md:text-7xl mb-6 block">hourglass_top</span>
+          <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">Aste in arrivo <span class="text-primary-container">a breve</span></h2>
+          <p class="text-base md:text-lg text-on-surface-variant max-w-md mx-auto mb-10 leading-relaxed">
+            Le aste di "C'è Asta per Te" apriranno a stagione iniziata. Iscriviti ora al progetto per essere tra i primi a partecipare quando partiranno.
+          </p>
+          <a href="/iscriviti.html" class="inline-flex items-center justify-center gap-2 px-8 md:px-10 py-4 md:py-5 bg-primary-container text-on-primary font-headline font-bold text-sm md:text-lg uppercase tracking-tight rounded-lg shadow-lg hover:opacity-90 transition-all active:scale-[0.98]">
+            <span class="material-symbols-outlined">arrow_forward</span> Iscriviti al progetto
+          </a>
+        </div>
+      `;
+      return;
+    }
+
     aste.forEach(asta => {
       const piena = asta.posti_occupati >= asta.max_posti;
       const percentuale = Math.round((asta.posti_occupati / asta.max_posti) * 100);
@@ -318,3 +344,6 @@
 </script>
 
 </body></html>
+
+
+
