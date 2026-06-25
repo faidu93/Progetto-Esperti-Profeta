@@ -167,20 +167,34 @@
   // CONFIGURAZIONE ASTE — modifica solo questi valori!
   // ============================================================
   // ============================================================
-  // INTERRUTTORE ASTE — metti true quando vuoi attivare le aste
+  // CONFIGURAZIONE — modifica solo questi valori
   // ============================================================
-  const ASTE_ATTIVE = false;
+  const ASTE_ATTIVE = true; // metti true per attivare le aste
+
+  const API_URL = 'https://script.google.com/macros/s/AKfycbysdivWB_0vbHf8dKQmllitCmKacQfGsDJMunORHE8wrV14gghREhe44jTo1p_kSfNTfQ/exec';
 
   const aste = [
-    { id: 1, nome: "Asta 1", data: "1 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/kdA6Wo", posti_occupati: 0, max_posti: 10 },
-    { id: 2, nome: "Asta 2", data: "2 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/1A266l", posti_occupati: 0, max_posti: 10 },
-    { id: 3, nome: "Asta 3", data: "3 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/gDNvv4", posti_occupati: 0, max_posti: 10 },
-    { id: 4, nome: "Asta 4", data: "4 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/yPqzzx", posti_occupati: 0, max_posti: 10 },
-    { id: 5, nome: "Asta 5", data: "5 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/81pMMP", posti_occupati: 0, max_posti: 10 },
-    { id: 6, nome: "Asta 6", data: "6 Settembre 2025", modalita: "Classic", link: "https://tally.so/r/GxB55k", posti_occupati: 0, max_posti: 10 },
+    { id: 1, nome: "Asta 1", data: "Da definire", modalita: "Classic", tallyId: "kdA6Wo", max_posti: 10 },
+    { id: 2, nome: "Asta 2", data: "Da definire", modalita: "Classic", tallyId: "1A266l", max_posti: 10 },
+    { id: 3, nome: "Asta 3", data: "Da definire", modalita: "Classic", tallyId: "gDNvv4", max_posti: 10 },
+    { id: 4, nome: "Asta 4", data: "Da definire", modalita: "Classic", tallyId: "yPqzzx", max_posti: 10 },
+    { id: 5, nome: "Asta 5", data: "Da definire", modalita: "Classic", tallyId: "81pMMP", max_posti: 10 },
+    { id: 6, nome: "Asta 6", data: "Da definire", modalita: "Classic", tallyId: "GxB55k", max_posti: 10 },
   ];
 
-  function renderAste() {
+  // Carica conteggi dal Google Sheet tramite API
+  async function fetchCounts() {
+    try {
+      const r = await fetch(API_URL, { redirect: 'follow' });
+      const data = await r.json();
+      return data.ok ? data.counts : null;
+    } catch(e) {
+      console.warn('API non disponibile, uso conteggi a zero', e);
+      return null;
+    }
+  }
+
+  function renderAste(counts) {
     const container = document.getElementById('aste-grid');
     container.innerHTML = '';
 
@@ -205,51 +219,98 @@
     }
 
     aste.forEach(asta => {
-      const piena = asta.posti_occupati >= asta.max_posti;
-      const percentuale = Math.round((asta.posti_occupati / asta.max_posti) * 100);
-      const postiLiberi = asta.max_posti - asta.posti_occupati;
+      const posti_occupati = counts ? (counts['asta_' + asta.id] || 0) : 0;
+      const piena = posti_occupati >= asta.max_posti;
+      const percentuale = Math.round((posti_occupati / asta.max_posti) * 100);
+      const postiLiberi = asta.max_posti - posti_occupati;
       const coloreModalita = asta.modalita === 'Mantra' ? 'text-purple-400 bg-purple-400/10 border-purple-400/20' : 'text-[#ff6b00] bg-[#ff6b00]/10 border-[#ff6b00]/20';
 
-      container.innerHTML += `
-        <div class="bg-surface-container-low rounded-2xl border ${piena ? 'border-red-500/20' : 'border-outline-variant/15 hover:border-primary-container/40'} transition-all duration-300 overflow-hidden">
-          <div class="p-5 md:p-6 space-y-3 md:space-y-4">
-            <div class="flex items-center justify-between gap-2">
-              <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest ${coloreModalita} px-2.5 md:px-3 py-1 rounded-full border">${asta.modalita}</span>
-              ${piena
-                ? `<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-2.5 md:px-3 py-1 rounded-full">Completa</span>`
-                : `<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-2.5 md:px-3 py-1 rounded-full">Aperta</span>`
-              }
-            </div>
-            <div>
-              <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface">${asta.nome}</h3>
-              <p class="text-on-surface-variant text-xs md:text-sm flex items-center gap-2 mt-1">
-                <span class="material-symbols-outlined text-base">calendar_month</span> ${asta.data}
-              </p>
-            </div>
-            <div class="space-y-2">
-              <div class="flex justify-between text-xs md:text-sm">
-                <span class="text-on-surface-variant">Posti disponibili</span>
-                <span class="font-bold ${piena ? 'text-red-400' : 'text-on-surface'}">${postiLiberi}/${asta.max_posti}</span>
-              </div>
-              <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-                <div class="h-full rounded-full transition-all duration-500" style="width: ${percentuale}%; background: ${piena ? '#f87171' : '#ff6b00'};"></div>
-              </div>
-            </div>
+      const card = document.createElement('div');
+      card.className = 'bg-surface-container-low rounded-2xl border ' + (piena ? 'border-red-500/20' : 'border-outline-variant/15 hover:border-primary-container/40') + ' transition-all duration-300 overflow-hidden';
+      card.innerHTML = `
+        <div class="p-5 md:p-6 space-y-3 md:space-y-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest ${coloreModalita} px-2.5 md:px-3 py-1 rounded-full border">${asta.modalita}</span>
             ${piena
-              ? `<div class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-surface-container-highest text-on-surface-variant text-sm md:text-base font-bold rounded-lg cursor-not-allowed opacity-60">
-                  <span class="material-symbols-outlined text-base">block</span> Posti esauriti
-                </div>`
-              : `<a href="${asta.link}" target="_blank" class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-primary-container text-on-primary text-sm md:text-base font-bold rounded-lg hover:opacity-90 transition-all active:scale-[0.98]">
-                  Iscriviti <span class="material-symbols-outlined text-base">arrow_forward</span>
-                </a>`
+              ? '<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-2.5 md:px-3 py-1 rounded-full">Completa</span>'
+              : '<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-2.5 md:px-3 py-1 rounded-full">Aperta</span>'
             }
+          </div>
+          <div>
+            <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface">${asta.nome}</h3>
+            <p class="text-on-surface-variant text-xs md:text-sm flex items-center gap-2 mt-1">
+              <span class="material-symbols-outlined text-base">calendar_month</span> ${asta.data}
+            </p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs md:text-sm">
+              <span class="text-on-surface-variant">Posti disponibili</span>
+              <span class="font-bold ${piena ? 'text-red-400' : 'text-on-surface'}">${postiLiberi}/${asta.max_posti}</span>
+            </div>
+            <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-500" style="width:${percentuale}%; background:${piena ? '#f87171' : '#ff6b00'};"></div>
+            </div>
+          </div>
+          ${piena
+            ? `<div class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-surface-container-highest text-on-surface-variant text-sm md:text-base font-bold rounded-lg cursor-not-allowed opacity-60">
+                <span class="material-symbols-outlined text-base">block</span> Posti esauriti
+              </div>`
+            : `<button onclick="toggleForm(${asta.id})" class="iscriviti-btn w-full py-2.5 md:py-3 bg-primary-container text-on-primary text-sm md:text-base font-bold rounded-lg hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-base">how_to_reg</span> Iscriviti
+              </button>`
+          }
+        </div>
+        <div id="form-asta-${asta.id}" class="hidden border-t border-outline-variant/15">
+          <div class="p-4 md:p-6">
+            <div class="flex items-center justify-between mb-4">
+              <p class="text-sm font-bold text-on-surface">Modulo di iscrizione — ${asta.nome}</p>
+              <button onclick="toggleForm(${asta.id})" class="text-on-surface-variant hover:text-on-surface transition-colors">
+                <span class="material-symbols-outlined text-xl">close</span>
+              </button>
+            </div>
+            <div class="bg-surface-container-lowest rounded-xl overflow-hidden">
+              <iframe id="iframe-asta-${asta.id}"
+                data-src="https://tally.so/embed/${asta.tallyId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                loading="lazy" width="100%" height="500" frameborder="0"
+                style="border:none; display:block;"></iframe>
+            </div>
           </div>
         </div>
       `;
+      container.appendChild(card);
     });
   }
 
-  document.addEventListener('DOMContentLoaded', renderAste);
+  function toggleForm(astaId) {
+    const formDiv = document.getElementById('form-asta-' + astaId);
+    const isHidden = formDiv.classList.contains('hidden');
+    // Chiudi tutti gli altri form
+    document.querySelectorAll('[id^="form-asta-"]').forEach(d => d.classList.add('hidden'));
+    if (isHidden) {
+      formDiv.classList.remove('hidden');
+      // Carica iframe se non già caricato
+      const iframe = document.getElementById('iframe-asta-' + astaId);
+      if (iframe && !iframe.src && iframe.dataset.src) {
+        iframe.src = iframe.dataset.src;
+      }
+      // Scroll alla card
+      formDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  // Carica lo script Tally
+  (function(){
+    var d=document, s='https://tally.so/widgets/embed.js';
+    if(d.querySelector('script[src="'+s+'"]')===null){
+      var sc=d.createElement('script'); sc.src=s; d.body.appendChild(sc);
+    }
+  })();
+
+  // Inizializzazione
+  document.addEventListener('DOMContentLoaded', async () => {
+    const counts = await fetchCounts();
+    renderAste(counts);
+  });
 </script>
 
 <main class="overflow-x-hidden">
