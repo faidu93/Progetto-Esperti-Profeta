@@ -247,18 +247,35 @@
               </li>
             </ul>
             <div class="space-y-6">
-              <div class="bg-surface-container-low p-5 md:p-6 rounded-xl border border-outline-variant/15">
-                <p class="text-on-surface text-sm font-bold mb-3 flex items-center gap-2">
+              <div class="bg-surface-container-low p-5 md:p-6 rounded-xl border border-outline-variant/15 space-y-4">
+                <p class="text-on-surface text-sm font-bold flex items-center gap-2 pb-2 border-b border-outline-variant/10">
                   <span class="material-symbols-outlined text-primary-container text-lg">info</span>
-                  Come iscriverti:
+                  Istruzioni per l'iscrizione:
                 </p>
-                <p class="text-xs text-on-surface-variant leading-relaxed">
-                  Compila il form qui sotto con i tuoi dati, effettua una donazione di <strong class="text-on-surface">15€</strong> e allega lo <strong class="text-primary-container">screenshot della donazione PayPal</strong>. Ti aggiungeremo al gruppo Telegram dopo la verifica.
-                </p>
+                <div class="space-y-3">
+                  <div class="flex gap-3 items-start">
+                    <span class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 font-headline">1</span>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                      Effettua la donazione di <strong class="text-on-surface">15€</strong> tramite il pulsante PayPal che trovi all'interno del modulo o concordato.
+                    </p>
+                  </div>
+                  <div class="flex gap-3 items-start">
+                    <span class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 font-headline">2</span>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                      Fai uno **screenshot della ricevuta** di pagamento avvenuto.
+                    </p>
+                  </div>
+                  <div class="flex gap-3 items-start">
+                    <span class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 font-headline">3</span>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                      Compila il modulo Tally qui sotto con i tuoi dati, inserisci il tuo **username Telegram** ed allega lo screenshot.
+                    </p>
+                  </div>
+                </div>
               </div>
               <a href="#form-iscrizione" class="paypal-btn w-full bg-primary-container py-4 md:py-5 rounded-lg text-on-primary font-bold text-base md:text-lg transition-all active:scale-[0.98] flex items-center justify-center gap-3 group">
                 <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform">arrow_downward</span>
-                Compila il form di iscrizione
+                Compila il modulo di iscrizione
               </a>
               <p class="text-[10px] text-center text-on-surface-variant/50 font-body px-4 uppercase tracking-wider">
                 Il rinnovo non è automatico. Sarai tu a decidere se restare.
@@ -282,8 +299,8 @@
       </div>
       <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-2 md:p-4 shadow-2xl">
         <iframe data-tally-src="https://tally.so/embed/9qx6dX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-          loading="lazy" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0"
-          title="Modulo di iscrizione" style="border:none;border-radius:12px;"></iframe>
+          loading="lazy" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0"
+          title="Modulo di iscrizione" style="border:none;border-radius:12px;width:100%;min-height:650px;"></iframe>
       </div>
     </div>
   </section>
@@ -297,11 +314,9 @@
         if(typeof Tally!=='undefined'){ Tally.loadEmbeds(); }
         loadIframes();
       }
-      // carica lo script Tally se non presente
       if(typeof Tally==='undefined' && d.querySelector('script[src="'+s+'"]')===null){
         var sc=d.createElement('script'); sc.src=s; sc.onload=init; sc.onerror=loadIframes; d.body.appendChild(sc);
       } else { init(); }
-      // retry di sicurezza: assicura che l'iframe abbia sempre il src
       var tries=0; var iv=setInterval(function(){ loadIframes(); if(++tries>20) clearInterval(iv); }, 400);
     })();
   </script>
@@ -319,7 +334,6 @@
     <div class="flex flex-wrap justify-center gap-5 md:gap-8">
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
-      
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="/privacy.html">Privacy Policy</a>
     </div>
   </div>
@@ -345,5 +359,3 @@
 </script>
 
 </body></html>
-
-

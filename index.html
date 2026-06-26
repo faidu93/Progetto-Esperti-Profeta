@@ -109,7 +109,7 @@
 <!-- Loader iniziale -->
 <div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500">
   <div class="flex flex-col items-center gap-4">
-<img src="/logo.png" alt="Logo" class="h-16 w-auto animate-pulse">
+    <img src="/logo.png" alt="Logo" class="h-16 w-auto animate-pulse">
     <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
       <div class="h-full bg-primary-container rounded-full animate-loader"></div>
     </div>
@@ -226,17 +226,17 @@
       <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group">
         <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">groups</span>
         <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Copertura per tutte le 20 squadre Serie A</h3>
-        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Oltre 30 esperti appassionati. Garantiamo almeno un analista dedicato esclusivamente a ciascuna delle 20 squadre di Serie A.</p>
+        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Oltre 30 esperti dedicati. Garantiamo almeno un analista specializzato esclusivamente a ciascuna delle 20 squadre di Serie A per non perdere alcun dettaglio tattico.</p>
       </div>
       <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group">
-        <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">visibility</span>
-        <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Monitoraggio H24</h3>
-        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Guardiamo ogni singola partita e ogni intervista post-gara. Nulla sfugge al nostro radar, dai movimenti tattici alle parole dei mister.</p>
+        <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">newspaper</span>
+        <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Report Amichevoli & Mercato</h3>
+        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Forniamo analisi dettagliate delle amichevoli estive e, a mercato concluso, un report completo per ogni squadra con schede di ciascun giocatore in ottica fantacalcio.</p>
       </div>
       <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group">
-        <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">manage_search</span>
-        <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Focus Estivo</h3>
-        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Il nostro lavoro inizia a Luglio. Analizziamo ogni amichevole estiva per captare i segnali del mercato, le nuove gerarchie e i potenziali underdog per la nuova stagione.</p>
+        <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">forum</span>
+        <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Community Premium Telegram</h3>
+        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Un gruppo Telegram esclusivo organizzato per canali dedicati (topic) ad ogni singola squadra per domande dirette, discussioni generali e il format C'è Asta per Te.</p>
       </div>
     </div>
     <div class="mt-16 md:mt-24 relative p-6 md:p-12 rounded-3xl overflow-hidden bg-gradient-to-r from-surface-container-highest to-surface-container">
@@ -253,6 +253,100 @@
     </div>
   </div>
 </section>
+
+<section class="py-20 bg-surface border-t border-outline-variant/10 relative">
+  <div class="max-w-7xl mx-auto px-6 md:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">I Nostri <span class="text-primary-container">Esperti</span></h2>
+      <p class="text-base text-on-surface-variant font-light max-w-2xl mx-auto">Garantiamo una copertura completa di tutte le 20 squadre di Serie A. Seleziona una squadra per scoprire chi è l'esperto che la segue nel gruppo Telegram.</p>
+    </div>
+    
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 mb-10 max-w-4xl mx-auto">
+      <button id="badge-Atalanta" onclick="showExpert('Atalanta')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Atalanta</button>
+      <button id="badge-Bologna" onclick="showExpert('Bologna')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Bologna</button>
+      <button id="badge-Cagliari" onclick="showExpert('Cagliari')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Cagliari</button>
+      <button id="badge-Como" onclick="showExpert('Como')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Como</button>
+      <button id="badge-Empoli" onclick="showExpert('Empoli')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Empoli</button>
+      <button id="badge-Fiorentina" onclick="showExpert('Fiorentina')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Fiorentina</button>
+      <button id="badge-Genoa" onclick="showExpert('Genoa')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Genoa</button>
+      <button id="badge-Inter" onclick="showExpert('Inter')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Inter</button>
+      <button id="badge-Juventus" onclick="showExpert('Juventus')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Juventus</button>
+      <button id="badge-Lazio" onclick="showExpert('Lazio')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Lazio</button>
+      <button id="badge-Lecce" onclick="showExpert('Lecce')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Lecce</button>
+      <button id="badge-Milan" onclick="showExpert('Milan')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Milan</button>
+      <button id="badge-Monza" onclick="showExpert('Monza')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Monza</button>
+      <button id="badge-Napoli" onclick="showExpert('Napoli')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Napoli</button>
+      <button id="badge-Parma" onclick="showExpert('Parma')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Parma</button>
+      <button id="badge-Roma" onclick="showExpert('Roma')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Roma</button>
+      <button id="badge-Torino" onclick="showExpert('Torino')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Torino</button>
+      <button id="badge-Udinese" onclick="showExpert('Udinese')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Udinese</button>
+      <button id="badge-Venezia" onclick="showExpert('Venezia')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Venezia</button>
+      <button id="badge-Verona" onclick="showExpert('Verona')" class="team-badge px-4 py-3 rounded-xl border border-outline-variant/15 text-sm font-semibold transition-all hover:border-primary-container/50 text-center">Verona</button>
+    </div>
+
+    <!-- Scheda Dettagli Esperto -->
+    <div class="max-w-2xl mx-auto bg-surface-container-low p-6 md:p-8 rounded-2xl border border-outline-variant/15 flex flex-col md:flex-row gap-6 items-center">
+      <div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container shrink-0">
+        <span class="material-symbols-outlined text-4xl">person</span>
+      </div>
+      <div class="text-center md:text-left space-y-2">
+        <div class="flex flex-col md:flex-row md:items-center gap-2 justify-center md:justify-start">
+          <span id="expert-team-name" class="text-xs font-bold uppercase tracking-widest text-primary-container bg-primary-container/10 border border-primary-container/20 px-3 py-0.5 rounded-full w-fit">Bologna</span>
+          <h4 id="expert-name" class="text-xl font-headline font-bold text-on-surface">Mark Bologna</h4>
+        </div>
+        <p id="expert-desc" class="text-sm md:text-base text-on-surface-variant leading-relaxed">Analista tattico dei rossoblù. Esperto sui movimenti offensivi e sui rigoristi della squadra.</p>
+        <p class="text-xs text-gray-500 italic">Disponibile h24 nel canale dedicato su Telegram per rispondere alle tue domande.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const teamExperts = {
+    "Atalanta": { name: "Esperto Atalanta", desc: "Segue ogni sessione d'allenamento e partita dei bergamaschi. Specialista in modificatori di difesa e ballottaggi offensivi." },
+    "Bologna": { name: "Mark Bologna", desc: "Analista tattico dei rossoblù. Esperto sui movimenti offensivi e sui rigoristi della squadra." },
+    "Cagliari": { name: "Esperto Cagliari", desc: "Monitora attentamente le scelte del mister e le scommesse low-cost in terra sarda." },
+    "Como": { name: "Esperto Como", desc: "Specialista sulle rotazioni e i nuovi acquisti di grande rilievo della squadra lariana." },
+    "Empoli": { name: "Esperto Empoli", desc: "Focalizzato sulle scommesse giovani e sulle gerarchie difensive dei toscani." },
+    "Fiorentina": { name: "Esperto Fiorentina", desc: "Segue il gioco viola per consigliarti i centrocampisti da bonus e i tiratori." },
+    "Genoa": { name: "Esperto Genoa", desc: "Esperto dell'ambiente rossoblù. Consiglia i profili difensivi da modificatore e i titolari fissi." },
+    "Inter": { name: "Esperto Inter", desc: "Analisi accurata delle rotazioni dei campioni d'Italia, ballottaggi sugli esterni e gestione del turnover." },
+    "Juventus": { name: "Esperto Juventus", desc: "Monitoraggio tattico costante della nuova era bianconera. Dettagli su gerarchie e rigoristi." },
+    "Lazio": { name: "Esperto Lazio", desc: "Specialista sulle corsie esterne biancocelesti e sui centrocampisti da bonus." },
+    "Lecce": { name: "Nic Lecce", desc: "Analista di riferimento dei salentini. Cacciatore di scommesse low-cost e bonus inaspettati." },
+    "Milan": { name: "Lerry Milan", desc: "Analisi approfondita del gioco dei rossoneri, rendimento dei nuovi acquisti e titolarità." },
+    "Monza": { name: "Esperto Monza", desc: "Monitora le gerarchie a centrocampo e i difensori da sufficienza costante dei brianzoli." },
+    "Napoli": { name: "Esperto Napoli", desc: "Analisi tattica della squadra partenopea, gestione delle scommesse e focus sui giocatori chiave." },
+    "Parma": { name: "Esperto Parma", desc: "Segue la crescita dei giovani talenti emiliani in ottica bonus e titolarità." },
+    "Roma": { name: "Esperto Roma", desc: "Focus sulle scelte tattiche della capitale, tiratori di calci piazzati e rendimento dei big." },
+    "Torino": { name: "Esperto Torino", desc: "Consiglia i guerrieri del centrocampo granata e le certezze per il modificatore di difesa." },
+    "Udinese": { name: "Esperto Udinese", desc: "Focalizzato sulle rotazioni offensive e sulle scommesse fisiche dei friulani." },
+    "Venezia": { name: "Esperto Venezia", desc: "Analizza la lotta salvezza dei lagunari e i profili low-cost per completare la rosa." },
+    "Verona": { name: "Esperto Verona", desc: "Cacciatore di talenti nascosti e scommesse a basso costo tra gli scaligeri." }
+  };
+
+  function showExpert(team) {
+    document.querySelectorAll('.team-badge').forEach(el => {
+      el.classList.remove('border-primary-container/80', 'bg-primary-container/10', 'text-white');
+      el.classList.add('border-outline-variant/15', 'text-on-surface-variant');
+    });
+
+    const activeBtn = document.getElementById('badge-' + team);
+    if (activeBtn) {
+      activeBtn.classList.remove('border-outline-variant/15', 'text-on-surface-variant');
+      activeBtn.classList.add('border-primary-container/80', 'bg-primary-container/10', 'text-white');
+    }
+
+    const info = teamExperts[team];
+    document.getElementById('expert-team-name').textContent = team;
+    document.getElementById('expert-name').textContent = info.name;
+    document.getElementById('expert-desc').textContent = info.desc;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    showExpert('Bologna');
+  });
+</script>
 
 <section class="py-20 md:py-32 bg-surface relative overflow-hidden border-t border-outline-variant/10">
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary-container/30 to-transparent"></div>
@@ -282,17 +376,95 @@
         <p class="text-xs md:text-sm text-on-surface-variant mb-4 md:mb-6">Infografiche, news flash e contenuti esclusivi dal campo.</p>
         <span class="text-primary text-sm md:text-base font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Seguici <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
       </a>
-      
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-surface-container-low border-t border-outline-variant/10 relative">
+  <div class="max-w-4xl mx-auto px-6 md:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">Domande <span class="text-primary-container">Frequenti</span></h2>
+      <p class="text-base text-on-surface-variant font-light">Tutto quello che c'è da sapere sul Progetto Esperti e su come partecipare.</p>
+    </div>
+    
+    <div class="space-y-4">
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
+        <button class="faq-toggle w-full p-5 flex justify-between items-center text-left hover:text-primary-container transition-colors focus:outline-none" onclick="toggleFaq(1)">
+          <span class="font-headline font-semibold text-base md:text-lg text-on-surface">Come ricevo l'accesso al gruppo Telegram?</span>
+          <span id="faq-icon-1" class="material-symbols-outlined transition-transform duration-300">add</span>
+        </button>
+        <div id="faq-content-1" class="hidden px-5 pb-5 text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant/5 pt-3">
+          Dopo aver compilato il modulo ed effettuato la donazione, il nostro team verificherà lo screenshot della transazione e ti invierà il link d'invito al tuo username Telegram entro 24 ore lavorative.
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
+        <button class="faq-toggle w-full p-5 flex justify-between items-center text-left hover:text-primary-container transition-colors focus:outline-none" onclick="toggleFaq(2)">
+          <span class="font-headline font-semibold text-base md:text-lg text-on-surface">Quanto dura l'abbonamento premium?</span>
+          <span id="faq-icon-2" class="material-symbols-outlined transition-transform duration-300">add</span>
+        </button>
+        <div id="faq-content-2" class="hidden px-5 pb-5 text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant/5 pt-3">
+          La donazione di 15€ è valida per l'intera stagione calcistica corrente. Il rinnovo non è automatico: sarai tu a decidere se restare e sostenere nuovamente il progetto l'anno successivo.
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
+        <button class="faq-toggle w-full p-5 flex justify-between items-center text-left hover:text-primary-container transition-colors focus:outline-none" onclick="toggleFaq(3)">
+          <span class="font-headline font-semibold text-base md:text-lg text-on-surface">Cosa sono i report estivi e di fine mercato?</span>
+          <span id="faq-icon-3" class="material-symbols-outlined transition-transform duration-300">add</span>
+        </button>
+        <div id="faq-content-3" class="hidden px-5 pb-5 text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant/5 pt-3">
+          Durante l'estate analizziamo le amichevoli estive per segnalarti gerarchie e novità tattiche. A mercato concluso, pubblichiamo un report approfondito per ciascuna delle 20 squadre di Serie A con analisi di ogni singolo giocatore in chiave fantacalcistica.
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
+        <button class="faq-toggle w-full p-5 flex justify-between items-center text-left hover:text-primary-container transition-colors focus:outline-none" onclick="toggleFaq(4)">
+          <span class="font-headline font-semibold text-base md:text-lg text-on-surface">Come funziona "C'è Asta per Te"?</span>
+          <span id="faq-icon-4" class="material-symbols-outlined transition-transform duration-300">add</span>
+        </button>
+        <div id="faq-content-4" class="hidden px-5 pb-5 text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant/5 pt-3">
+          È il nostro servizio per aiutarti a trovare partecipanti per la tua lega. Creiamo gruppi da 10 partecipanti suddivisi per modalità (Classic o Mantra) e data dell'asta, fungendo da garanti per l'organizzazione e la gestione delle quote.
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
+        <button class="faq-toggle w-full p-5 flex justify-between items-center text-left hover:text-primary-container transition-colors focus:outline-none" onclick="toggleFaq(5)">
+          <span class="font-headline font-semibold text-base md:text-lg text-on-surface">Posso fare domande dirette agli esperti di squadra?</span>
+          <span id="faq-icon-5" class="material-symbols-outlined transition-transform duration-300">add</span>
+        </button>
+        <div id="faq-content-5" class="hidden px-5 pb-5 text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant/5 pt-3">
+          Sì! Il gruppo Telegram è diviso in sotto-chat (topic), una per ogni squadra di Serie A. Gli esperti dedicati sono attivi giornalmente per rispondere a dubbi su formazione, scambi, infortuni e ballottaggi.
+        </div>
+      </div>
     </div>
   </div>
 </section>
 </main>
 
+<script>
+  function toggleFaq(num) {
+    const content = document.getElementById('faq-content-' + num);
+    const icon = document.getElementById('faq-icon-' + num);
+    const isHidden = content.classList.contains('hidden');
+    
+    if (isHidden) {
+      content.classList.remove('hidden');
+      icon.textContent = 'remove';
+      icon.style.transform = 'rotate(180deg)';
+    } else {
+      content.classList.add('hidden');
+      icon.textContent = 'add';
+      icon.style.transform = 'rotate(0deg)';
+    }
+  }
+</script>
+
 <footer class="w-full border-t border-outline-variant/15 bg-surface">
   <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
     <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
       <div class="flex items-center gap-3">
-<img alt="Progetto Esperti Profeta Logo" class="h-8 w-auto opacity-50" src="/logo.png"/>
+        <img alt="Progetto Esperti Profeta Logo" class="h-8 w-auto opacity-50" src="/logo.png"/>
         <div class="text-base md:text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
       </div>
       <p class="text-gray-500 text-xs md:text-sm font-body text-center md:text-left">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
@@ -300,7 +472,6 @@
     <div class="flex flex-wrap justify-center gap-5 md:gap-8">
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
-      
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="/privacy.html">Privacy Policy</a>
     </div>
   </div>
@@ -327,4 +498,3 @@
 </script>
 
 </body></html>
-

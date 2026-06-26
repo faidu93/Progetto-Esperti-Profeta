@@ -166,9 +166,6 @@
   // ============================================================
   // CONFIGURAZIONE ASTE — modifica solo questi valori!
   // ============================================================
-  // ============================================================
-  // CONFIGURAZIONE — modifica solo questi valori
-  // ============================================================
   const ASTE_ATTIVE = true; // metti true per attivare le aste
 
   const API_URL = 'https://script.google.com/macros/s/AKfycbysdivWB_0vbHf8dKQmllitCmKacQfGsDJMunORHE8wrV14gghREhe44jTo1p_kSfNTfQ/exec';
@@ -225,6 +222,25 @@
       const postiLiberi = asta.max_posti - posti_occupati;
       const coloreModalita = asta.modalita === 'Mantra' ? 'text-purple-400 bg-purple-400/10 border-purple-400/20' : 'text-[#ff6b00] bg-[#ff6b00]/10 border-[#ff6b00]/20';
 
+      // Dinamizzazione etichette dei posti per creare urgenza
+      let labelPosti = "Posti liberi";
+      let testoPosti = `${postiLiberi}/${asta.max_posti}`;
+      let classeTestoPosti = 'text-on-surface';
+
+      if (piena) {
+        labelPosti = "Posti esauriti";
+        testoPosti = "0 liberi";
+        classeTestoPosti = 'text-red-400 font-bold';
+      } else if (postiLiberi === 1) {
+        labelPosti = "Ultimo posto!";
+        testoPosti = "1 libero";
+        classeTestoPosti = 'text-red-500 font-bold animate-pulse';
+      } else if (postiLiberi <= 3) {
+        labelPosti = "Ultimi posti rimasti!";
+        testoPosti = `${postiLiberi} liberi`;
+        classeTestoPosti = 'text-orange-400 font-bold';
+      }
+
       const card = document.createElement('div');
       card.className = 'bg-surface-container-low rounded-2xl border ' + (piena ? 'border-red-500/20' : 'border-outline-variant/15 hover:border-primary-container/40') + ' transition-all duration-300 overflow-hidden';
       card.innerHTML = `
@@ -244,8 +260,8 @@
           </div>
           <div class="space-y-2">
             <div class="flex justify-between text-xs md:text-sm">
-              <span class="text-on-surface-variant">Posti disponibili</span>
-              <span class="font-bold ${piena ? 'text-red-400' : 'text-on-surface'}">${postiLiberi}/${asta.max_posti}</span>
+              <span class="text-on-surface-variant">${labelPosti}</span>
+              <span class="font-bold ${classeTestoPosti}">${testoPosti}</span>
             </div>
             <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
               <div class="h-full rounded-full transition-all duration-500" style="width:${percentuale}%; background:${piena ? '#f87171' : '#ff6b00'};"></div>
@@ -271,8 +287,8 @@
             <div class="bg-surface-container-lowest rounded-xl overflow-hidden">
               <iframe id="iframe-asta-${asta.id}"
                 data-src="https://tally.so/embed/${asta.tallyId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                loading="lazy" width="100%" height="500" frameborder="0"
-                style="border:none; display:block;"></iframe>
+                loading="lazy" width="100%" height="650" frameborder="0"
+                style="border:none; display:block; width:100%; min-height:650px;"></iframe>
             </div>
           </div>
         </div>
@@ -284,21 +300,17 @@
   function toggleForm(astaId) {
     const formDiv = document.getElementById('form-asta-' + astaId);
     const isHidden = formDiv.classList.contains('hidden');
-    // Chiudi tutti gli altri form
     document.querySelectorAll('[id^="form-asta-"]').forEach(d => d.classList.add('hidden'));
     if (isHidden) {
       formDiv.classList.remove('hidden');
-      // Carica iframe se non già caricato
       const iframe = document.getElementById('iframe-asta-' + astaId);
       if (iframe && !iframe.src && iframe.dataset.src) {
         iframe.src = iframe.dataset.src;
       }
-      // Scroll alla card
       formDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
 
-  // Carica lo script Tally
   (function(){
     var d=document, s='https://tally.so/widgets/embed.js';
     if(d.querySelector('script[src="'+s+'"]')===null){
@@ -306,7 +318,6 @@
     }
   })();
 
-  // Inizializzazione
   document.addEventListener('DOMContentLoaded', async () => {
     const counts = await fetchCounts();
     renderAste(counts);
@@ -379,7 +390,6 @@
     <div class="flex flex-wrap justify-center gap-5 md:gap-8">
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
-      
       <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="/privacy.html">Privacy Policy</a>
     </div>
   </div>
@@ -405,6 +415,3 @@
 </script>
 
 </body></html>
-
-
-
