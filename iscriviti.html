@@ -103,6 +103,19 @@
     50% { box-shadow: 0 0 0 12px rgba(255, 107, 0, 0), 0 10px 25px -5px rgba(255, 107, 0, 0.5); }
   }
   .paypal-btn { animation: pulse-glow 2s ease-in-out infinite; }
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
@@ -110,7 +123,7 @@
 <!-- Loader iniziale -->
 <div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500">
   <div class="flex flex-col items-center gap-4">
-<img src="/assets/logo.png" alt="Logo" class="h-16 w-auto animate-pulse">
+<img src="/assets/logo.png" alt="Logo" width="64" height="64" class="h-16 w-auto animate-pulse">
     <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
       <div class="h-full bg-primary-container rounded-full animate-loader"></div>
     </div>
@@ -130,7 +143,7 @@
   <div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
     <div class="flex items-center gap-10">
       <a class="flex items-center gap-3 group" href="/">
-        <img alt="Progetto Esperti Profeta Logo" class="h-12 w-auto hover:scale-105 transition-transform duration-300" src="/assets/logo.png">
+        <img alt="Progetto Esperti Profeta Logo" width="48" height="48" class="h-12 w-auto hover:scale-105 transition-transform duration-300" src="/assets/logo.png">
         <span class="text-xl font-bold text-on-surface tracking-tight font-headline">Progetto Esperti Profeta</span>
       </a>
       <div class="hidden lg:flex gap-8 items-center">
@@ -175,7 +188,7 @@
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary-container/5 rounded-full blur-[120px]"></div>
   </div>
   <div class="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20 relative z-10">
-    <div class="w-full text-center mb-16 md:mb-24">
+    <div class="w-full text-center mb-16 md:mb-24 reveal-on-scroll">
       <h1 class="font-headline text-4xl md:text-7xl font-bold tracking-tighter text-on-surface mb-6 md:mb-8">
         Come far parte del <span class="text-primary-container">progetto?</span>
       </h1>
@@ -184,7 +197,7 @@
       </p>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-      <div class="lg:col-span-7">
+      <div class="lg:col-span-7 reveal-on-scroll">
         <div class="bg-surface-container-low p-6 md:p-12 rounded-2xl relative overflow-hidden group h-full border border-outline-variant/15">
           <div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/10 blur-[120px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
           <div class="relative z-10">
@@ -222,7 +235,7 @@
           </div>
         </div>
       </div>
-      <div class="lg:col-span-5">
+      <div class="lg:col-span-5 reveal-on-scroll delay-100">
         <div class="bg-surface-container-highest p-1 flex flex-col h-full rounded-2xl shadow-2xl border border-outline-variant/15">
           <div class="bg-surface-container-lowest p-6 md:p-12 rounded-xl flex-grow flex flex-col justify-center">
             <div class="text-center mb-8 md:mb-12">
@@ -289,7 +302,7 @@
   </div>
 
   <section id="form-iscrizione" class="relative py-16 md:py-24 bg-surface-container-low border-t border-outline-variant/15">
-    <div class="max-w-3xl mx-auto px-6 md:px-8 relative z-10">
+    <div class="max-w-3xl mx-auto px-6 md:px-8 relative z-10 reveal-on-scroll">
       <div class="text-center mb-10 md:mb-12">
         <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tighter text-on-surface mb-4">
           Modulo di <span class="text-primary-container">iscrizione</span>
@@ -299,9 +312,20 @@
         </p>
       </div>
       <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-2 md:p-4 shadow-2xl">
-        <iframe data-tally-src="https://tally.so/embed/9qx6dX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-          loading="lazy" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0"
-          title="Modulo di iscrizione" style="border:none;border-radius:12px;width:100%;min-height:650px;"></iframe>
+        <div class="relative bg-surface-container-lowest rounded-xl overflow-hidden min-h-[650px] border border-outline-variant/10">
+          <!-- Skeleton Loader -->
+          <div id="tally-skeleton-iscrizione" class="absolute inset-0 p-8 flex flex-col gap-6 animate-pulse bg-surface-container-lowest z-10 transition-opacity duration-500">
+            <div class="h-6 w-1/3 bg-white/10 rounded"></div>
+            <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
+            <div class="h-6 w-1/4 bg-white/10 rounded mt-2"></div>
+            <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
+            <div class="h-12 w-full bg-primary-container/20 rounded mt-6 border border-primary-container/10"></div>
+          </div>
+          <iframe id="iframe-iscrizione" data-tally-src="https://tally.so/embed/9qx6dX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            onload="const sk = document.getElementById('tally-skeleton-iscrizione'); if(sk) { sk.style.opacity='0'; setTimeout(() => sk.remove(), 500); }"
+            loading="lazy" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0"
+            title="Modulo di iscrizione" style="border:none;border-radius:12px;width:100%;min-height:650px;"></iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -327,7 +351,7 @@
   <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
     <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
       <div class="flex items-center gap-3">
-        <img alt="Progetto Esperti Profeta Logo" class="h-8 w-auto opacity-50" src="/assets/logo.png">
+        <img alt="Progetto Esperti Profeta Logo" width="32" height="32" class="h-8 w-auto opacity-50" src="/assets/logo.png">
         <div class="text-base md:text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
       </div>
       <p class="text-gray-500 text-xs md:text-sm font-body text-center md:text-left">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
@@ -356,6 +380,22 @@
   });
   scrollBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Intersection Observer for Scroll Reveal
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
   });
 </script>
 

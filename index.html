@@ -103,6 +103,19 @@
     100% { width: 100%; }
   }
   .animate-loader { animation: loader-fill 0.8s ease-out forwards; }
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
@@ -110,7 +123,7 @@
 <!-- Loader iniziale -->
 <div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500">
   <div class="flex flex-col items-center gap-4">
-    <img src="/assets/logo.png" alt="Logo" class="h-16 w-auto animate-pulse">
+    <img src="/assets/logo.png" alt="Logo" width="64" height="64" class="h-16 w-auto animate-pulse">
     <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
       <div class="h-full bg-primary-container rounded-full animate-loader"></div>
     </div>
@@ -131,7 +144,7 @@
   <div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
     <div class="flex items-center gap-10">
       <a class="flex items-center gap-3 group" href="/">
-        <img alt="Logo" class="h-12 w-auto hover:scale-105 transition-transform duration-300" src="/assets/logo.png"/>
+        <img alt="Logo" width="48" height="48" class="h-12 w-auto hover:scale-105 transition-transform duration-300" src="/assets/logo.png"/>
         <span class="text-xl font-bold text-white tracking-tight font-headline">Progetto Esperti Profeta</span>
       </a>
       <div class="hidden lg:flex gap-8 items-center">
@@ -178,7 +191,7 @@
   </div>
   <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10 w-full py-12 md:py-0">
     <div class="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
-      <div class="md:col-span-6 space-y-6 md:space-y-8">
+      <div class="md:col-span-6 space-y-6 md:space-y-8 reveal-on-scroll">
         <h1 class="text-4xl md:text-7xl font-headline font-bold leading-[1.1] tracking-tighter text-on-surface">
           La nostra idea di <span class="text-primary-container">fantacalcio</span>
         </h1>
@@ -206,7 +219,7 @@
           <a class="px-6 md:px-8 py-3 md:py-4 bg-primary-container text-on-primary font-bold text-sm md:text-base rounded-lg shadow-lg hover:shadow-primary-container/20 transition-all inline-block" href="/iscriviti.html">Entra nel progetto</a>
         </div>
       </div>
-      <div class="md:col-span-6">
+      <div class="md:col-span-6 reveal-on-scroll delay-100">
         <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl editorial-shadow bg-surface-container-lowest">
           <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" class="w-full h-full" frameborder="0" src="https://www.youtube.com/embed/Yg1bBlCNCyE?autoplay=0&rel=0" title="Progetto Esperti Profeta Video"></iframe>
         </div>
@@ -217,30 +230,30 @@
 
 <section class="py-20 md:py-32 bg-surface-container-low relative">
   <div class="max-w-7xl mx-auto px-6 md:px-8">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-24 gap-6 md:gap-8">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-24 gap-6 md:gap-8 reveal-on-scroll">
       <div class="max-w-2xl">
         <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4 md:mb-6">Cosa offre il <span class="text-primary-container">progetto?</span></h2>
         <p class="text-base md:text-lg text-on-surface-variant font-light">Abbiamo trasformato la nostra passione in idee per fare le scelte giuste al fantacalcio.</p>
       </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
-      <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group">
+      <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group reveal-on-scroll">
         <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">groups</span>
         <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Copertura per tutte le 20 squadre Serie A</h3>
         <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Oltre 30 esperti dedicati. Garantiamo almeno un analista specializzato esclusivamente su ciascuna delle 20 squadre di Serie A per non perdere alcun dettaglio tattico.</p>
       </div>
-      <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group">
+      <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group reveal-on-scroll delay-100">
         <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">newspaper</span>
         <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Report Amichevoli & Mercato</h3>
         <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Forniamo analisi dettagliate delle amichevoli estive e, a mercato concluso, un report completo per ogni squadra con schede di ciascun giocatore in ottica fantacalcio.</p>
       </div>
-      <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group">
+      <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group reveal-on-scroll delay-200">
         <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">forum</span>
         <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Community Telegram</h3>
         <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Un gruppo Telegram esclusivo organizzato per canali dedicati (topic) a ogni singola squadra per domande dirette, discussioni generali e il format C'è Asta per Te.</p>
       </div>
     </div>
-    <div class="mt-16 md:mt-24 relative p-6 md:p-12 rounded-3xl overflow-hidden bg-gradient-to-r from-surface-container-highest to-surface-container">
+    <div class="mt-16 md:mt-24 relative p-6 md:p-12 rounded-3xl overflow-hidden bg-gradient-to-r from-surface-container-highest to-surface-container reveal-on-scroll">
       <span class="material-symbols-outlined absolute -right-8 -bottom-8 text-[280px] text-primary-container/10 pointer-events-none select-none hidden md:block leading-none">gavel</span>
       <div class="relative z-10 max-w-2xl">
         <blockquote class="text-2xl md:text-5xl font-headline font-bold text-on-surface leading-tight mb-6 md:mb-8 italic">
@@ -258,12 +271,12 @@
 <section class="py-20 md:py-32 bg-surface relative overflow-hidden border-t border-outline-variant/10">
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary-container/30 to-transparent"></div>
   <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
-    <div class="text-center mb-10 md:mb-16">
+    <div class="text-center mb-10 md:mb-16 reveal-on-scroll">
       <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">Unisciti alla nostra <span class="text-primary-container">Community</span></h2>
       <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto">Seguici su tutti i nostri canali per non perdere nemmeno un'analisi, un video o un consiglio last-minute per la tua rosa.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-5 md:gap-6">
-      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://youtube.com/@progettoespertiprofeta?si=FnO4iwX2WroTdoNf" target="_blank">
+      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center reveal-on-scroll" href="https://youtube.com/@progettoespertiprofeta?si=FnO4iwX2WroTdoNf" target="_blank">
         <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-all duration-300">
           <svg viewBox="0 0 24 24" class="w-10 h-10 md:w-12 md:h-12" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -273,10 +286,10 @@
         <p class="text-xs md:text-sm text-on-surface-variant mb-4 md:mb-6">Analisi approfondite, live e focus tattici sui singoli match.</p>
         <span class="text-primary text-sm md:text-base font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Iscriviti Ora <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
       </a>
-      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center" href="https://www.instagram.com/esperti_profeta_fantacalcio?igsh=N2p1ZXMxbHVmOWow&utm_source=qr" target="_blank">
+      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center reveal-on-scroll delay-100" href="https://www.instagram.com/esperti_profeta_fantacalcio?igsh=N2p1ZXMxbHVmOWow&utm_source=qr" target="_blank">
         <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-all duration-300">
           <svg viewBox="0 0 24 24" class="w-10 h-10 md:w-12 md:h-12" fill="white" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.44-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
           </svg>
         </div>
         <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface mb-2">Instagram</h3>
@@ -289,12 +302,12 @@
 
 <section class="py-20 bg-surface-container-low border-t border-outline-variant/10 relative">
   <div class="max-w-4xl mx-auto px-6 md:px-8">
-    <div class="text-center mb-12">
+    <div class="text-center mb-12 reveal-on-scroll">
       <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">Domande <span class="text-primary-container">Frequenti</span></h2>
       <p class="text-base text-on-surface-variant font-light">Tutto quello che c'è da sapere sul Progetto Esperti e su come partecipare.</p>
     </div>
     
-    <div class="space-y-4">
+    <div class="space-y-4 reveal-on-scroll">
       <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
         <button class="faq-toggle w-full p-5 flex justify-between items-center text-left hover:text-primary-container transition-colors focus:outline-none" onclick="toggleFaq(1)">
           <span class="font-headline font-semibold text-base md:text-lg text-on-surface">Come ricevo l'accesso al gruppo Telegram?</span>
@@ -395,7 +408,7 @@
   <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
     <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
       <div class="flex items-center gap-3">
-        <img alt="Progetto Esperti Profeta Logo" class="h-8 w-auto opacity-50" src="/assets/logo.png"/>
+        <img alt="Progetto Esperti Profeta Logo" width="32" height="32" class="h-8 w-auto opacity-50" src="/assets/logo.png"/>
         <div class="text-base md:text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
       </div>
       <p class="text-gray-500 text-xs md:text-sm font-body text-center md:text-left">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
@@ -425,6 +438,22 @@
   });
   scrollBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  
+  // Intersection Observer for Scroll Reveal
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
   });
 </script>
 
