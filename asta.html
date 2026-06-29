@@ -221,6 +221,8 @@
     }
   }
 
+  let observer;
+
   function renderAste(counts) {
     const container = document.getElementById('aste-grid');
     container.innerHTML = '';
@@ -242,6 +244,10 @@
           </a>
         </div>
       `;
+      const plc = container.querySelector('.reveal-on-scroll');
+      if (plc && observer) {
+        observer.observe(plc);
+      }
       return;
     }
 
@@ -336,6 +342,9 @@
         </div>
       `;
       container.appendChild(card);
+      if (observer) {
+        observer.observe(card);
+      }
     });
   }
 
@@ -360,12 +369,9 @@
     }
   })();
 
-  document.addEventListener('DOMContentLoaded', async () => {
-    const counts = await fetchCounts();
-    renderAste(counts);
-    
+  document.addEventListener('DOMContentLoaded', () => {
     // Intersection Observer for Scroll Reveal
-    const observer = new IntersectionObserver((entries) => {
+    observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
@@ -373,6 +379,16 @@
         }
       });
     }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+
+    // Non-blocking asynchronous rendering
+    if (!ASTE_ATTIVE) {
+      renderAste(null);
+    } else {
+      renderAste(null);
+      fetchCounts().then(counts => {
+        if (counts) renderAste(counts);
+      });
+    }
 
     document.querySelectorAll('.reveal-on-scroll').forEach(el => {
       observer.observe(el);
