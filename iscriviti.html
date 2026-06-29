@@ -307,6 +307,22 @@
                     </p>
                   </div>
                 </div>
+                <!-- Telegram Username Tester -->
+                <div class="mt-4 pt-3 border-t border-outline-variant/10">
+                  <label for="tg-tester" class="block text-[11px] font-bold uppercase tracking-wider text-primary-container mb-2">Testa e valida il tuo username Telegram:</label>
+                  <div class="flex gap-2">
+                    <div class="relative flex-grow">
+                      <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-on-surface-variant font-medium select-none">@</span>
+                      <input type="text" id="tg-tester" placeholder="mario_esperti" class="w-full pl-7 pr-3 py-2 bg-surface text-xs text-on-surface rounded border border-outline-variant/20 focus:border-primary-container focus:outline-none placeholder-gray-600 transition-colors">
+                    </div>
+                    <button type="button" onclick="testTelegramHandle()" class="px-4 py-2 bg-surface-container-high hover:bg-primary-container hover:text-on-primary text-xs font-bold text-on-surface rounded border border-outline-variant/25 transition-colors shrink-0 flex items-center gap-1.5 active:scale-[0.98]">
+                      <span class="material-symbols-outlined text-sm">open_in_new</span> Verifica
+                    </button>
+                  </div>
+                  <p id="tg-tester-help" class="text-[10px] text-on-surface-variant/70 leading-normal mt-1.5">
+                    Verifica che si apra il tuo profilo Telegram corretto prima di inserirlo nel modulo.
+                  </p>
+                </div>
               </div>
               <a href="#form-iscrizione" class="paypal-btn w-full bg-primary-container py-4 md:py-5 rounded-lg text-on-primary font-bold text-base md:text-lg transition-all active:scale-[0.98] flex items-center justify-center gap-3 group">
                 <span class="material-symbols-outlined group-hover:translate-y-1 transition-transform">arrow_downward</span>
@@ -415,6 +431,30 @@
   scrollBtn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+
+  function testTelegramHandle() {
+    const input = document.getElementById('tg-tester');
+    const help = document.getElementById('tg-tester-help');
+    if (!input) return;
+    
+    let username = input.value.trim();
+    if (!username) {
+      if (help) {
+        help.innerHTML = '<span class="text-error font-medium">Inserisci uno username per effettuare il test.</span>';
+      }
+      return;
+    }
+    
+    // Clean username (remove leading @ and any spaces)
+    username = username.replace(/^@/, '').replace(/\s+/g, '');
+    
+    if (help) {
+      help.innerHTML = `Link generato: <strong class="text-primary-container">t.me/${username}</strong>. Controlla se apre il tuo profilo...`;
+    }
+    
+    // Open in a new tab
+    window.open(`https://t.me/${username}`, '_blank');
+  }
 
   // Intersection Observer for Scroll Reveal
   document.addEventListener('DOMContentLoaded', () => {
