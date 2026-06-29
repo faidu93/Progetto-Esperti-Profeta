@@ -105,8 +105,8 @@
   .paypal-btn { animation: pulse-glow 2s ease-in-out infinite; }
   .reveal-on-scroll {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
   }
   .reveal-on-scroll.revealed {
@@ -121,7 +121,7 @@
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
 
 <!-- Loader iniziale -->
-<div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500">
+<div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500 ease-out">
   <div class="flex flex-col items-center gap-4">
 <img src="/assets/logo.png" alt="Logo" width="64" height="64" class="h-16 w-auto animate-pulse">
     <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
@@ -130,13 +130,21 @@
   </div>
 </div>
 <script>
-  window.addEventListener('load', () => {
-    setTimeout(() => {
+  (function() {
+    function hideLoader() {
       const loader = document.getElementById('page-loader');
-      loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 500);
-    }, 600);
-  });
+      if (loader && loader.style.opacity !== '0') {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(hideLoader, 100);
+    });
+    window.addEventListener('load', hideLoader);
+  })();
 </script>
 
 <nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
