@@ -134,21 +134,26 @@
   </div>
 </div>
 <script>
-  (function() {
-    function hideLoader() {
+  if (sessionStorage.getItem('visited')) {
+    document.getElementById('page-loader').style.display = 'none';
+  } else {
+    (function() {
       const loader = document.getElementById('page-loader');
-      if (loader && loader.style.opacity !== '0') {
-        loader.style.opacity = '0';
-        setTimeout(() => {
-          loader.style.display = 'none';
-        }, 500);
+      function hideLoader() {
+        if (loader && loader.style.opacity !== '0') {
+          loader.style.opacity = '0';
+          sessionStorage.setItem('visited', 'true');
+          setTimeout(() => {
+            loader.style.display = 'none';
+          }, 500);
+        }
       }
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(hideLoader, 100);
-    });
-    window.addEventListener('load', hideLoader);
-  })();
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(hideLoader, 150);
+      });
+      window.addEventListener('load', hideLoader);
+    })();
+  }
 </script>
 
 <nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
