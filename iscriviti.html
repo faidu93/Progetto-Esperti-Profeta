@@ -309,7 +309,12 @@
                 </div>
                 <!-- Telegram Username Tester -->
                 <div class="mt-4 pt-3 border-t border-outline-variant/10">
-                  <label for="tg-tester" class="block text-[11px] font-bold uppercase tracking-wider text-primary-container mb-2">Testa e valida il tuo username Telegram:</label>
+                  <div class="flex justify-between items-center mb-2">
+                    <label for="tg-tester" class="block text-[11px] font-bold uppercase tracking-wider text-primary-container">Testa e valida lo username Telegram:</label>
+                    <button type="button" onclick="toggleTelegramGuide(true)" class="text-[10px] text-on-surface-variant hover:text-primary-container font-medium transition-colors flex items-center gap-1">
+                      <span class="material-symbols-outlined text-xs">help</span> Dove si trova?
+                    </button>
+                  </div>
                   <div class="flex gap-2">
                     <div class="relative flex-grow">
                       <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-on-surface-variant font-medium select-none">@</span>
@@ -479,6 +484,18 @@
     window.open(`https://t.me/${username}`, '_blank');
   }
 
+  function toggleTelegramGuide(show) {
+    const modal = document.getElementById('tg-guide-modal');
+    if (!modal) return;
+    if (show) {
+      modal.classList.remove('opacity-0', 'invisible');
+      modal.classList.add('opacity-100', 'visible');
+    } else {
+      modal.classList.add('opacity-0', 'invisible');
+      modal.classList.remove('opacity-100', 'visible');
+    }
+  }
+
   function confirmTelegramHandle(success) {
     const help = document.getElementById('tg-tester-help');
     const input = document.getElementById('tg-tester');
@@ -497,41 +514,16 @@
     const username = window.tempTelegramUsername;
     if (!username) return;
     
-    // Get Tally iframe
-    const iframe = document.getElementById('iframe-iscrizione');
-    if (iframe) {
-      const baseUrl = "https://tally.so/embed/9qx6dX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
-      
-      // Generate all possible variations of the Telegram question key to ensure a match
-      const keys = [
-        'Username Telegram', 'username_telegram', 'usernameTelegram', 'Username_Telegram', 'username-telegram',
-        'telegram', 'Telegram', 'telegram_username', 'telegramUsername', 'telegram-username',
-        'username', 'Username', 'tg', 'Tg', 'tg_username', 'tgUsername', 'tg-username',
-        'telegram_handle', 'telegramHandle', 'telegram-handle', 'handle_telegram', 'handleTelegram', 'handle-telegram',
-        'contatto_telegram', 'contattoTelegram', 'contatto-telegram', 'nome_utente_telegram', 'nomeUtenteTelegram', 'nome-utente-telegram',
-        'username_tg', 'usernameTg', 'username-tg', 'handle', 'Handle', 'user', 'User',
-        '93d8656e-9722-4faf-b24c-b61f9cd29a2e', '0a996d00-2f58-4e36-873c-271e66c4aaee'
-      ];
-      let prefillParams = '';
-      keys.forEach(k => {
-        prefillParams += `&${encodeURIComponent(k)}=${encodeURIComponent(username)}`;
-      });
-      
-      const finalUrl = baseUrl + prefillParams;
-      
-      // Update both src and data-tally-src to force reload and prevent scripts from restoring old URL
-      iframe.setAttribute('data-tally-src', finalUrl);
-      iframe.src = finalUrl;
-      
-      // Notify Tally widget script of the update
-      if (typeof Tally !== 'undefined') {
-        Tally.loadEmbeds();
-      }
-      
+    // Copy username to clipboard automatically
+    navigator.clipboard.writeText(username).then(() => {
       if (help) {
-        help.innerHTML = `<span class="text-green-400 font-bold flex items-center gap-1"><span class="material-symbols-outlined text-sm">done_all</span> Username confermato! Il modulo sottostante è stato pre-compilato con @${username}.</span>`;
+        help.innerHTML = `<span class="text-green-400 font-bold flex items-center gap-1"><span class="material-symbols-outlined text-sm">done_all</span> Username copiato! Scorri in basso e incollalo nel modulo.</span>`;
       }
-      
+    }).catch(() => {
+      if (help) {
+        help.innerHTML = `<span class="text-green-400 font-bold flex items-center gap-1"><span class="material-symbols-outlined text-sm">done_all</span> Confermato! Ricorda lo username: @${username} (incollalo nel modulo).</span>`;
+      }
+    }).finally(() => {
       // Smooth scroll to the form section after a short delay
       setTimeout(() => {
         const formSec = document.getElementById('form-iscrizione');
@@ -539,7 +531,7 @@
           formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, 800);
-    }
+    });
   }
 
   // Intersection Observer for Scroll Reveal
@@ -558,5 +550,26 @@
     });
   });
 </script>
+
+<!-- Telegram Guide Modal -->
+<div id="tg-guide-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 invisible transition-all duration-300" onclick="if(event.target === this) toggleTelegramGuide(false)">
+  <div class="relative w-full max-w-sm bg-surface-container-lowest border border-outline-variant/15 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center px-5 py-4 border-b border-outline-variant/10">
+      <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider">Dove trovare lo username</h4>
+      <button onclick="toggleTelegramGuide(false)" class="text-on-surface-variant hover:text-on-surface transition-colors flex items-center">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <!-- Modal Body -->
+    <div class="p-6 overflow-y-auto flex flex-col items-center text-center space-y-4">
+      <img src="assets/guida_username_telegram.jpg" alt="Guida Username Telegram" class="w-full rounded-xl border border-outline-variant/10 shadow-lg object-contain max-h-[45vh]">
+      <div class="text-[11px] text-on-surface-variant leading-relaxed text-left w-full space-y-2">
+        <p><strong>1. Su Telefono (iOS/Android):</strong> Apri Telegram, vai su <em>Impostazioni</em> (in basso a destra) e controlla il campo <em>Nome utente</em> sotto la tua foto.</p>
+        <p><strong>2. Su Computer (Desktop):</strong> Clicca sul menu in alto a sinistra &rarr; <em>Impostazioni</em> &rarr; <em>Modifica profilo</em> &rarr; <em>Nome utente</em>.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body></html>
