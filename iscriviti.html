@@ -501,10 +501,32 @@
     const iframe = document.getElementById('iframe-iscrizione');
     if (iframe) {
       const baseUrl = "https://tally.so/embed/9qx6dX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
-      const prefillParams = `&telegram=${encodeURIComponent(username)}&telegram_username=${encodeURIComponent(username)}&username=${encodeURIComponent(username)}&username_telegram=${encodeURIComponent(username)}&nome_utente_telegram=${encodeURIComponent(username)}`;
       
-      // Update iframe source to reload with prefilled username
-      iframe.src = baseUrl + prefillParams;
+      // Generate all possible variations of the Telegram question key to ensure a match
+      const keys = [
+        'Username Telegram', 'username_telegram', 'usernameTelegram', 'Username_Telegram', 'username-telegram',
+        'telegram', 'Telegram', 'telegram_username', 'telegramUsername', 'telegram-username',
+        'username', 'Username', 'tg', 'Tg', 'tg_username', 'tgUsername', 'tg-username',
+        'telegram_handle', 'telegramHandle', 'telegram-handle', 'handle_telegram', 'handleTelegram', 'handle-telegram',
+        'contatto_telegram', 'contattoTelegram', 'contatto-telegram', 'nome_utente_telegram', 'nomeUtenteTelegram', 'nome-utente-telegram',
+        'username_tg', 'usernameTg', 'username-tg', 'handle', 'Handle', 'user', 'User',
+        '93d8656e-9722-4faf-b24c-b61f9cd29a2e', '0a996d00-2f58-4e36-873c-271e66c4aaee'
+      ];
+      let prefillParams = '';
+      keys.forEach(k => {
+        prefillParams += `&${encodeURIComponent(k)}=${encodeURIComponent(username)}`;
+      });
+      
+      const finalUrl = baseUrl + prefillParams;
+      
+      // Update both src and data-tally-src to force reload and prevent scripts from restoring old URL
+      iframe.setAttribute('data-tally-src', finalUrl);
+      iframe.src = finalUrl;
+      
+      // Notify Tally widget script of the update
+      if (typeof Tally !== 'undefined') {
+        Tally.loadEmbeds();
+      }
       
       if (help) {
         help.innerHTML = `<span class="text-green-400 font-bold flex items-center gap-1"><span class="material-symbols-outlined text-sm">done_all</span> Username confermato! Il modulo sottostante è stato pre-compilato con @${username}.</span>`;
