@@ -90,8 +90,16 @@
   .editorial-shadow {
     box-shadow: 0px 24px 48px rgba(255,107,0,0.06);
   }
-  #mobile-menu { display: none; }
-  #mobile-menu.open { display: block; }
+  #mobile-menu {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  }
+  #mobile-menu.open {
+    max-height: 200px;
+    opacity: 1;
+  }
   html, body { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; }
   @keyframes loader-fill {
     0% { width: 0%; }
@@ -152,7 +160,7 @@
     <div class="flex items-center gap-10">
       <a class="flex items-center gap-3 group" href="/">
         <img alt="Progetto Esperti Profeta Logo" width="48" height="48" class="h-12 w-auto hover:scale-105 transition-transform duration-300" src="/assets/logo.png">
-        <span class="text-xl font-bold text-on-surface tracking-tight font-headline">Progetto Esperti Profeta</span>
+        <span class="text-lg md:text-xl font-bold text-on-surface tracking-tight font-headline">Progetto Esperti Profeta</span>
       </a>
       <div class="hidden lg:flex gap-8 items-center">
         <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
@@ -166,8 +174,8 @@
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
     </button>
   </div>
-  <div id="mobile-menu" class="lg:hidden bg-[#131313] border-t border-white/5 px-6 pb-6">
-    <div class="flex flex-col gap-5 pt-5">
+  <div id="mobile-menu" class="lg:hidden bg-[#131313] border-t border-white/5 overflow-hidden transition-all duration-300 ease-in-out">
+    <div class="flex flex-col gap-5 px-6 py-5">
       <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
       <a class="font-headline font-semibold text-sm tracking-wide text-primary-container" href="/iscriviti.html">Iscriviti</a>
       <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/asta.html">C'è Asta per Te</a>
