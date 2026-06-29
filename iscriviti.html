@@ -448,12 +448,76 @@
     // Clean username (remove leading @ and any spaces)
     username = username.replace(/^@/, '').replace(/\s+/g, '');
     
+    // Format validation
+    const tgRegex = /^[a-zA-Z0-9_]{5,}$/;
+    if (!tgRegex.test(username)) {
+      if (help) {
+        help.innerHTML = '<span class="text-error font-medium">Formato non valido: deve contenere almeno 5 caratteri e solo lettere, numeri o trattini bassi (_).</span>';
+      }
+      return;
+    }
+    
+    // Save temporary username for confirmation callback
+    window.tempTelegramUsername = username;
+    
     if (help) {
-      help.innerHTML = `Link generato: <strong class="text-primary-container">t.me/${username}</strong>. Controlla se apre il tuo profilo...`;
+      help.innerHTML = `
+        <div class="space-y-2 mt-2">
+          <p class="text-green-400 font-medium flex items-center gap-1"><span class="material-symbols-outlined text-sm">check_circle</span> Formato valido! Abbiamo aperto t.me/${username}</p>
+          <div class="p-2.5 bg-primary-container/10 border border-primary-container/20 rounded-lg space-y-2 text-left">
+            <p class="text-on-surface-variant font-medium text-[10px]">Il tuo profilo Telegram si è aperto correttamente?</p>
+            <div class="flex gap-2">
+              <button type="button" onclick="confirmTelegramHandle(true)" class="px-2.5 py-1 bg-primary-container hover:bg-primary-container/80 text-on-primary font-bold rounded text-[10px] transition-colors">Sì, compila il modulo</button>
+              <button type="button" onclick="confirmTelegramHandle(false)" class="px-2.5 py-1 bg-surface-container-high text-on-surface font-bold rounded text-[10px] hover:bg-surface-container-highest transition-colors border border-outline-variant/10">No, correggi</button>
+            </div>
+          </div>
+        </div>
+      `;
     }
     
     // Open in a new tab
     window.open(`https://t.me/${username}`, '_blank');
+  }
+
+  function confirmTelegramHandle(success) {
+    const help = document.getElementById('tg-tester-help');
+    const input = document.getElementById('tg-tester');
+    
+    if (!success) {
+      if (help) {
+        help.innerHTML = 'Verifica che si apra il tuo profilo Telegram corretto prima di inserirlo nel modulo.';
+      }
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      return;
+    }
+    
+    const username = window.tempTelegramUsername;
+    if (!username) return;
+    
+    // Get Tally iframe
+    const iframe = document.getElementById('iframe-iscrizione');
+    if (iframe) {
+      const baseUrl = "https://tally.so/embed/9qx6dX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
+      const prefillParams = `&telegram=${encodeURIComponent(username)}&telegram_username=${encodeURIComponent(username)}&username=${encodeURIComponent(username)}&username_telegram=${encodeURIComponent(username)}&nome_utente_telegram=${encodeURIComponent(username)}`;
+      
+      // Update iframe source to reload with prefilled username
+      iframe.src = baseUrl + prefillParams;
+      
+      if (help) {
+        help.innerHTML = `<span class="text-green-400 font-bold flex items-center gap-1"><span class="material-symbols-outlined text-sm">done_all</span> Username confermato! Il modulo sottostante è stato pre-compilato con @${username}.</span>`;
+      }
+      
+      // Smooth scroll to the form section after a short delay
+      setTimeout(() => {
+        const formSec = document.getElementById('form-iscrizione');
+        if (formSec) {
+          formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 800);
+    }
   }
 
   // Intersection Observer for Scroll Reveal
