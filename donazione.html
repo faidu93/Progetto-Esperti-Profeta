@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Meta refresh to attempt instant browser redirection (client-side redirect bypasses Universal Links) -->
+  <meta http-equiv="refresh" content="2;url=https://www.paypal.com/pools/c/9qfBbAyRoC">
   <title>Reindirizzamento sicuro a PayPal - Progetto Esperti</title>
   <style>
     body {
@@ -16,16 +18,26 @@
       height: 100vh;
       margin: 0;
       text-align: center;
-      padding: 20px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .card {
+      background-color: #1c1c1e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 32px 24px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
     .loader {
       border: 3px solid rgba(255, 255, 255, 0.1);
       border-radius: 50%;
       border-top: 3px solid #FF6B00;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       animation: spin 1s linear infinite;
-      margin-bottom: 20px;
+      margin: 0 auto 20px auto;
     }
     @keyframes spin {
       0% { transform: rotate(0deg); }
@@ -33,32 +45,84 @@
     }
     h1 {
       font-size: 18px;
-      margin-bottom: 8px;
+      margin: 0 0 12px 0;
       font-weight: 600;
+      color: #FFFFFF;
     }
     p {
-      font-size: 14px;
+      font-size: 13px;
       color: #a2a09f;
-      margin-bottom: 24px;
+      line-height: 1.6;
+      margin: 0 0 20px 0;
     }
-    a {
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      background-color: #FF6B00;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 8px;
+      transition: background-color 0.2s, transform 0.1s;
+      box-sizing: border-box;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #e05e00;
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .tip-box {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-t: 1px solid rgba(255, 255, 255, 0.08);
+      text-align: left;
+    }
+    .tip-title {
+      font-size: 11px;
+      font-weight: bold;
       color: #FF6B00;
-      text-decoration: underline;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .tip-text {
+      font-size: 11px;
+      color: #8e8c8a;
+      line-height: 1.5;
+      margin: 0;
     }
   </style>
   <script>
+    // Fallback instant redirect in case meta refresh is blocked or delayed
     window.onload = function() {
-      // Programmatic redirect using trailing-dot domain to bypass iOS Universal Links and force web browser load
       setTimeout(function() {
-        window.location.replace("https://www.paypal.com./pools/c/9qfBbAyRoC");
-      }, 500);
+        window.location.replace("https://www.paypal.com/pools/c/9qfBbAyRoC");
+      }, 1500);
     };
   </script>
 </head>
 <body>
-  <div class="loader"></div>
-  <h1>Connessione a PayPal in corso</h1>
-  <p>Ti stiamo reindirizzando in modo sicuro al modulo di donazione...</p>
-  <p style="font-size: 11px;">Se non vieni reindirizzato entro pochi secondi, <a href="https://www.paypal.com./pools/c/9qfBbAyRoC">clicca qui</a>.</p>
+  <div class="card">
+    <div class="loader"></div>
+    <h1>Reindirizzamento a PayPal</h1>
+    <p>Ti stiamo connettendo in modo sicuro alla pagina di donazione...</p>
+    
+    <a href="https://www.paypal.com/pools/c/9qfBbAyRoC" class="btn">Procedi su PayPal (15€)</a>
+    
+    <div class="tip-box">
+      <div class="tip-title">⚠️ Nota per iPhone/iPad:</div>
+      <p class="tip-text">
+        Se si apre l'app di PayPal e riscontri errori, torna su questa pagina, <strong>tieni premuto</strong> il pulsante sopra e seleziona <strong>"Apri"</strong> (oppure <strong>"Apri in un nuovo pannello"</strong>) per pagare direttamente dal browser.
+      </p>
+    </div>
+  </div>
 </body>
 </html>
