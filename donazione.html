@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Meta refresh to attempt instant browser redirection (client-side redirect bypasses Universal Links) -->
-  <meta http-equiv="refresh" content="0;url=https://www.paypal.com/pools/c/9qfBbAyRoC">
+  <!-- Meta refresh to attempt instant browser redirection to the new PayPal.me link -->
+  <meta http-equiv="refresh" content="2;url=https://paypal.me/Lerry88/15?locale.x=it_IT&country.x=IT">
   <title>Reindirizzamento sicuro a PayPal - Progetto Esperti</title>
   <style>
     body {
@@ -79,7 +79,7 @@
     .tip-box {
       margin-top: 24px;
       padding-top: 16px;
-      border-t: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       text-align: left;
     }
     .tip-title {
@@ -101,11 +101,11 @@
     }
   </style>
   <script>
-    // Fallback instant redirect in case meta refresh is blocked or delayed
+    // Fallback redirect in case meta refresh is blocked or delayed
     window.onload = function() {
       setTimeout(function() {
-        window.location.replace("https://www.paypal.com/pools/c/9qfBbAyRoC");
-      }, 500);
+        window.location.replace("https://paypal.me/Lerry88/15?locale.x=it_IT&country.x=IT");
+      }, 1500);
     };
   </script>
 </head>
@@ -113,14 +113,14 @@
   <div class="card">
     <div class="loader"></div>
     <h1>Reindirizzamento a PayPal</h1>
-    <p>Ti stiamo connettendo in modo sicuro alla pagina di donazione...</p>
+    <p>Ti stiamo connettendo in modo sicuro a PayPal...</p>
     
-    <a href="https://www.paypal.com/pools/c/9qfBbAyRoC" class="btn">Procedi su PayPal (15€)</a>
+    <a href="https://paypal.me/Lerry88/15?locale.x=it_IT&country.x=IT" class="btn">Procedi su PayPal (15€)</a>
     
     <div class="tip-box">
-      <div class="tip-title">⚠️ Nota per iPhone/iPad:</div>
+      <div class="tip-title">⚠️ IMPORTANTISSIMO:</div>
       <p class="tip-text">
-        Se si apre l'app di PayPal e riscontri errori, torna su questa pagina, <strong>tieni premuto</strong> il pulsante sopra e seleziona <strong>"Apri"</strong> (oppure <strong>"Apri in un nuovo pannello"</strong>) per pagare direttamente dal browser.
+        Durante il pagamento, assicurati di selezionare l'opzione <strong>"Invia a un amico"</strong> (o <strong>"Amici e familiari"</strong>) e NON "Beni e servizi", altrimenti la donazione sarà soggetta a commissioni.
       </p>
     </div>
   </div>
