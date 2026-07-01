@@ -160,6 +160,16 @@
   }
 </script>
 
+<!-- Banner In-App Browser Warning -->
+<div id="inapp-warning-banner" class="hidden bg-amber-950/95 border-b border-amber-500/30 text-amber-200 px-4 py-3 text-xs md:text-sm text-center font-medium relative z-50">
+  <div class="max-w-4xl mx-auto flex items-center justify-center gap-2">
+    <span class="material-symbols-outlined text-amber-400 text-lg shrink-0">warning</span>
+    <span>
+      Sei nel browser di Instagram/Telegram. Per evitare errori con PayPal, premi sui <strong>tre puntini (...)</strong> in alto a destra e seleziona <strong>"Apri nel browser"</strong> (o <strong>"Apri in Safari/Chrome"</strong>).
+    </span>
+  </div>
+</div>
+
 <nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
   <div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
     <div class="flex items-center gap-10">
@@ -301,9 +311,14 @@
                   </div>
                   <div class="flex gap-3 items-start">
                     <span class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 font-headline">2</span>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">
-                      Fai la donazione di <strong class="text-on-surface">15€</strong> al link PayPal.
-                    </p>
+                    <div class="min-w-0 flex-1">
+                      <p class="text-xs text-on-surface-variant leading-relaxed mb-2">
+                        Fai la donazione di <strong class="text-on-surface">15€</strong> tramite PayPal.
+                      </p>
+                      <a href="donazione.html" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-container/20 hover:bg-primary-container/30 border border-primary-container/30 text-primary-container font-bold rounded-lg text-[10px] transition-all active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-xs">open_in_new</span> Apri PayPal per donare
+                      </a>
+                    </div>
                   </div>
                   <div class="flex gap-3 items-start">
                     <span class="w-5 h-5 rounded-full bg-primary-container/20 text-primary-container text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 font-headline">3</span>
@@ -454,6 +469,15 @@
       observer.observe(el);
     });
   });
+
+  // Detect Instagram/Telegram in-app browser
+  (function() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isInApp = (ua.indexOf('Instagram') > -1 || ua.indexOf('FBAN') > -1 || ua.indexOf('FBAV') > -1 || ua.indexOf('Telegram') > -1 || ua.indexOf('Messenger') > -1);
+    if (isInApp) {
+      document.getElementById('inapp-warning-banner')?.classList.remove('hidden');
+    }
+  })();
 </script>
 
 <!-- Telegram Guide Modal -->
