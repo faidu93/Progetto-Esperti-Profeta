@@ -201,17 +201,13 @@
   // ============================================================
   // CONFIGURAZIONE ASTE — modifica solo questi valori!
   // ============================================================
-  const ASTE_ATTIVE = false; // metti true per attivare le aste
+  const ASTE_ATTIVE = true; // metti true per attivare le aste
 
   const API_URL = 'https://script.google.com/macros/s/AKfycbysdivWB_0vbHf8dKQmllitCmKacQfGsDJMunORHE8wrV14gghREhe44jTo1p_kSfNTfQ/exec';
 
   const aste = [
-    { id: 1, nome: "Asta 1", data: "1 settembre", modalita: "Classic", tallyId: "kdA6Wo", max_posti: 10 },
-    { id: 2, nome: "Asta 2", data: "2 settembre", modalita: "Classic", tallyId: "QKXo2k", max_posti: 10 },
-    { id: 3, nome: "Asta 3", data: "3 settembre", modalita: "Classic", tallyId: "QKXool", max_posti: 10 },
-    { id: 4, nome: "Asta 4", data: "4 settembre", modalita: "Classic", tallyId: "PdgRpx", max_posti: 10 },
-    { id: 5, nome: "Asta 5", data: "5 settembre", modalita: "Classic", tallyId: "KYgp5D", max_posti: 10 },
-    { id: 6, nome: "Asta 6", data: "6 settembre", modalita: "Classic", tallyId: "D4YqkE", max_posti: 10 },
+    { id: 1, nome: "Asta Classica #1", data: "Data da definire", modalita: "Classic", tallyId: "kdA6Wo", max_posti: 10, quota: "25€" },
+    { id: 2, nome: "Asta Classica #2", data: "Data da definire", modalita: "Classic", tallyId: "QKXo2k", max_posti: 10, quota: "25€" }
   ];
 
   // Carica conteggi dal Google Sheet tramite API
@@ -357,6 +353,10 @@
               <span class="material-symbols-outlined text-base">calendar_month</span> ${asta.data}
             </p>
           </div>
+          <div class="flex items-center justify-between border-t border-b border-outline-variant/10 py-2.5 my-2">
+            <span class="text-xs text-on-surface-variant">Quota di partecipazione:</span>
+            <span class="text-sm font-bold text-primary-container">${asta.quota}</span>
+          </div>
           <div class="space-y-2">
             <div class="flex justify-between text-xs md:text-sm">
               <span class="text-on-surface-variant">${labelPosti}</span>
@@ -492,7 +492,7 @@
         <div class="relative z-10 flex flex-col items-center text-center group reveal-on-scroll delay-200">
           <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-surface-container-highest border-2 border-primary-container flex items-center justify-center text-primary-container text-3xl md:text-4xl font-headline font-bold mb-6 md:mb-8 group-hover:bg-primary-container group-hover:text-on-primary transition-all duration-300">3</div>
           <h3 class="text-xl md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Effettua la donazione e accedi al gruppo</h3>
-          <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Utilizza il link PayPal fornito e ricevi l'accesso al gruppo Telegram dedicato all'asta.</p>
+          <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Utilizza il link PayPal per versare la quota di 25€ e ricevi l'accesso al gruppo Telegram dedicato all'asta.</p>
         </div>
       </div>
     </div>
