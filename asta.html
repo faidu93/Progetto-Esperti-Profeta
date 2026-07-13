@@ -206,8 +206,8 @@
   const API_URL = 'https://script.google.com/macros/s/AKfycbysdivWB_0vbHf8dKQmllitCmKacQfGsDJMunORHE8wrV14gghREhe44jTo1p_kSfNTfQ/exec';
 
   const aste = [
-    { id: 1, nome: "Asta Classica #1", data: "Data da definire", modalita: "Classic", tallyId: "kdA6Wo", max_posti: 10, quota: "25€" },
-    { id: 2, nome: "Asta Classica #2", data: "Data da definire", modalita: "Classic", tallyId: "QKXo2k", max_posti: 10, quota: "25€" }
+    { id: 1, nome: "Asta Classica #1", data: "20 agosto", modalita: "Classic", tallyId: "kdA6Wo", max_posti: 10, quota: "25€" },
+    { id: 2, nome: "Asta Classica #2", data: "6 settembre", modalita: "Classic", tallyId: "QKXo2k", max_posti: 10, quota: "25€" }
   ];
 
   // Carica conteggi dal Google Sheet tramite API
@@ -353,9 +353,12 @@
               <span class="material-symbols-outlined text-base">calendar_month</span> ${asta.data}
             </p>
           </div>
-          <div class="flex items-center justify-between border-t border-b border-outline-variant/10 py-2.5 my-2">
-            <span class="text-xs text-on-surface-variant">Quota di partecipazione:</span>
-            <span class="text-sm font-bold text-primary-container">${asta.quota}</span>
+          <div class="border-t border-b border-outline-variant/10 py-2.5 my-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-on-surface-variant">Quota di partecipazione:</span>
+              <span class="text-sm font-bold text-primary-container">${asta.quota}</span>
+            </div>
+            <span class="text-[9px] text-on-surface-variant/60 block mt-1 text-right">di cui 20€ montepremi e 5€ gestione</span>
           </div>
           <div class="space-y-2">
             <div class="flex justify-between text-xs md:text-sm">
