@@ -120,6 +120,13 @@
   .delay-100 { transition-delay: 100ms; }
   .delay-200 { transition-delay: 200ms; }
   .delay-300 { transition-delay: 300ms; }
+  @media (max-width: 1024px) {
+    .reveal-on-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
@@ -495,22 +502,39 @@
     // Render immediately (with skeleton placeholders for counts)
     renderAste();
 
-    // Trigger immediate observer setup and fallback viewport check
+    // Trigger immediate observer setup
     document.querySelectorAll('.reveal-on-scroll').forEach(el => {
       observer.observe(el);
-      // Fallback: if elements are already in the viewport, reveal immediately
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        el.classList.add('revealed');
-        observer.unobserve(el);
-      }
     });
+
+    // Fallback: function to reveal elements already visible in viewport
+    function checkViewportReveal() {
+      document.querySelectorAll('.reveal-on-scroll:not(.revealed)').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.height > 0 && rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('revealed');
+          observer.unobserve(el);
+        }
+      });
+    }
+
+    // Run fallback check immediately
+    checkViewportReveal();
+
+    // Run check again after 100ms and 300ms to allow layout/paint calculations
+    setTimeout(checkViewportReveal, 100);
+    setTimeout(checkViewportReveal, 300);
+
+    // Run check on full page load
+    window.addEventListener('load', checkViewportReveal);
 
     // Fetch counts in background and update DOM in-place
     if (ASTE_ATTIVE) {
       fetchCounts().then(counts => {
         if (counts) {
           updateCounts(counts);
+          // Re-check viewport reveal after updating counts
+          checkViewportReveal();
         }
       });
     }
