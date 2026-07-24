@@ -265,7 +265,7 @@
     setInterval(update, 1000);
   }
 
-  function renderAste(counts) {
+  function renderAste() {
     const container = document.getElementById('aste-grid');
     container.innerHTML = '';
 
@@ -307,19 +307,11 @@
           </a>
         </div>
       `;
-      const plc = container.querySelector('.reveal-on-scroll');
-      if (plc && observer) {
-        observer.observe(plc);
-      }
       startCountdown();
       return;
     }
 
     aste.forEach((asta, idx) => {
-      const posti_occupati = counts ? (counts['asta_' + asta.id] || 0) : 0;
-      const piena = posti_occupati >= asta.max_posti;
-      const percentuale = Math.round((posti_occupati / asta.max_posti) * 100);
-      const postiLiberi = asta.max_posti - posti_occupati;
       let coloreModalita = '';
       if (asta.modalita === 'Mantra' || asta.modalita === 'Mantra Euroleghe') {
         coloreModalita = 'text-purple-400 bg-purple-400/10 border-purple-400/20';
@@ -331,38 +323,17 @@
         coloreModalita = 'text-[#ff6b00] bg-[#ff6b00]/10 border-[#ff6b00]/20';
       }
 
-      // Dinamizzazione etichette dei posti per creare urgenza
-      let labelPosti = "Posti liberi";
-      let testoPosti = `${postiLiberi}/${asta.max_posti}`;
-      let classeTestoPosti = 'text-on-surface';
-
-      if (piena) {
-        labelPosti = "Posti esauriti";
-        testoPosti = "0 liberi";
-        classeTestoPosti = 'text-red-400 font-bold';
-      } else if (postiLiberi === 1) {
-        labelPosti = "Ultimo posto!";
-        testoPosti = "1 libero";
-        classeTestoPosti = 'text-red-500 font-bold animate-pulse';
-      } else if (postiLiberi <= 3) {
-        labelPosti = "Ultimi posti rimasti!";
-        testoPosti = `${postiLiberi} liberi`;
-        classeTestoPosti = 'text-orange-400 font-bold';
-      }
-
       // Add stagger classes for reveal-on-scroll
       const delayClass = idx % 3 === 0 ? '' : (idx % 3 === 1 ? 'delay-100' : 'delay-200');
 
       const card = document.createElement('div');
-      card.className = 'bg-surface-container-low rounded-2xl border ' + (piena ? 'border-red-500/20' : 'border-outline-variant/15 hover:border-primary-container/40') + ' transition-all duration-300 overflow-hidden reveal-on-scroll ' + delayClass;
+      card.id = 'asta-card-' + asta.id;
+      card.className = 'bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary-container/40 transition-all duration-300 overflow-hidden reveal-on-scroll ' + delayClass;
       card.innerHTML = `
         <div class="p-5 md:p-6 space-y-3 md:space-y-4">
           <div class="flex items-center justify-between gap-2">
             <span class="text-[10px] md:text-xs font-bold uppercase tracking-widest ${coloreModalita} px-2.5 md:px-3 py-1 rounded-full border">${asta.modalita}</span>
-            ${piena
-              ? '<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-2.5 md:px-3 py-1 rounded-full">Completa</span>'
-              : '<span class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-2.5 md:px-3 py-1 rounded-full">Aperta</span>'
-            }
+            <span id="badge-stato-${asta.id}" class="text-[10px] md:text-xs font-bold uppercase tracking-widest text-green-400 bg-green-400/10 px-2.5 md:px-3 py-1 rounded-full">Aperta</span>
           </div>
           <div>
             <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface">${asta.nome}</h3>
@@ -377,23 +348,23 @@
             </div>
             <span class="text-[9px] text-on-surface-variant/60 block mt-1 text-right">di cui 20€ montepremi e 5€ al Progetto Esperti</span>
           </div>
-          <div class="space-y-2">
-            <div class="flex justify-between text-xs md:text-sm">
-              <span class="text-on-surface-variant">${labelPosti}</span>
-              <span class="font-bold ${classeTestoPosti}">${testoPosti}</span>
+          
+          <!-- Sezione Conteggio Posti con Skeleton loader -->
+          <div class="space-y-2" id="counts-container-${asta.id}">
+            <div class="flex justify-between text-xs md:text-sm items-center">
+              <span class="text-on-surface-variant">Posti liberi</span>
+              <div class="h-4 w-12 bg-white/10 rounded animate-pulse"></div>
             </div>
             <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-              <div class="h-full rounded-full transition-all duration-500" style="width:${percentuale}%; background:${piena ? '#f87171' : '#ff6b00'};"></div>
+              <div class="h-full rounded-full bg-white/10 animate-pulse" style="width: 100%;"></div>
             </div>
           </div>
-          ${piena
-            ? `<div class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-surface-container-highest text-on-surface-variant text-sm md:text-base font-bold rounded-lg cursor-not-allowed opacity-60">
-                <span class="material-symbols-outlined text-base">block</span> Posti esauriti
-              </div>`
-            : `<button onclick="toggleForm(${asta.id})" class="iscriviti-btn w-full py-2.5 md:py-3 bg-primary-container text-on-primary text-sm md:text-base font-bold rounded-lg hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-base">how_to_reg</span> Iscriviti
-              </button>`
-          }
+          
+          <div id="btn-container-${asta.id}">
+            <button onclick="toggleForm(${asta.id})" class="iscriviti-btn w-full py-2.5 md:py-3 bg-primary-container text-on-primary text-sm md:text-base font-bold rounded-lg hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-base">how_to_reg</span> Iscriviti
+            </button>
+          </div>
         </div>
         <div id="form-asta-${asta.id}" class="hidden border-t border-outline-variant/15">
           <div class="p-4 md:p-6">
@@ -422,8 +393,69 @@
         </div>
       `;
       container.appendChild(card);
-      if (observer) {
-        observer.observe(card);
+    });
+  }
+
+  function updateCounts(counts) {
+    aste.forEach(asta => {
+      const container = document.getElementById('counts-container-' + asta.id);
+      if (!container) return;
+
+      const posti_occupati = counts ? (counts['asta_' + asta.id] || 0) : 0;
+      const piena = posti_occupati >= asta.max_posti;
+      const percentuale = Math.round((posti_occupati / asta.max_posti) * 100);
+      const postiLiberi = asta.max_posti - posti_occupati;
+
+      // Dinamizzazione etichette dei posti per creare urgenza
+      let labelPosti = "Posti liberi";
+      let testoPosti = `${postiLiberi}/${asta.max_posti}`;
+      let classeTestoPosti = 'text-on-surface';
+
+      if (piena) {
+        labelPosti = "Posti esauriti";
+        testoPosti = "0 liberi";
+        classeTestoPosti = 'text-red-400 font-bold';
+      } else if (postiLiberi === 1) {
+        labelPosti = "Ultimo posto!";
+        testoPosti = "1 libero";
+        classeTestoPosti = 'text-red-500 font-bold animate-pulse';
+      } else if (postiLiberi <= 3) {
+        labelPosti = "Ultimi posti rimasti!";
+        testoPosti = `${postiLiberi} liberi`;
+        classeTestoPosti = 'text-orange-400 font-bold';
+      }
+
+      container.innerHTML = `
+        <div class="flex justify-between text-xs md:text-sm">
+          <span class="text-on-surface-variant">${labelPosti}</span>
+          <span class="font-bold ${classeTestoPosti}">${testoPosti}</span>
+        </div>
+        <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+          <div class="h-full rounded-full transition-all duration-500" style="width:${percentuale}%; background:${piena ? '#f87171' : '#ff6b00'};"></div>
+        </div>
+      `;
+
+      if (piena) {
+        const badge = document.getElementById('badge-stato-' + asta.id);
+        if (badge) {
+          badge.className = 'text-[10px] md:text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-2.5 md:px-3 py-1 rounded-full';
+          badge.textContent = 'Completa';
+        }
+
+        const card = document.getElementById('asta-card-' + asta.id);
+        if (card) {
+          card.classList.add('border-red-500/20');
+          card.classList.remove('hover:border-primary-container/40');
+        }
+
+        const btnContainer = document.getElementById('btn-container-' + asta.id);
+        if (btnContainer) {
+          btnContainer.innerHTML = `
+            <div class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-surface-container-highest text-on-surface-variant text-sm md:text-base font-bold rounded-lg cursor-not-allowed opacity-60">
+              <span class="material-symbols-outlined text-base">block</span> Posti esauriti
+            </div>
+          `;
+        }
       }
     });
   }
@@ -458,21 +490,30 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+    }, { threshold: 0.01, rootMargin: "50px 0px 50px 0px" });
 
-    // Non-blocking asynchronous rendering
-    if (!ASTE_ATTIVE) {
-      renderAste(null);
-    } else {
-      renderAste(null);
-      fetchCounts().then(counts => {
-        if (counts) renderAste(counts);
-      });
-    }
+    // Render immediately (with skeleton placeholders for counts)
+    renderAste();
 
+    // Trigger immediate observer setup and fallback viewport check
     document.querySelectorAll('.reveal-on-scroll').forEach(el => {
       observer.observe(el);
+      // Fallback: if elements are already in the viewport, reveal immediately
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('revealed');
+        observer.unobserve(el);
+      }
     });
+
+    // Fetch counts in background and update DOM in-place
+    if (ASTE_ATTIVE) {
+      fetchCounts().then(counts => {
+        if (counts) {
+          updateCounts(counts);
+        }
+      });
+    }
   });
 </script>
 
