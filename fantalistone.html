@@ -1,0 +1,473 @@
+<!DOCTYPE html><html class="dark" lang="it"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FantaListone — Progetto Esperti Profeta</title>
+<meta name="description" content="Iscriviti al FantaListone Formula 1: la modalità di gioco riservata a chi è già nel Progetto Esperti Profeta. Regolamento completo e video guida.">
+<link rel="icon" type="image/png" href="/favicon.png?v=2">
+<link rel="shortcut icon" href="/favicon.ico?v=2">
+<link rel="apple-touch-icon" href="/favicon.png?v=2">
+<meta property="og:title" content="FantaListone — Progetto Esperti Profeta">
+<meta property="og:description" content="La modalità FantaListone Formula 1, riservata agli iscritti al Progetto Esperti. Regolamento e video guida.">
+<meta property="og:image" content="https://progetto-esperti-profeta.vercel.app/assets/logo.png">
+<meta property="og:url" content="https://progetto-esperti-profeta.vercel.app/fantalistone.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FantaListone — Progetto Esperti Profeta">
+<meta name="twitter:description" content="La modalità FantaListone Formula 1, riservata agli iscritti al Progetto Esperti.">
+<meta name="twitter:image" content="https://progetto-esperti-profeta.vercel.app/assets/logo.png">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container": "#201f1f",
+          "on-primary-fixed": "#351000",
+          "surface-container-high": "#2a2a2a",
+          "on-primary-fixed-variant": "#7a3000",
+          "surface-container-low": "#1c1b1b",
+          "on-error-container": "#ffdad6",
+          "tertiary-container": "#059eff",
+          "on-surface-variant": "#e2bfb0",
+          "primary-fixed": "#ffdbcc",
+          "on-secondary-container": "#ffa173",
+          "surface-container-lowest": "#0e0e0e",
+          "error-container": "#93000a",
+          "primary-fixed-dim": "#ffb693",
+          "error": "#ffb4ab",
+          "surface-container-highest": "#353534",
+          "outline-variant": "#5a4136",
+          "secondary-fixed": "#ffdbcc",
+          "on-tertiary-container": "#003357",
+          "on-surface": "#e5e2e1",
+          "secondary": "#ffb693",
+          "on-secondary": "#561f00",
+          "surface-bright": "#393939",
+          "secondary-container": "#7b3409",
+          "inverse-primary": "#a04100",
+          "on-tertiary-fixed": "#001d35",
+          "surface": "#131313",
+          "on-primary-container": "#ff6b00",
+          "surface-tint": "#ffb693",
+          "primary": "#ffb693",
+          "outline": "#a98a7d",
+          "on-background": "#e5e2e1",
+          "tertiary": "#9ccaff",
+          "inverse-surface": "#e5e2e1",
+          "background": "#131313",
+          "primary-container": "#ff6b00",
+          "tertiary-fixed": "#d0e4ff",
+          "surface-variant": "#353534",
+          "on-primary": "#561f00",
+          "surface-dim": "#131313",
+          "tertiary-fixed-dim": "#9ccaff",
+          "on-error": "#690005",
+          "on-tertiary-fixed-variant": "#00497b",
+          "on-secondary-fixed": "#351000",
+          "inverse-on-surface": "#313030",
+          "secondary-fixed-dim": "#ffb693",
+          "on-secondary-fixed-variant": "#783207",
+          "on-tertiary": "#003257"
+        },
+        fontFamily: {
+          "headline": ["Space Grotesk"],
+          "body": ["Plus Jakarta Sans"],
+          "label": ["Plus Jakarta Sans"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .editorial-shadow {
+    box-shadow: 0px 24px 48px rgba(255,107,0,0.06);
+  }
+  #mobile-menu {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  }
+  #mobile-menu.open {
+    max-height: 260px;
+    opacity: 1;
+  }
+  html, body { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; }
+  @keyframes loader-fill {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  .animate-loader { animation: loader-fill 0.8s ease-out forwards; }
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
+
+<!-- Loader iniziale -->
+<div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500 ease-out">
+  <div class="flex flex-col items-center gap-4">
+<img src="/assets/logo.png" alt="Logo" width="64" height="64" class="h-16 w-auto animate-pulse">
+    <div class="w-32 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+      <div class="h-full bg-primary-container rounded-full animate-loader"></div>
+    </div>
+  </div>
+</div>
+<script>
+  if (sessionStorage.getItem('visited')) {
+    document.getElementById('page-loader').style.display = 'none';
+  } else {
+    (function() {
+      const loader = document.getElementById('page-loader');
+      function hideLoader() {
+        if (loader && loader.style.opacity !== '0') {
+          loader.style.opacity = '0';
+          sessionStorage.setItem('visited', 'true');
+          setTimeout(() => {
+            loader.style.display = 'none';
+          }, 500);
+        }
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(hideLoader, 150);
+      });
+      window.addEventListener('load', hideLoader);
+    })();
+  }
+</script>
+
+<nav class="w-full top-0 sticky z-50 bg-[#131313]/95 backdrop-blur-md border-b border-white/5 shadow-lg">
+  <div class="flex justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-4">
+    <div class="flex items-center gap-10">
+      <a class="flex items-center gap-3 group" href="/">
+        <img alt="Progetto Esperti Profeta Logo" width="48" height="48" class="h-12 w-auto hover:scale-105 transition-transform duration-300" src="/assets/logo.png">
+        <span class="text-lg md:text-xl font-bold text-on-surface tracking-tight font-headline">Progetto Esperti Profeta</span>
+      </a>
+      <div class="hidden lg:flex gap-8 items-center">
+        <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
+        <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/iscriviti.html">Iscriviti</a>
+        <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/asta.html">C'è Asta per Te</a>
+        <a class="font-headline font-semibold text-xs tracking-wide text-primary-container border-b-2 border-primary-container pb-1" href="/fantalistone.html">FantaListone</a>
+      </div>
+    </div>
+    <button id="hamburger" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="lg:hidden bg-[#131313] border-t border-white/5 overflow-hidden transition-all duration-300 ease-in-out">
+    <div class="flex flex-col gap-5 px-6 py-5">
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/">Il Progetto Esperti</a>
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/iscriviti.html">Iscriviti</a>
+      <a class="font-headline font-semibold text-sm tracking-wide text-gray-400 hover:text-white transition-colors" href="/asta.html">C'è Asta per Te</a>
+      <a class="font-headline font-semibold text-sm tracking-wide text-primary-container" href="/fantalistone.html">FantaListone</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const isOpen = mobileMenu.classList.contains('open');
+    bar1.style.transform = isOpen ? 'translateY(8px) rotate(45deg)' : '';
+    bar2.style.opacity = isOpen ? '0' : '1';
+    bar3.style.transform = isOpen ? 'translateY(-8px) rotate(-45deg)' : '';
+  });
+</script>
+
+<main class="overflow-x-hidden">
+
+  <!-- Hero -->
+  <section class="relative min-h-[45vh] md:min-h-[50vh] flex items-center overflow-hidden pt-6 md:pt-8">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-surface via-surface to-surface-container-low opacity-90"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-primary-container/5 rounded-full blur-[120px]"></div>
+    </div>
+    <div class="max-w-4xl mx-auto px-6 md:px-8 relative z-10 w-full py-10 md:py-12 text-center reveal-on-scroll">
+      <span class="inline-block text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary-container bg-primary-container/10 px-3 py-1.5 rounded-full mb-5">Nuova modalità</span>
+      <h1 class="text-4xl md:text-7xl font-headline font-bold leading-[0.95] md:leading-[0.9] tracking-tighter text-on-surface mb-5 md:mb-6">
+        Fanta<span class="text-primary-container">Listone</span>
+      </h1>
+      <p class="text-base md:text-xl text-on-surface leading-relaxed max-w-2xl mx-auto mb-3 font-medium">Formula 1</p>
+      <p class="text-sm md:text-lg text-on-surface-variant leading-relaxed max-w-2xl mx-auto mb-8">
+        La modalità di gioco dedicata a chi è già iscritto al Progetto Esperti. Guarda il video, leggi il regolamento e iscriviti: nessun costo aggiuntivo oltre alla quota del Progetto, solo il montepremio.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
+        <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-green-400 bg-green-400/10 border border-green-400/20 px-3 md:px-4 py-1.5 md:py-2 rounded-full">
+          <span class="material-symbols-outlined text-base">verified</span> Incluso nell'iscrizione al Progetto Esperti
+        </span>
+        <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-[#ff6b00] bg-[#ff6b00]/10 border border-[#ff6b00]/20 px-3 md:px-4 py-1.5 md:py-2 rounded-full">
+          <span class="material-symbols-outlined text-base">emoji_events</span> 10€ di montepremio
+        </span>
+      </div>
+      <a href="#iscrizione" class="inline-flex items-center justify-center gap-2 px-8 md:px-10 py-4 md:py-5 bg-primary-container text-on-primary font-headline font-bold text-sm md:text-lg uppercase tracking-tight rounded-lg shadow-lg hover:opacity-90 transition-all active:scale-[0.98]">
+        <span class="material-symbols-outlined">how_to_reg</span> Iscriviti al FantaListone
+      </a>
+    </div>
+  </section>
+
+  <!-- Video -->
+  <section class="py-16 md:py-24 bg-surface-container-low relative">
+    <div class="max-w-4xl mx-auto px-6 md:px-8">
+      <div class="text-center mb-8 md:mb-12 reveal-on-scroll">
+        <h2 class="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-3 md:mb-4">Come funziona</h2>
+        <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto">Guarda il video di presentazione per capire in due minuti come si gioca il FantaListone.</p>
+      </div>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl editorial-shadow bg-surface-container-lowest reveal-on-scroll delay-100">
+        <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" class="w-full h-full" frameborder="0" src="https://www.youtube.com/embed/FIGpgvw9LzI?rel=0" title="Come funziona il FantaListone"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Regolamento -->
+  <section class="py-16 md:py-24 bg-surface relative" id="regolamento">
+    <div class="max-w-4xl mx-auto px-6 md:px-8">
+      <div class="text-center mb-10 md:mb-16 reveal-on-scroll">
+        <span class="inline-block text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary-container bg-primary-container/10 px-3 py-1.5 rounded-full mb-4">Regolamento ufficiale</span>
+        <h2 class="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-3 md:mb-4">Regolamento FantaListone Formula 1</h2>
+        <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto">Tutte le regole della rosa, dei voti e dei modificatori punteggio.</p>
+      </div>
+
+      <div class="space-y-6 md:space-y-8">
+
+        <!-- La Rosa -->
+        <div class="bg-surface-container-low rounded-2xl md:rounded-3xl p-6 md:p-10 reveal-on-scroll">
+          <div class="flex items-center gap-3 mb-5 md:mb-6">
+            <span class="material-symbols-outlined text-primary-container text-2xl md:text-3xl">groups</span>
+            <h3 class="text-xl md:text-2xl font-headline font-bold text-on-surface">La Rosa</h3>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4 md:gap-6">
+            <div class="bg-surface-container-lowest rounded-xl p-4 md:p-5">
+              <p class="text-xs uppercase tracking-wider text-on-surface-variant mb-1">Crediti a disposizione</p>
+              <p class="text-2xl md:text-3xl font-headline font-bold text-primary-container">125</p>
+            </div>
+            <div class="bg-surface-container-lowest rounded-xl p-4 md:p-5">
+              <p class="text-xs uppercase tracking-wider text-on-surface-variant mb-2">Composizione rosa</p>
+              <ul class="text-sm md:text-base text-on-surface space-y-1">
+                <li>3 portieri</li>
+                <li>8 o 9 difensori</li>
+                <li>8 o 9 centrocampisti</li>
+                <li>6 attaccanti</li>
+              </ul>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-6">
+            <div class="bg-surface-container-lowest rounded-xl p-4 md:p-5">
+              <p class="text-xs uppercase tracking-wider text-on-surface-variant mb-2">Moduli disponibili</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs md:text-sm font-bold text-on-surface bg-surface-container-high px-2.5 py-1 rounded-full">3-5-2</span>
+                <span class="text-xs md:text-sm font-bold text-on-surface bg-surface-container-high px-2.5 py-1 rounded-full">3-4-3</span>
+                <span class="text-xs md:text-sm font-bold text-on-surface bg-surface-container-high px-2.5 py-1 rounded-full">4-5-1</span>
+                <span class="text-xs md:text-sm font-bold text-on-surface bg-surface-container-high px-2.5 py-1 rounded-full">4-4-2</span>
+                <span class="text-xs md:text-sm font-bold text-on-surface bg-surface-container-high px-2.5 py-1 rounded-full">4-3-3</span>
+                <span class="text-xs md:text-sm font-bold text-on-surface bg-surface-container-high px-2.5 py-1 rounded-full">5-4-1</span>
+                <span class="text-xs md:text-sm font-bold text-on-surface bg-surface-container-high px-2.5 py-1 rounded-full">5-3-2</span>
+              </div>
+              <p class="text-xs text-on-surface-variant/70 mt-2">Cambio modulo dinamico consentito.</p>
+            </div>
+            <div class="bg-surface-container-lowest rounded-xl p-4 md:p-5">
+              <p class="text-xs uppercase tracking-wider text-on-surface-variant mb-2">Panchina</p>
+              <ul class="text-sm md:text-base text-on-surface space-y-1">
+                <li>2 portieri</li>
+                <li>3 difensori</li>
+                <li>3 centrocampisti</li>
+                <li>3 attaccanti</li>
+              </ul>
+              <p class="text-xs text-on-surface-variant/70 mt-2">Massimo 5 sostituzioni a giornata.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voti -->
+        <div class="bg-surface-container-low rounded-2xl md:rounded-3xl p-6 md:p-10 reveal-on-scroll delay-100">
+          <div class="flex items-center gap-3 mb-5 md:mb-6">
+            <span class="material-symbols-outlined text-primary-container text-2xl md:text-3xl">grade</span>
+            <h3 class="text-xl md:text-2xl font-headline font-bold text-on-surface">Voti</h3>
+          </div>
+          <ul class="space-y-3 text-sm md:text-base text-on-surface-variant">
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary-container text-lg mt-0.5">check_circle</span> Vengono utilizzati i voti <strong class="text-on-surface">ALVIN</strong>.</li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary-container text-lg mt-0.5">check_circle</span> È prevista l'<strong class="text-on-surface">imbattibilità portiere</strong>.</li>
+            <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary-container text-lg mt-0.5">check_circle</span> Se la formazione non viene schierata, viene recuperata automaticamente quella della giornata precedente.</li>
+          </ul>
+        </div>
+
+        <!-- Modificatori -->
+        <div class="bg-surface-container-low rounded-2xl md:rounded-3xl p-6 md:p-10 reveal-on-scroll delay-200">
+          <div class="flex items-center gap-3 mb-5 md:mb-6">
+            <span class="material-symbols-outlined text-primary-container text-2xl md:text-3xl">tune</span>
+            <h3 class="text-xl md:text-2xl font-headline font-bold text-on-surface">Modificatori</h3>
+          </div>
+
+          <div class="space-y-6 md:space-y-8">
+            <div>
+              <h4 class="text-sm md:text-base font-headline font-bold text-on-surface mb-1">Difesa</h4>
+              <p class="text-xs md:text-sm text-on-surface-variant mb-3">Bonus dinamico a 6 fasce, calcolato su portiere + i migliori 3 dei 4 difensori schierati.</p>
+              <div class="overflow-x-auto">
+                <table class="w-full text-xs md:text-sm text-left border-collapse">
+                  <thead>
+                    <tr class="text-on-surface-variant uppercase tracking-wider text-[10px] md:text-xs">
+                      <th class="py-2 pr-4 font-normal">Media difesa</th>
+                      <th class="py-2 font-normal">Bonus</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-on-surface">
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">&lt; 6</td><td class="py-2 font-bold">0 punti</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">&ge; 6 e &lt; 6.25</td><td class="py-2 font-bold">1 punto</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">&ge; 6.25 e &lt; 6.5</td><td class="py-2 font-bold">2 punti</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">... e così via</td><td class="py-2 font-bold text-primary-container">fino a un massimo di 6 punti bonus</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-sm md:text-base font-headline font-bold text-on-surface mb-1">Rendimento</h4>
+              <p class="text-xs md:text-sm text-on-surface-variant mb-3">Bonus in base a quanti giocatori raggiungono almeno la sufficienza (voto puro, esclusi bonus e malus).</p>
+              <div class="overflow-x-auto">
+                <table class="w-full text-xs md:text-sm text-left border-collapse">
+                  <thead>
+                    <tr class="text-on-surface-variant uppercase tracking-wider text-[10px] md:text-xs">
+                      <th class="py-2 pr-4 font-normal">Giocatori sufficienti</th>
+                      <th class="py-2 font-normal">Bonus</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-on-surface">
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">6 giocatori</td><td class="py-2 font-bold">+0.5</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">7 giocatori</td><td class="py-2 font-bold">+1.0</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">8 giocatori</td><td class="py-2 font-bold">+1.5</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">9 giocatori</td><td class="py-2 font-bold">+2.0</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">10 giocatori</td><td class="py-2 font-bold">+2.5</td></tr>
+                    <tr class="border-t border-outline-variant/10"><td class="py-2 pr-4">11 giocatori</td><td class="py-2 font-bold text-primary-container">+3.0</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-sm md:text-base font-headline font-bold text-on-surface mb-1">Capitano</h4>
+              <p class="text-xs md:text-sm text-on-surface-variant">Ogni partita si sceglie un capitano e un vice-capitano (che subentra se il capitano non va a voto). Se il voto del capitano è <strong class="text-on-surface">maggiore o uguale a 6.5</strong>, la squadra ottiene <strong class="text-primary-container">+1 punto bonus</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Iscrizione -->
+  <section class="py-16 md:py-24 bg-surface-container-low relative" id="iscrizione">
+    <div class="max-w-2xl mx-auto px-6 md:px-8 text-center reveal-on-scroll">
+      <h2 class="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-4">Iscriviti al FantaListone</h2>
+      <p class="text-sm md:text-base text-on-surface-variant leading-relaxed mb-8">
+        Il FantaListone è aperto a chiunque sia già iscritto al Progetto Esperti Profeta: nessuna quota aggiuntiva, solo <strong class="text-on-surface">10€ di montepremio</strong>. Se non sei ancora iscritto al Progetto, iscriviti prima lì.
+      </p>
+
+      <!-- Placeholder modulo di iscrizione: sostituire con l'embed Tally.so non appena il form è pronto (stesso schema usato in asta.html / iscriviti.html) -->
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 px-6 py-10 md:py-12">
+        <span class="material-symbols-outlined text-primary-container text-5xl mb-4 block">construction</span>
+        <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface mb-2">Modulo di iscrizione in arrivo</h3>
+        <p class="text-sm text-on-surface-variant mb-6 max-w-md mx-auto">Il form per iscriversi al FantaListone sarà collegato qui a breve. Nel frattempo, se sei già iscritto al Progetto Esperti e vuoi partecipare, scrivici direttamente.</p>
+        <a href="https://www.instagram.com/esperti_profeta_fantacalcio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-primary-container text-on-primary font-headline font-bold text-sm uppercase tracking-tight rounded-lg shadow-lg hover:opacity-90 transition-all active:scale-[0.98]">
+          <span class="material-symbols-outlined text-base">chat</span> Scrivici su Instagram
+        </a>
+      </div>
+
+      <a href="/iscriviti.html" class="inline-flex items-center gap-2 mt-6 text-on-surface-variant hover:text-primary-container text-sm font-medium transition-colors">
+        Non sei ancora nel Progetto Esperti? Iscriviti qui <span class="material-symbols-outlined text-base">arrow_forward</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="w-full border-t border-outline-variant/15 bg-surface">
+  <div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 gap-6 md:gap-8">
+    <div class="flex flex-col items-center md:items-start gap-3 md:gap-4">
+      <div class="flex items-center gap-3">
+        <img alt="Progetto Esperti Profeta Logo" width="32" height="32" class="h-8 w-auto opacity-50" src="/assets/logo.png">
+        <div class="text-base md:text-xl font-bold text-gray-500 opacity-50 font-headline">Progetto Esperti Profeta</div>
+      </div>
+      <p class="text-gray-500 text-xs md:text-sm font-body text-center md:text-left">© 2026/2027 Progetto Esperti Profeta. Editorial Authority.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-5 md:gap-8">
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://youtube.com/@progettoespertiprofeta">YouTube</a>
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="https://www.instagram.com/esperti_profeta_fantacalcio">Instagram</a>
+      <a class="text-gray-500 hover:text-primary-container text-xs md:text-sm font-body transition-colors" href="/privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Instagram Support Button -->
+<a href="https://www.instagram.com/esperti_profeta_fantacalcio" target="_blank" rel="noopener noreferrer"
+   id="instagram-support-btn"
+   class="fixed bottom-6 left-6 z-40 w-12 h-12 bg-gradient-to-tr from-[#f9ce71] via-[#ee2a7b] to-[#6228d7] text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl flex items-center justify-center group"
+   aria-label="Supporto Instagram">
+  <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.44-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+  </svg>
+  <span class="absolute bottom-full left-0 mb-3 w-48 p-2 bg-surface-container-high border border-outline-variant/15 text-xs text-on-surface rounded-lg opacity-0 pointer-events-none transition-opacity duration-300 group-hover:opacity-100 shadow-xl select-none font-medium leading-normal">
+    Hai bisogno di aiuto? Scrivici su Instagram!
+  </span>
+</a>
+
+<button id="scroll-top-btn" aria-label="Torna su" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-primary-container text-on-primary rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:scale-110 hover:shadow-xl flex items-center justify-center">
+  <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+<script>
+  const scrollBtn = document.getElementById('scroll-top-btn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.remove('opacity-0', 'invisible');
+      scrollBtn.classList.add('opacity-100', 'visible');
+    } else {
+      scrollBtn.classList.add('opacity-0', 'invisible');
+      scrollBtn.classList.remove('opacity-100', 'visible');
+    }
+  });
+  scrollBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Intersection Observer for Scroll Reveal
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  });
+</script>
+
+</body></html>
