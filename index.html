@@ -273,7 +273,7 @@
       <div class="p-6 md:p-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 group reveal-on-scroll delay-200">
         <span class="material-symbols-outlined text-primary-container text-3xl md:text-4xl mb-4 md:mb-6 block group-hover:scale-110 transition-transform">forum</span>
         <h3 class="text-lg md:text-2xl font-headline font-bold text-on-surface mb-3 md:mb-4">Community Telegram</h3>
-        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Un gruppo Telegram esclusivo organizzato per canali dedicati (topic) a ogni singola squadra per domande dirette, discussioni generali e il format C'è Asta per Te.</p>
+        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Un gruppo Telegram esclusivo organizzato per canali dedicati (topic) a ogni singola squadra per domande dirette, discussioni generali e i format "C'è Asta per Te" e FantaListone.</p>
       </div>
     </div>
     <div class="mt-16 md:mt-24 relative p-6 md:p-12 rounded-3xl overflow-hidden bg-gradient-to-r from-surface-container-highest to-surface-container reveal-on-scroll">
@@ -390,6 +390,18 @@
           </div>
         </div>
       </div>
+
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/15 overflow-hidden">
+        <button class="faq-toggle w-full p-5 flex justify-between items-center text-left hover:text-primary-container transition-colors focus:outline-none" onclick="toggleFaq(6)">
+          <span class="font-headline font-semibold text-base md:text-lg text-on-surface">Cos'è il FantaListone?</span>
+          <span id="faq-icon-6" class="material-symbols-outlined transition-transform duration-300">add</span>
+        </button>
+        <div id="faq-content-6" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+          <div class="px-5 pb-5 text-sm md:text-base text-on-surface-variant leading-relaxed border-t border-outline-variant/5 pt-3">
+            È la nostra modalità di gioco Formula 1, riservata a chi è già iscritto al Progetto Esperti: rosa a 125 crediti, sistema di modificatori dedicato e un montepremio finale. La quota di partecipazione è di 10€. <a class="text-primary-container hover:underline" href="/fantalistone.html">Leggi il regolamento completo e iscriviti</a>.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -401,7 +413,7 @@
     const icon = document.getElementById('faq-icon-' + num);
     
     // Close other FAQs
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 6; i++) {
       if (i !== num) {
         const otherContent = document.getElementById('faq-content-' + i);
         const otherIcon = document.getElementById('faq-icon-' + i);
