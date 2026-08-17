@@ -471,6 +471,20 @@
     });
   }
 
+  // Se l'API dei posti non risponde, avvisa invece di far credere che siano tutti liberi
+  function showCountsUnavailable() {
+    aste.forEach(asta => {
+      const container = document.getElementById('counts-container-' + asta.id);
+      if (!container) return;
+      container.innerHTML = `
+        <div class="flex items-start gap-2 text-xs md:text-sm text-orange-400 bg-orange-400/10 border border-orange-400/20 rounded-lg px-3 py-2">
+          <span class="material-symbols-outlined text-base leading-none">warning</span>
+          <span>Conteggio posti non disponibile al momento. Contattaci su Instagram prima di iscriverti per verificare la disponibilità.</span>
+        </div>
+      `;
+    });
+  }
+
   function toggleForm(astaId) {
     const formDiv = document.getElementById('form-asta-' + astaId);
     const isHidden = formDiv.classList.contains('hidden');
@@ -539,6 +553,8 @@
           updateCounts(counts);
           // Re-check viewport reveal after updating counts
           checkViewportReveal();
+        } else {
+          showCountsUnavailable();
         }
       });
     }
