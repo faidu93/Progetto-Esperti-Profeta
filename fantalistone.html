@@ -387,14 +387,21 @@
         Per iscriverti al FantaListone compila il modulo di seguito con tutti i dati, salda la quota e ti arriverà il messaggio di conferma.
       </p>
 
-      <!-- Placeholder modulo di iscrizione: sostituire con l'embed Tally.so non appena il form è pronto (stesso schema usato in asta.html / iscriviti.html) -->
-      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 px-6 py-10 md:py-12">
-        <span class="material-symbols-outlined text-primary-container text-5xl mb-4 block">construction</span>
-        <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface mb-2">Modulo di iscrizione in arrivo</h3>
-        <p class="text-sm text-on-surface-variant mb-6 max-w-md mx-auto">Il form per iscriversi al FantaListone sarà collegato qui a breve. Nel frattempo, se sei già iscritto al Progetto Esperti e vuoi partecipare, scrivici direttamente.</p>
-        <a href="https://www.instagram.com/esperti_profeta_fantacalcio" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-primary-container text-on-primary font-headline font-bold text-sm uppercase tracking-tight rounded-lg shadow-lg hover:opacity-90 transition-all active:scale-[0.98]">
-          <span class="material-symbols-outlined text-base">chat</span> Scrivici su Instagram
-        </a>
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-2 md:p-4 shadow-2xl text-left">
+        <div class="relative bg-surface-container-lowest rounded-xl overflow-hidden min-h-[650px] border border-outline-variant/10">
+          <!-- Skeleton Loader -->
+          <div id="tally-skeleton-fantalistone" class="absolute inset-0 p-8 flex flex-col gap-6 animate-pulse bg-surface-container-lowest z-10 transition-opacity duration-500">
+            <div class="h-6 w-1/3 bg-white/10 rounded"></div>
+            <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
+            <div class="h-6 w-1/4 bg-white/10 rounded mt-2"></div>
+            <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
+            <div class="h-12 w-full bg-primary-container/20 rounded mt-6 border border-primary-container/10"></div>
+          </div>
+          <iframe id="iframe-fantalistone" data-tally-src="https://tally.so/embed/Np2XaB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            onload="const sk = document.getElementById('tally-skeleton-fantalistone'); if(sk) { sk.style.opacity='0'; setTimeout(() => sk.remove(), 500); }"
+            loading="lazy" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0"
+            title="Modulo di iscrizione al FantaListone" style="border:none;border-radius:12px;width:100%;min-height:650px;"></iframe>
+        </div>
       </div>
 
       <a href="/iscriviti.html" class="inline-flex items-center gap-2 mt-6 text-on-surface-variant hover:text-primary-container text-sm font-medium transition-colors">
@@ -402,6 +409,22 @@
       </a>
     </div>
   </section>
+  <script>
+    (function(){
+      var d=document, s='https://tally.so/widgets/embed.js';
+      function loadIframes(){
+        d.querySelectorAll('iframe[data-tally-src]:not([src])').forEach(function(e){ e.src = e.dataset.tallySrc; });
+      }
+      function init(){
+        if(typeof Tally!=='undefined'){ Tally.loadEmbeds(); }
+        loadIframes();
+      }
+      if(typeof Tally==='undefined' && d.querySelector('script[src="'+s+'"]')===null){
+        var sc=d.createElement('script'); sc.src=s; sc.onload=init; sc.onerror=loadIframes; d.body.appendChild(sc);
+      } else { init(); }
+      var tries=0; var iv=setInterval(function(){ loadIframes(); if(++tries>20) clearInterval(iv); }, 400);
+    })();
+  </script>
 
 </main>
 
