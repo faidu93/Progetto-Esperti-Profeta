@@ -244,6 +244,7 @@
   }
 
   let observer;
+  let astaPiena = {}; // traccia quali aste risultano piene, per il filtro "solo disponibili"
 
   function startCountdown() {
     const targetDate = new Date('2026-08-01T00:00:00').getTime();
@@ -286,6 +287,8 @@
       const sec = document.getElementById('aste');
       const intro = sec ? sec.querySelector('.text-center') : null;
       if (intro) intro.style.display = 'none';
+      const filtroWrapper = document.getElementById('filtro-wrapper');
+      if (filtroWrapper) filtroWrapper.style.display = 'none';
       container.className = 'max-w-2xl mx-auto';
       container.innerHTML = `
         <div class="text-center bg-surface-container-low rounded-3xl border border-outline-variant/15 px-6 py-16 md:py-20 reveal-on-scroll">
@@ -416,6 +419,7 @@
 
       const posti_occupati = counts ? (counts[asta.sheetName] || 0) : 0;
       const piena = posti_occupati >= asta.max_posti;
+      astaPiena[asta.id] = piena;
       const percentuale = Math.round((posti_occupati / asta.max_posti) * 100);
       const postiLiberi = asta.max_posti - posti_occupati;
 
@@ -471,6 +475,13 @@
         }
       }
     });
+
+    // Ora che conosciamo lo stato reale delle aste, il filtro può essere usato
+    const filtroInput = document.getElementById('filtro-disponibili');
+    const filtroLabel = document.getElementById('filtro-label');
+    if (filtroInput) filtroInput.disabled = false;
+    if (filtroLabel) filtroLabel.classList.remove('opacity-40', 'cursor-not-allowed');
+    applicaFiltro();
   }
 
   // Se l'API dei posti non risponde, avvisa invece di far credere che siano tutti liberi
@@ -485,6 +496,31 @@
         </div>
       `;
     });
+
+    // Senza conteggi reali non possiamo sapere quali aste sono piene: disattiviamo il filtro
+    astaPiena = {};
+    const filtroInput = document.getElementById('filtro-disponibili');
+    const filtroLabel = document.getElementById('filtro-label');
+    if (filtroInput) { filtroInput.checked = false; filtroInput.disabled = true; }
+    if (filtroLabel) filtroLabel.classList.add('opacity-40', 'cursor-not-allowed');
+    applicaFiltro();
+  }
+
+  // Mostra solo le aste con posti disponibili, se il filtro è attivo
+  function applicaFiltro() {
+    const filtroInput = document.getElementById('filtro-disponibili');
+    const soloDisponibili = !!(filtroInput && filtroInput.checked && !filtroInput.disabled);
+    let visibili = 0;
+    aste.forEach(asta => {
+      const card = document.getElementById('asta-card-' + asta.id);
+      if (!card) return;
+      const piena = astaPiena[asta.id] === true;
+      const nascondi = soloDisponibili && piena;
+      card.style.display = nascondi ? 'none' : '';
+      if (!nascondi) visibili++;
+    });
+    const vuoto = document.getElementById('nessuna-asta-disponibile');
+    if (vuoto) vuoto.classList.toggle('hidden', !(soloDisponibili && visibili === 0));
   }
 
   function toggleForm(astaId) {
@@ -615,7 +651,24 @@
         <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">Aste <span class="text-primary-container">Disponibili</span></h2>
         <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto">Scegli la data e la modalità che preferisci per metterti alla prova.</p>
       </div>
+
+      <div id="filtro-wrapper" class="flex justify-center mb-6 md:mb-8 reveal-on-scroll">
+        <label id="filtro-label" for="filtro-disponibili" class="inline-flex items-center gap-3 cursor-not-allowed select-none text-sm text-on-surface-variant bg-surface-container-low border border-outline-variant/15 rounded-full px-4 py-2.5 hover:border-primary-container/30 transition-colors opacity-40">
+          <span class="relative inline-flex w-10 h-6 shrink-0">
+            <input type="checkbox" id="filtro-disponibili" class="peer sr-only" disabled onchange="applicaFiltro()">
+            <span class="absolute inset-0 bg-surface-container-highest rounded-full transition-colors peer-checked:bg-primary-container"></span>
+            <span class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-4"></span>
+          </span>
+          Mostra solo aste con posti disponibili
+        </label>
+      </div>
+
       <div id="aste-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"></div>
+
+      <div id="nessuna-asta-disponibile" class="hidden text-center bg-surface-container-low rounded-2xl border border-outline-variant/15 px-6 py-12 md:py-16 mt-6 md:mt-8">
+        <span class="material-symbols-outlined text-primary-container text-4xl mb-3 block">search_off</span>
+        <p class="text-sm md:text-base text-on-surface-variant">Al momento nessuna asta ha posti disponibili. Riprova più tardi oppure <button onclick="document.getElementById('filtro-disponibili').click()" class="text-primary-container hover:underline font-semibold">rimuovi il filtro</button> per vedere tutte le aste.</p>
+      </div>
     </div>
   </section>
 
