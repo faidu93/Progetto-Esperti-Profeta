@@ -505,7 +505,7 @@
 
   // Iscritti YouTube in tempo reale. Se la chiamata fallisce (endpoint giù,
   // rete assente) resta il valore "4000+" già scritto nell'HTML come fallback.
-  fetch('https://dashboard-esperti-backend.vercel.app/api/youtube-subs')
+  fetch('https://dashboard-esperti-backend.vercel.app/api/youtube-videos?type=subs')
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
       const n = data.subscriberCount;
