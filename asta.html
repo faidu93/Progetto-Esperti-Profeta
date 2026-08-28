@@ -235,6 +235,33 @@
     { id: 10, nome: "Asta #10", data: "domenica 27 settembre", modalita: "Mantra Euroleghe", tallyId: "dW4OdN", max_posti: 10, quota: "25€", sheetName: "27 Set" }
   ];
 
+  // Barra di caricamento sopra la griglia aste: finché non si vede completarsi
+  // non è chiaro se i posti disponibili mostrati sono aggiornati o ancora il
+  // placeholder. Progresso simulato (il fetch non espone percentuali reali),
+  // con uno scatto al 100% quando la risposta arriva davvero.
+  let asteLoadInterval = null;
+  function asteLoadStart() {
+    const bar = document.getElementById('asteLoadBar');
+    const fill = document.getElementById('asteLoadBarFill');
+    if (!bar || !fill) return;
+    bar.style.display = 'block';
+    fill.style.width = '10%';
+    let pct = 10;
+    asteLoadInterval = setInterval(() => {
+      pct += (85 - pct) * 0.15;
+      fill.style.width = pct + '%';
+    }, 200);
+  }
+  function asteLoadDone() {
+    const bar = document.getElementById('asteLoadBar');
+    const fill = document.getElementById('asteLoadBarFill');
+    clearInterval(asteLoadInterval);
+    asteLoadInterval = null;
+    if (!bar || !fill) return;
+    fill.style.width = '100%';
+    setTimeout(() => { bar.style.display = 'none'; fill.style.width = '0%'; }, 350);
+  }
+
   // Carica conteggi dal Google Sheet tramite API
   async function fetchCounts() {
     try {
@@ -590,6 +617,7 @@
 
     // Fetch counts in background and update DOM in-place
     if (ASTE_ATTIVE) {
+      asteLoadStart();
       fetchCounts().then(counts => {
         if (counts) {
           updateCounts(counts);
@@ -598,6 +626,7 @@
         } else {
           showCountsUnavailable();
         }
+        asteLoadDone();
       });
     }
   });
@@ -654,6 +683,15 @@
       <div class="text-center mb-6 md:mb-8 reveal-on-scroll">
         <h2 class="text-3xl md:text-5xl font-headline font-bold text-on-surface mb-4">Aste <span class="text-primary-container">Disponibili</span></h2>
         <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto">Scegli la data e la modalità che preferisci per metterti alla prova.</p>
+      </div>
+
+      <div id="asteLoadBar" class="max-w-md mx-auto mb-6 md:mb-8" style="display:none;">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[11px] uppercase tracking-wider text-on-surface-variant">Aggiornamento posti disponibili…</span>
+        </div>
+        <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+          <div id="asteLoadBarFill" class="h-full bg-primary-container rounded-full" style="width:0%; transition: width 0.3s ease;"></div>
+        </div>
       </div>
 
       <div id="filtro-wrapper" class="flex justify-center mb-6 md:mb-8 reveal-on-scroll">
