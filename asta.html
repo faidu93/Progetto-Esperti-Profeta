@@ -513,10 +513,12 @@
       }
     });
 
-    // Ora che conosciamo lo stato reale delle aste, il filtro può essere usato
+    // Ora che conosciamo lo stato reale delle aste, il filtro può essere usato.
+    // Parte già attivo: chi arriva sulla pagina vede subito solo le aste dove
+    // può davvero iscriversi, senza dover prima capire di dover spuntare qualcosa.
     const filtroInput = document.getElementById('filtro-disponibili');
     const filtroLabel = document.getElementById('filtro-label');
-    if (filtroInput) filtroInput.disabled = false;
+    if (filtroInput) { filtroInput.disabled = false; filtroInput.checked = true; }
     if (filtroLabel) filtroLabel.classList.remove('opacity-40', 'cursor-not-allowed');
     applicaFiltro();
   }
