@@ -243,6 +243,7 @@
   function asteLoadStart() {
     const bar = document.getElementById('asteLoadBar');
     const fill = document.getElementById('asteLoadBarFill');
+    const grid = document.getElementById('aste-grid');
     if (!bar || !fill) return;
     bar.style.display = 'block';
     fill.style.width = '10%';
@@ -251,12 +252,17 @@
       pct += (85 - pct) * 0.15;
       fill.style.width = pct + '%';
     }, 200);
+    // Attenuo e blocco i click sulla griglia: i posti mostrati sono ancora il
+    // placeholder, non voglio che qualcuno scelga un'asta guardando un numero sbagliato.
+    if (grid) { grid.style.opacity = '0.35'; grid.style.pointerEvents = 'none'; }
   }
   function asteLoadDone() {
     const bar = document.getElementById('asteLoadBar');
     const fill = document.getElementById('asteLoadBarFill');
+    const grid = document.getElementById('aste-grid');
     clearInterval(asteLoadInterval);
     asteLoadInterval = null;
+    if (grid) { grid.style.opacity = '1'; grid.style.pointerEvents = ''; }
     if (!bar || !fill) return;
     fill.style.width = '100%';
     setTimeout(() => { bar.style.display = 'none'; fill.style.width = '0%'; }, 350);
@@ -685,16 +691,20 @@
         <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto">Scegli la data e la modalità che preferisci per metterti alla prova.</p>
       </div>
 
-      <div id="asteLoadBar" class="max-w-md mx-auto mb-6 md:mb-8" style="display:none;">
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="text-[11px] uppercase tracking-wider text-on-surface-variant">Aggiornamento posti disponibili…</span>
+      <div id="asteLoadBar" class="max-w-xl mx-auto mb-8 md:mb-10 bg-primary-container/10 border border-primary-container/30 rounded-2xl px-5 md:px-6 py-4 md:py-5" style="display:none;">
+        <div class="flex items-center gap-3 mb-2.5">
+          <span class="material-symbols-outlined text-primary-container text-xl md:text-2xl animate-pulse">hourglass_top</span>
+          <div>
+            <p class="text-sm md:text-base font-headline font-bold text-on-surface leading-tight">Sto aggiornando i posti disponibili…</p>
+            <p class="text-xs md:text-sm text-on-surface-variant">Un attimo prima di scegliere l'asta — i numeri qui sotto non sono ancora definitivi.</p>
+          </div>
         </div>
-        <div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+        <div class="h-1.5 bg-surface-container-high rounded-full overflow-hidden">
           <div id="asteLoadBarFill" class="h-full bg-primary-container rounded-full" style="width:0%; transition: width 0.3s ease;"></div>
         </div>
       </div>
 
-      <div id="filtro-wrapper" class="flex justify-center mb-6 md:mb-8 reveal-on-scroll">
+      <div id="filtro-wrapper" class="flex justify-center mb-6 md:mb-8 reveal-on-scroll transition-opacity duration-300">
         <label id="filtro-label" for="filtro-disponibili" class="inline-flex items-center gap-3 cursor-not-allowed select-none text-sm text-on-surface-variant bg-surface-container-low border border-outline-variant/15 rounded-full px-4 py-2.5 hover:border-primary-container/30 transition-colors opacity-40">
           <span class="relative inline-flex w-10 h-6 shrink-0">
             <input type="checkbox" id="filtro-disponibili" class="peer sr-only" disabled onchange="applicaFiltro()">
@@ -705,7 +715,7 @@
         </label>
       </div>
 
-      <div id="aste-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"></div>
+      <div id="aste-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 transition-opacity duration-300"></div>
 
       <div id="nessuna-asta-disponibile" class="hidden text-center bg-surface-container-low rounded-2xl border border-outline-variant/15 px-6 py-12 md:py-16 mt-6 md:mt-8">
         <span class="material-symbols-outlined text-primary-container text-4xl mb-3 block">search_off</span>
