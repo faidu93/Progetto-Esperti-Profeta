@@ -218,15 +218,15 @@
         La modalità di gioco dedicata a chi è già iscritto al Progetto Esperti. Guarda il video, leggi il regolamento e iscriviti: bastano 10€ di quota di partecipazione, i premi in palio verranno decisi e comunicati più avanti.
       </p>
       <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
-        <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-green-400 bg-green-400/10 border border-green-400/20 px-3 md:px-4 py-1.5 md:py-2 rounded-full">
-          <span class="material-symbols-outlined text-base">verified</span> Aperto a tutti gli iscritti al Progetto Esperti
+        <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-red-400 bg-red-400/10 border border-red-400/20 px-3 md:px-4 py-1.5 md:py-2 rounded-full">
+          <span class="material-symbols-outlined text-base">lock</span> Iscrizioni chiuse per questa stagione
         </span>
         <span class="inline-flex items-center gap-2 text-xs md:text-sm font-bold uppercase tracking-widest text-[#ff6b00] bg-[#ff6b00]/10 border border-[#ff6b00]/20 px-3 md:px-4 py-1.5 md:py-2 rounded-full">
           <span class="material-symbols-outlined text-base">payments</span> 10€ quota di partecipazione
         </span>
       </div>
       <a href="#iscrizione" class="inline-flex items-center justify-center gap-2 px-8 md:px-10 py-4 md:py-5 bg-primary-container text-on-primary font-headline font-bold text-sm md:text-lg uppercase tracking-tight rounded-lg shadow-lg hover:opacity-90 transition-all active:scale-[0.98]">
-        <span class="material-symbols-outlined">how_to_reg</span> Iscriviti al FantaListone
+        <span class="material-symbols-outlined">lock</span> Iscrizioni chiuse
       </a>
     </div>
   </section>
@@ -413,26 +413,19 @@
   <!-- Iscrizione -->
   <section class="py-16 md:py-24 bg-surface-container-low relative" id="iscrizione">
     <div class="max-w-2xl mx-auto px-6 md:px-8 text-center reveal-on-scroll">
-      <h2 class="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-4">Iscriviti al FantaListone</h2>
+      <h2 class="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-4">Iscrizioni chiuse</h2>
       <p class="text-sm md:text-base text-on-surface-variant leading-relaxed mb-8">
-        Per iscriverti al FantaListone compila il modulo di seguito con tutti i dati, salda la quota e ti arriverà il messaggio di conferma.
+        Il periodo di iscrizione al FantaListone per questa stagione è terminato. Segui i nostri canali per sapere quando riapriranno.
       </p>
 
-      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-2 md:p-4 shadow-2xl text-left">
-        <div class="relative bg-surface-container-lowest rounded-xl overflow-hidden min-h-[650px] border border-outline-variant/10">
-          <!-- Skeleton Loader -->
-          <div id="tally-skeleton-fantalistone" class="absolute inset-0 p-8 flex flex-col gap-6 animate-pulse bg-surface-container-lowest z-10 transition-opacity duration-500">
-            <div class="h-6 w-1/3 bg-white/10 rounded"></div>
-            <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
-            <div class="h-6 w-1/4 bg-white/10 rounded mt-2"></div>
-            <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
-            <div class="h-12 w-full bg-primary-container/20 rounded mt-6 border border-primary-container/10"></div>
-          </div>
-          <iframe id="iframe-fantalistone" data-tally-src="https://tally.so/embed/Np2XaB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-            onload="const sk = document.getElementById('tally-skeleton-fantalistone'); if(sk) { sk.style.opacity='0'; setTimeout(() => sk.remove(), 500); }"
-            loading="lazy" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0"
-            title="Modulo di iscrizione al FantaListone" style="border:none;border-radius:12px;width:100%;min-height:650px;"></iframe>
-        </div>
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-8 md:p-10 shadow-2xl">
+        <span class="material-symbols-outlined text-4xl text-on-surface-variant/50 mb-3 block">lock</span>
+        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">
+          Ti sei già iscritto e hai pagato la quota? Recupera il tuo codice di accesso nella sezione qui sotto.
+        </p>
+        <a href="#codice" class="inline-flex items-center justify-center gap-2 mt-6 px-6 py-3 bg-primary-container/10 text-primary-container border border-primary-container/20 font-headline font-bold text-sm rounded-lg hover:bg-primary-container/20 transition-all">
+          <span class="material-symbols-outlined text-base">key</span> Recupera il codice
+        </a>
       </div>
 
       <a href="/iscriviti.html" class="inline-flex items-center gap-2 mt-6 text-on-surface-variant hover:text-primary-container text-sm font-medium transition-colors">
