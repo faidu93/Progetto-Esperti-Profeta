@@ -278,19 +278,36 @@
   }
 
   // Carica conteggi dal Google Sheet tramite API. Questo endpoint (Apps
-  // Script esterno, vedi CLAUDE.md) è lento in modo irregolare — anche
-  // 10+ secondi in risposte comunque valide, verificato — invece di
-  // fallire subito, quindi il timeout per tentativo deve essere generoso
-  // per non abortire una risposta che sarebbe arrivata bene. Un retry
-  // dà una seconda chance a un blip vero, così non sparisce il filtro
-  // "solo aste disponibili" che dovrebbe partire attivo.
-  async function fetchCounts(retries = 1, timeoutMs = 12000) {
+  // Script esterno, vedi CLAUDE.md) è genuinamente lento, non solo a volte:
+  // misurato più volte di fila a 12s, 14s e 45s per una risposta comunque
+  // valida (200 OK, JSON corretto). Il timeout deve reggere anche il caso
+  // peggiore misurato, altrimenti i conteggi non arrivano mai. Non è un
+  // problema per la velocità percepita della pagina: la griglia si sblocca
+  // comunque dopo pochi secondi (vedi il chiamante), questo fetch continua
+  // in background e aggiorna le card quando/se arriva.
+  // Ultimo conteggio riuscito, salvato per mostrare subito un numero
+  // plausibile a chi ha già visitato la pagina invece del box "non
+  // disponibile" mentre si aspetta (anche 45s+) la risposta fresca.
+  const COUNTS_CACHE_KEY = 'aste_counts_cache_v1';
+  function loadCachedCounts() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(COUNTS_CACHE_KEY) || 'null');
+      return parsed && parsed.counts ? parsed.counts : null;
+    } catch(e) { return null; }
+  }
+  function saveCachedCounts(counts) {
+    try { localStorage.setItem(COUNTS_CACHE_KEY, JSON.stringify({ counts, savedAt: Date.now() })); }
+    catch(e) {}
+  }
+
+  async function fetchCounts(retries = 1, timeoutMs = 50000) {
     for (let attempt = 0; ; attempt++) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
         const r = await fetch(API_URL, { redirect: 'follow', signal: controller.signal });
         const data = await r.json();
+        if (data.ok) saveCachedCounts(data.counts);
         return data.ok ? data.counts : null;
       } catch(e) {
         if (attempt >= retries) {
@@ -650,12 +667,18 @@
     // Fetch counts in background and update DOM in-place
     if (ASTE_ATTIVE) {
       asteLoadStart();
-      // fetchCounts() può metterci fino a ~20s (timeout + retry, l'API esterna
-      // è lenta in modo irregolare) — bloccare la griglia per tutto quel tempo
-      // rende il sito percepito come lentissimo. Sblocco quindi comunque dopo
-      // un breve periodo di grazia: chi naviga può subito scorrere e cliccare,
-      // i conteggi reali arrivano e aggiornano le card quando sono pronti,
-      // qualunque cosa succeda prima.
+      // Mostro subito l'ultimo conteggio noto (se questo browser ne ha uno in
+      // cache), così chi torna sulla pagina vede numeri plausibili invece del
+      // box "non disponibile" mentre aspetta la risposta fresca — che ora
+      // sappiamo può metterci anche 45s+ (API esterna lenta, verificato).
+      const cachedCounts = loadCachedCounts();
+      if (cachedCounts) updateCounts(cachedCounts);
+      // fetchCounts() può metterci fino a ~50s+ per tentativo — bloccare la
+      // griglia per tutto quel tempo rende il sito percepito come lentissimo.
+      // Sblocco quindi comunque dopo un breve periodo di grazia: chi naviga
+      // può subito scorrere e cliccare, i conteggi reali (o l'ultimo noto,
+      // già mostrato) aggiornano le card quando sono pronti, qualunque cosa
+      // succeda prima.
       let asteLoadFinished = false;
       const finishAsteLoad = () => {
         if (asteLoadFinished) return;
