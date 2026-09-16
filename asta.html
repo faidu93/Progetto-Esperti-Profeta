@@ -277,15 +277,30 @@
     setTimeout(() => { bar.style.display = 'none'; fill.style.width = '0%'; }, 350);
   }
 
-  // Carica conteggi dal Google Sheet tramite API
-  async function fetchCounts() {
-    try {
-      const r = await fetch(API_URL, { redirect: 'follow' });
-      const data = await r.json();
-      return data.ok ? data.counts : null;
-    } catch(e) {
-      console.warn('API non disponibile, uso conteggi a zero', e);
-      return null;
+  // Carica conteggi dal Google Sheet tramite API. Questo endpoint (Apps
+  // Script esterno, vedi CLAUDE.md) è lento in modo irregolare — anche
+  // 10+ secondi in risposte comunque valide, verificato — invece di
+  // fallire subito, quindi il timeout per tentativo deve essere generoso
+  // per non abortire una risposta che sarebbe arrivata bene. Un retry
+  // dà una seconda chance a un blip vero, così non sparisce il filtro
+  // "solo aste disponibili" che dovrebbe partire attivo.
+  async function fetchCounts(retries = 1, timeoutMs = 12000) {
+    for (let attempt = 0; ; attempt++) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        const r = await fetch(API_URL, { redirect: 'follow', signal: controller.signal });
+        const data = await r.json();
+        return data.ok ? data.counts : null;
+      } catch(e) {
+        if (attempt >= retries) {
+          console.warn('API non disponibile dopo ' + (retries + 1) + ' tentativi, uso conteggi a zero', e);
+          return null;
+        }
+        await new Promise(res => setTimeout(res, 600 * (attempt + 1)));
+      } finally {
+        clearTimeout(timer);
+      }
     }
   }
 
