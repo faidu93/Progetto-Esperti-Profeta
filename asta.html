@@ -650,6 +650,19 @@
     // Fetch counts in background and update DOM in-place
     if (ASTE_ATTIVE) {
       asteLoadStart();
+      // fetchCounts() può metterci fino a ~20s (timeout + retry, l'API esterna
+      // è lenta in modo irregolare) — bloccare la griglia per tutto quel tempo
+      // rende il sito percepito come lentissimo. Sblocco quindi comunque dopo
+      // un breve periodo di grazia: chi naviga può subito scorrere e cliccare,
+      // i conteggi reali arrivano e aggiornano le card quando sono pronti,
+      // qualunque cosa succeda prima.
+      let asteLoadFinished = false;
+      const finishAsteLoad = () => {
+        if (asteLoadFinished) return;
+        asteLoadFinished = true;
+        asteLoadDone();
+      };
+      setTimeout(finishAsteLoad, 3000);
       fetchCounts().then(counts => {
         if (counts) {
           updateCounts(counts);
@@ -658,7 +671,7 @@
         } else {
           showCountsUnavailable();
         }
-        asteLoadDone();
+        finishAsteLoad();
       });
     }
   });
