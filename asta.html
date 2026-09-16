@@ -281,25 +281,10 @@
   // Script esterno, vedi CLAUDE.md) è genuinamente lento, non solo a volte:
   // misurato più volte di fila a 12s, 14s e 45s per una risposta comunque
   // valida (200 OK, JSON corretto). Il timeout deve reggere anche il caso
-  // peggiore misurato, altrimenti i conteggi non arrivano mai. Non è un
-  // problema per la velocità percepita della pagina: la griglia si sblocca
-  // comunque dopo pochi secondi (vedi il chiamante), questo fetch continua
-  // in background e aggiorna le card quando/se arriva.
-  // Ultimo conteggio riuscito, salvato per mostrare subito un numero
-  // plausibile a chi ha già visitato la pagina invece del box "non
-  // disponibile" mentre si aspetta (anche 45s+) la risposta fresca.
-  const COUNTS_CACHE_KEY = 'aste_counts_cache_v1';
-  function loadCachedCounts() {
-    try {
-      const parsed = JSON.parse(localStorage.getItem(COUNTS_CACHE_KEY) || 'null');
-      return parsed && parsed.counts ? parsed.counts : null;
-    } catch(e) { return null; }
-  }
-  function saveCachedCounts(counts) {
-    try { localStorage.setItem(COUNTS_CACHE_KEY, JSON.stringify({ counts, savedAt: Date.now() })); }
-    catch(e) {}
-  }
-
+  // peggiore misurato, altrimenti i conteggi non arrivano mai. La pagina
+  // resta bloccata finché questa chiamata non si conclude (vedi il
+  // chiamante): è voluto — meglio far aspettare che rischiare che qualcuno
+  // si iscriva a un'asta già completa guardando un numero non aggiornato.
   async function fetchCounts(retries = 1, timeoutMs = 50000) {
     for (let attempt = 0; ; attempt++) {
       const controller = new AbortController();
@@ -307,7 +292,6 @@
       try {
         const r = await fetch(API_URL, { redirect: 'follow', signal: controller.signal });
         const data = await r.json();
-        if (data.ok) saveCachedCounts(data.counts);
         return data.ok ? data.counts : null;
       } catch(e) {
         if (attempt >= retries) {
@@ -322,7 +306,6 @@
   }
 
   let observer;
-  let astaPiena = {}; // traccia quali aste risultano piene, per il filtro "solo disponibili"
 
   function startCountdown() {
     const targetDate = new Date('2026-08-01T00:00:00').getTime();
@@ -365,8 +348,6 @@
       const sec = document.getElementById('aste');
       const intro = sec ? sec.querySelector('.text-center') : null;
       if (intro) intro.style.display = 'none';
-      const filtroWrapper = document.getElementById('filtro-wrapper');
-      if (filtroWrapper) filtroWrapper.style.display = 'none';
       container.className = 'max-w-2xl mx-auto';
       container.innerHTML = `
         <div class="text-center bg-surface-container-low rounded-3xl border border-outline-variant/15 px-6 py-16 md:py-20 reveal-on-scroll">
@@ -490,14 +471,25 @@
     });
   }
 
+  // Il sito serve solo a far arrivare le persone alla prenotazione vera (il
+  // sondaggio su Telegram): un'asta già completa qui non serve a nessuno e
+  // rischia solo di far cliccare "Iscriviti" a chi non dovrebbe più poterlo
+  // fare. Le card piene vengono quindi tolte dalla pagina, non solo nascoste.
   function updateCounts(counts) {
+    let visibili = 0;
     aste.forEach(asta => {
-      const container = document.getElementById('counts-container-' + asta.id);
-      if (!container) return;
+      const card = document.getElementById('asta-card-' + asta.id);
+      if (!card) return;
 
       const posti_occupati = counts ? (counts[asta.sheetName] || 0) : 0;
       const piena = posti_occupati >= asta.max_posti;
-      astaPiena[asta.id] = piena;
+
+      if (piena) {
+        card.remove();
+        return;
+      }
+      visibili++;
+
       const percentuale = Math.round((posti_occupati / asta.max_posti) * 100);
       const postiLiberi = asta.max_posti - posti_occupati;
 
@@ -506,11 +498,7 @@
       let testoPosti = `${postiLiberi}/${asta.max_posti}`;
       let classeTestoPosti = 'text-on-surface';
 
-      if (piena) {
-        labelPosti = "Posti esauriti";
-        testoPosti = "0 liberi";
-        classeTestoPosti = 'text-red-400 font-bold';
-      } else if (postiLiberi === 1) {
+      if (postiLiberi === 1) {
         labelPosti = "Ultimo posto!";
         testoPosti = "1 libero";
         classeTestoPosti = 'text-red-500 font-bold animate-pulse';
@@ -520,51 +508,27 @@
         classeTestoPosti = 'text-orange-400 font-bold';
       }
 
-      container.innerHTML = `
-        <div class="flex justify-between text-xs md:text-sm">
-          <span class="text-on-surface-variant">${labelPosti}</span>
-          <span class="font-bold ${classeTestoPosti}">${testoPosti}</span>
-        </div>
-        <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-          <div class="h-full rounded-full transition-all duration-500" style="width:${percentuale}%; background:${piena ? '#f87171' : '#ff6b00'};"></div>
-        </div>
-      `;
-
-      if (piena) {
-        const badge = document.getElementById('badge-stato-' + asta.id);
-        if (badge) {
-          badge.className = 'text-[10px] md:text-xs font-bold uppercase tracking-widest text-red-400 bg-red-400/10 px-2.5 md:px-3 py-1 rounded-full';
-          badge.textContent = 'Completa';
-        }
-
-        const card = document.getElementById('asta-card-' + asta.id);
-        if (card) {
-          card.classList.add('border-red-500/20');
-          card.classList.remove('hover:border-primary-container/40');
-        }
-
-        const btnContainer = document.getElementById('btn-container-' + asta.id);
-        if (btnContainer) {
-          btnContainer.innerHTML = `
-            <div class="flex items-center justify-center gap-2 w-full py-2.5 md:py-3 bg-surface-container-highest text-on-surface-variant text-sm md:text-base font-bold rounded-lg cursor-not-allowed opacity-60">
-              <span class="material-symbols-outlined text-base">block</span> Posti esauriti
-            </div>
-          `;
-        }
+      const container = document.getElementById('counts-container-' + asta.id);
+      if (container) {
+        container.innerHTML = `
+          <div class="flex justify-between text-xs md:text-sm">
+            <span class="text-on-surface-variant">${labelPosti}</span>
+            <span class="font-bold ${classeTestoPosti}">${testoPosti}</span>
+          </div>
+          <div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+            <div class="h-full rounded-full transition-all duration-500" style="width:${percentuale}%; background:#ff6b00;"></div>
+          </div>
+        `;
       }
     });
 
-    // Ora che conosciamo lo stato reale delle aste, il filtro può essere usato.
-    // Parte già attivo: chi arriva sulla pagina vede subito solo le aste dove
-    // può davvero iscriversi, senza dover prima capire di dover spuntare qualcosa.
-    const filtroInput = document.getElementById('filtro-disponibili');
-    const filtroLabel = document.getElementById('filtro-label');
-    if (filtroInput) { filtroInput.disabled = false; filtroInput.checked = true; }
-    if (filtroLabel) filtroLabel.classList.remove('opacity-40', 'cursor-not-allowed');
-    applicaFiltro();
+    const vuoto = document.getElementById('nessuna-asta-disponibile');
+    if (vuoto) vuoto.classList.toggle('hidden', visibili > 0);
   }
 
-  // Se l'API dei posti non risponde, avvisa invece di far credere che siano tutti liberi
+  // Se l'API dei posti non risponde, avvisa invece di far credere che siano
+  // tutti liberi — senza dati reali non possiamo sapere quali aste sono
+  // piene, quindi restano tutte visibili con un avviso di verifica manuale.
   function showCountsUnavailable() {
     aste.forEach(asta => {
       const container = document.getElementById('counts-container-' + asta.id);
@@ -576,31 +540,6 @@
         </div>
       `;
     });
-
-    // Senza conteggi reali non possiamo sapere quali aste sono piene: disattiviamo il filtro
-    astaPiena = {};
-    const filtroInput = document.getElementById('filtro-disponibili');
-    const filtroLabel = document.getElementById('filtro-label');
-    if (filtroInput) { filtroInput.checked = false; filtroInput.disabled = true; }
-    if (filtroLabel) filtroLabel.classList.add('opacity-40', 'cursor-not-allowed');
-    applicaFiltro();
-  }
-
-  // Mostra solo le aste con posti disponibili, se il filtro è attivo
-  function applicaFiltro() {
-    const filtroInput = document.getElementById('filtro-disponibili');
-    const soloDisponibili = !!(filtroInput && filtroInput.checked && !filtroInput.disabled);
-    let visibili = 0;
-    aste.forEach(asta => {
-      const card = document.getElementById('asta-card-' + asta.id);
-      if (!card) return;
-      const piena = astaPiena[asta.id] === true;
-      const nascondi = soloDisponibili && piena;
-      card.style.display = nascondi ? 'none' : '';
-      if (!nascondi) visibili++;
-    });
-    const vuoto = document.getElementById('nessuna-asta-disponibile');
-    if (vuoto) vuoto.classList.toggle('hidden', !(soloDisponibili && visibili === 0));
   }
 
   function toggleForm(astaId) {
@@ -667,25 +606,11 @@
     // Fetch counts in background and update DOM in-place
     if (ASTE_ATTIVE) {
       asteLoadStart();
-      // Mostro subito l'ultimo conteggio noto (se questo browser ne ha uno in
-      // cache), così chi torna sulla pagina vede numeri plausibili invece del
-      // box "non disponibile" mentre aspetta la risposta fresca — che ora
-      // sappiamo può metterci anche 45s+ (API esterna lenta, verificato).
-      const cachedCounts = loadCachedCounts();
-      if (cachedCounts) updateCounts(cachedCounts);
-      // fetchCounts() può metterci fino a ~50s+ per tentativo — bloccare la
-      // griglia per tutto quel tempo rende il sito percepito come lentissimo.
-      // Sblocco quindi comunque dopo un breve periodo di grazia: chi naviga
-      // può subito scorrere e cliccare, i conteggi reali (o l'ultimo noto,
-      // già mostrato) aggiornano le card quando sono pronti, qualunque cosa
-      // succeda prima.
-      let asteLoadFinished = false;
-      const finishAsteLoad = () => {
-        if (asteLoadFinished) return;
-        asteLoadFinished = true;
-        asteLoadDone();
-      };
-      setTimeout(finishAsteLoad, 3000);
+      // Bloccato finché non arriva il dato reale: chi si iscrive lo fa solo
+      // dopo la prenotazione sul sondaggio Telegram, quindi ogni persona
+      // dovrebbe già avere un posto — far vedere/cliccare la griglia prima
+      // di sapere quali aste sono ancora aperte rischia di far iscrivere
+      // qualcuno a un'asta già completa. Vale la pena aspettare.
       fetchCounts().then(counts => {
         if (counts) {
           updateCounts(counts);
@@ -694,7 +619,7 @@
         } else {
           showCountsUnavailable();
         }
-        finishAsteLoad();
+        asteLoadDone();
       });
     }
   });
@@ -776,22 +701,11 @@
         </div>
       </div>
 
-      <div id="filtro-wrapper" class="flex justify-center mb-6 md:mb-8 reveal-on-scroll transition-opacity duration-300">
-        <label id="filtro-label" for="filtro-disponibili" class="inline-flex items-center gap-3 cursor-not-allowed select-none text-sm text-on-surface-variant bg-surface-container-low border border-outline-variant/15 rounded-full px-4 py-2.5 hover:border-primary-container/30 transition-colors opacity-40">
-          <span class="relative inline-flex w-10 h-6 shrink-0">
-            <input type="checkbox" id="filtro-disponibili" class="peer sr-only" disabled onchange="applicaFiltro()">
-            <span class="absolute inset-0 bg-surface-container-highest rounded-full transition-colors peer-checked:bg-primary-container"></span>
-            <span class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform peer-checked:translate-x-4"></span>
-          </span>
-          Mostra solo aste con posti disponibili
-        </label>
-      </div>
-
       <div id="aste-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 transition-opacity duration-300"></div>
 
       <div id="nessuna-asta-disponibile" class="hidden text-center bg-surface-container-low rounded-2xl border border-outline-variant/15 px-6 py-12 md:py-16 mt-6 md:mt-8">
         <span class="material-symbols-outlined text-primary-container text-4xl mb-3 block">search_off</span>
-        <p class="text-sm md:text-base text-on-surface-variant">Al momento nessuna asta ha posti disponibili. Riprova più tardi oppure <button onclick="document.getElementById('filtro-disponibili').click()" class="text-primary-container hover:underline font-semibold">rimuovi il filtro</button> per vedere tutte le aste.</p>
+        <p class="text-sm md:text-base text-on-surface-variant">Al momento nessuna asta ha posti disponibili. Riprova più tardi.</p>
       </div>
     </div>
   </section>
