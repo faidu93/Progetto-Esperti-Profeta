@@ -542,7 +542,24 @@
     });
   }
 
+  // Prima di APRIRE un modulo (non alla chiusura, quella resta diretta)
+  // chiede conferma di essere già passati dal sondaggio Telegram — chi
+  // arriva sul sito da un link condiviso in giro, senza aver visto i 200
+  // avvisi nel gruppo, altrimenti rischia di compilare un modulo a cui
+  // non ha diritto.
+  let pendingAstaId = null;
+
   function toggleForm(astaId) {
+    const formDiv = document.getElementById('form-asta-' + astaId);
+    if (formDiv.classList.contains('hidden')) {
+      pendingAstaId = astaId;
+      document.getElementById('conferma-telegram-modal')?.classList.remove('hidden');
+      return;
+    }
+    aprireOChiudereForm(astaId);
+  }
+
+  function aprireOChiudereForm(astaId) {
     const formDiv = document.getElementById('form-asta-' + astaId);
     const isHidden = formDiv.classList.contains('hidden');
     document.querySelectorAll('[id^="form-asta-"]').forEach(d => d.classList.add('hidden'));
@@ -555,6 +572,29 @@
       formDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
+
+  function chiudiModalConferma() {
+    document.getElementById('conferma-telegram-modal')?.classList.add('hidden');
+    pendingAstaId = null;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('conferma-telegram-si')?.addEventListener('click', () => {
+      const id = pendingAstaId;
+      chiudiModalConferma();
+      if (id != null) aprireOChiudereForm(id);
+    });
+    document.getElementById('conferma-telegram-no')?.addEventListener('click', () => {
+      chiudiModalConferma();
+      document.getElementById('come-partecipare')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    document.getElementById('conferma-telegram-modal')?.addEventListener('click', (e) => {
+      if (e.target.id === 'conferma-telegram-modal') chiudiModalConferma();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') chiudiModalConferma();
+    });
+  });
 
   (function(){
     var d=document, s='https://tally.so/widgets/embed.js';
@@ -709,6 +749,27 @@
       </div>
     </div>
   </section>
+
+  <!-- Conferma prenotazione Telegram: chiesta prima di aprire qualunque modulo
+       di iscrizione, per intercettare chi arriva sul sito senza essere passato
+       dal sondaggio nel gruppo. -->
+  <div id="conferma-telegram-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,0.7);">
+    <div class="bg-surface-container-low rounded-2xl border border-outline-variant/15 max-w-md w-full p-6 md:p-8 text-center shadow-2xl">
+      <span class="material-symbols-outlined text-orange-400 text-4xl mb-3 block">warning</span>
+      <h3 class="text-lg md:text-xl font-headline font-bold text-on-surface mb-3">Hai già prenotato il tuo posto?</h3>
+      <p class="text-sm md:text-base text-on-surface-variant leading-relaxed mb-6">
+        Questo modulo serve solo a chi ha già votato il sondaggio nel gruppo Telegram e si è assicurato un posto. Iscriverti senza averlo fatto rischia di occupare il posto di chi lo ha prenotato per primo.
+      </p>
+      <div class="flex flex-col gap-3">
+        <button id="conferma-telegram-si" class="w-full py-3 bg-primary-container text-on-primary font-headline font-bold text-sm md:text-base rounded-lg hover:opacity-90 transition-all active:scale-[0.98]">
+          Sì, ho già prenotato — continua
+        </button>
+        <button id="conferma-telegram-no" class="w-full py-3 bg-surface-container-highest text-on-surface-variant font-bold text-sm md:text-base rounded-lg hover:opacity-90 transition-all active:scale-[0.98]">
+          Non ancora, mostrami come si fa
+        </button>
+      </div>
+    </div>
+  </div>
 
 </main>
 
