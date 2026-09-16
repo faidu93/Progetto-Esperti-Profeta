@@ -4,11 +4,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Static marketing/community site for "Progetto Esperti Profeta" (fantacalcio — Italian fantasy football community), an Italian-language site for a group that runs fantasy football auctions ("C'è Asta per Te"). No build system, no package manager, no framework — plain HTML files styled with the Tailwind CDN build and deployed as-is (e.g. via GitHub Pages/static hosting).
+Static marketing/community site for "Progetto Esperti Profeta" (fantacalcio — Italian fantasy football community), an Italian-language site for a group that runs fantasy football auctions ("C'è Asta per Te"). No framework — plain HTML files deployed as-is (e.g. via Vercel static hosting). Styling is Tailwind, but as a **compiled static file** (`assets/tailwind.css`), not the runtime CDN build — see "CSS build" below.
 
 ## Development
 
-There is no build/lint/test tooling. Edit the HTML files directly and open them in a browser (or serve the directory, e.g. `python3 -m http.server`) to preview. Changes go live by committing/pushing — there is no compile step.
+No JS/HTML build or lint/test tooling. Edit the HTML files directly and open them in a browser (or serve the directory, e.g. `python3 -m http.server`) to preview. Changes go live by committing/pushing — there is no compile step for the markup.
+
+## CSS build
+
+`index.html`, `asta.html`, `fantalistone.html`, `iscriviti.html` and `privacy.html` link a single pre-built stylesheet, `assets/tailwind.css` (generated, committed to the repo — not built on deploy). This replaced the Tailwind Play CDN script (`cdn.tailwindcss.com`) that every page used to load, which ships the whole Tailwind engine as JS and recompiles the page's CSS in the browser on every single visit — explicitly flagged by Tailwind itself as unfit for production, and the single biggest thing making the site feel slow to load.
+
+- Source of truth for the design tokens (colors, font families, border radius) is `tailwind.config.js` at the repo root — it used to be duplicated inline (`<script id="tailwind-config">`) in every page.
+- `donazione.html` doesn't use Tailwind at all (hand-written inline `<style>`) and isn't part of this build.
+- To rebuild after changing `tailwind.config.js` or adding new utility classes to any of the 5 pages above:
+  ```
+  npm install   # first time only — installs tailwindcss, @tailwindcss/forms, @tailwindcss/container-queries as devDependencies
+  npx tailwindcss -i tailwind.input.css -o assets/tailwind.css --minify
+  ```
+- After rebuilding, bump the `?v=` query string on every `<link href="/assets/tailwind.css?v=...">` tag (one per page) so browsers/CDN caches pick up the new file — same cache-busting convention as the dashboard repos.
+- `node_modules/` is gitignored; only the generated `assets/tailwind.css` is committed, so a fresh clone doesn't need Node to just view/edit the pages — only to change styles.
 
 ## Pages
 
