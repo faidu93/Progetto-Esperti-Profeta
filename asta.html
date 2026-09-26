@@ -206,14 +206,15 @@
   }
 
   // Carica conteggi dal Google Sheet tramite API. Questo endpoint (Apps
-  // Script esterno, vedi CLAUDE.md) è genuinamente lento, non solo a volte:
-  // misurato più volte di fila a 12s, 14s e 45s per una risposta comunque
-  // valida (200 OK, JSON corretto). Il timeout deve reggere anche il caso
-  // peggiore misurato, altrimenti i conteggi non arrivano mai. La pagina
-  // resta bloccata finché questa chiamata non si conclude (vedi il
-  // chiamante): è voluto — meglio far aspettare che rischiare che qualcuno
-  // si iscriva a un'asta già completa guardando un numero non aggiornato.
-  async function fetchCounts(retries = 1, timeoutMs = 50000) {
+  // Script esterno, vedi CLAUDE.md) fino al 26/09/2026 ricalcolava tutto
+  // ad ogni richiesta (10-90s misurati) — ora legge una cache aggiornata da
+  // un trigger ogni 5 minuti, risposta normale ~1-2s. Timeout tenuto comunque
+  // generoso (10s + 1 retry) per assorbire un rallentamento occasionale senza
+  // scambiarlo per un'interruzione vera. La pagina resta bloccata finché
+  // questa chiamata non si conclude (vedi il chiamante): è voluto — meglio
+  // far aspettare che rischiare che qualcuno si iscriva a un'asta già
+  // completa guardando un numero non aggiornato.
+  async function fetchCounts(retries = 1, timeoutMs = 10000) {
     for (let attempt = 0; ; attempt++) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
