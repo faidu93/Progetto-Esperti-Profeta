@@ -364,84 +364,11 @@
         Il periodo di iscrizione al FantaListone per questa stagione è terminato. Segui i nostri canali per sapere quando riapriranno.
       </p>
 
-      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-8 md:p-10 shadow-2xl">
-        <span class="material-symbols-outlined text-4xl text-on-surface-variant/50 mb-3 block">lock</span>
-        <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">
-          Ti sei già iscritto e hai pagato la quota? Recupera il tuo codice di accesso nella sezione qui sotto.
-        </p>
-        <a href="#codice" class="inline-flex items-center justify-center gap-2 mt-6 px-6 py-3 bg-primary-container/10 text-primary-container border border-primary-container/20 font-headline font-bold text-sm rounded-lg hover:bg-primary-container/20 transition-all">
-          <span class="material-symbols-outlined text-base">key</span> Recupera il codice
-        </a>
-      </div>
-
       <a href="/iscriviti.html" class="inline-flex items-center gap-2 mt-6 text-on-surface-variant hover:text-primary-container text-sm font-medium transition-colors">
         Non sei ancora nel Progetto Esperti? Iscriviti qui <span class="material-symbols-outlined text-base">arrow_forward</span>
       </a>
     </div>
   </section>
-
-  <!-- Recupera codice -->
-  <section class="py-16 md:py-24 bg-surface relative" id="codice">
-    <div class="max-w-lg mx-auto px-6 md:px-8 text-center reveal-on-scroll">
-      <span class="inline-block text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary-container bg-primary-container/10 px-3 py-1.5 rounded-full mb-4">Hai già pagato?</span>
-      <h2 class="text-2xl md:text-4xl font-headline font-bold text-on-surface mb-3 md:mb-4">Entra nella Lega</h2>
-      <p class="text-sm md:text-base text-on-surface-variant leading-relaxed mb-6">Nell'app Fantacalcio:</p>
-
-      <ol class="text-left space-y-3 mb-8">
-        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-container/15 text-primary-container text-xs font-bold flex items-center justify-center">1</span><span class="text-sm md:text-base text-on-surface-variant">Dal menu laterale clicca il <strong class="text-on-surface">"+"</strong></span></li>
-        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-container/15 text-primary-container text-xs font-bold flex items-center justify-center">2</span><span class="text-sm md:text-base text-on-surface-variant">Clicca <strong class="text-on-surface">"Unisciti a una lega"</strong></span></li>
-        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-container/15 text-primary-container text-xs font-bold flex items-center justify-center">3</span><span class="text-sm md:text-base text-on-surface-variant">Clicca <strong class="text-on-surface">"Unisciti a Lega privata"</strong></span></li>
-        <li class="flex items-start gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-container/15 text-primary-container text-xs font-bold flex items-center justify-center">4</span><span class="text-sm md:text-base text-on-surface-variant">Seleziona la tab <strong class="text-on-surface">"Parola d'ordine"</strong> (invece di "Codice invito") e inserisci i due dati che trovi qui sotto</span></li>
-      </ol>
-
-      <p class="text-sm md:text-base text-on-surface-variant leading-relaxed mb-8">Inserisci il nome e cognome che hai usato in fase di iscrizione al FantaListone: se risulti tra gli iscritti te li mostriamo subito.</p>
-
-      <div class="bg-surface-container-low rounded-2xl p-6 md:p-8 text-left">
-        <label for="codiceQuery" class="text-xs uppercase tracking-wider text-on-surface-variant mb-2 block">Nome e Cognome</label>
-        <input id="codiceQuery" type="text" placeholder="Mario Rossi" onkeydown="if(event.key==='Enter') cercaCodiceFantaListone()" class="w-full px-4 py-3 rounded-lg bg-surface-container-lowest border border-outline-variant/20 text-on-surface text-sm focus:outline-none focus:border-primary-container mb-4">
-        <button onclick="cercaCodiceFantaListone()" id="codiceBtn" class="w-full px-6 py-3 bg-primary-container text-on-primary font-bold text-sm rounded-lg hover:opacity-90 transition-all active:scale-[0.98]">Mostra il mio codice</button>
-        <div id="codiceResult" class="mt-4"></div>
-      </div>
-    </div>
-  </section>
-  <script>
-    async function cercaCodiceFantaListone() {
-      const input = document.getElementById('codiceQuery');
-      const btn = document.getElementById('codiceBtn');
-      const result = document.getElementById('codiceResult');
-      const q = (input.value || '').trim();
-
-      if (q.length < 3) {
-        result.innerHTML = '<p class="text-sm text-red-400">Inserisci almeno 3 caratteri.</p>';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Cerco…';
-      result.innerHTML = '';
-
-      try {
-        const res = await fetch('https://dashboard-esperti-backend.vercel.app/api/aste?action=fantalistone-code&q=' + encodeURIComponent(q));
-        const data = await res.json();
-
-        if (data.found && data.leagueName && data.password) {
-          result.innerHTML = '<div class="p-4 rounded-lg bg-primary-container/10 border border-primary-container/30 space-y-3">'
-            + '<div><p class="text-xs text-on-surface-variant uppercase tracking-wider mb-1">Nome Lega</p><p id="legaValore" class="text-xl font-headline font-bold text-primary-container"></p></div>'
-            + '<div><p class="text-xs text-on-surface-variant uppercase tracking-wider mb-1">Parola d\'ordine</p><p id="passwordValore" class="text-xl font-headline font-bold text-primary-container"></p></div>'
-            + '</div>';
-          document.getElementById('legaValore').textContent = data.leagueName; // textContent: mai via innerHTML
-          document.getElementById('passwordValore').textContent = data.password;
-        } else {
-          result.innerHTML = '<p class="text-sm text-on-surface-variant">Non troviamo la tua iscrizione. Controlla di aver scritto nome e cognome esattamente come nel modulo — se hai già pagato e il problema persiste, scrivi allo staff.</p>';
-        }
-      } catch (e) {
-        result.innerHTML = '<p class="text-sm text-red-400">Errore di connessione, riprova tra poco.</p>';
-      }
-
-      btn.disabled = false;
-      btn.textContent = 'Mostra il mio codice';
-    }
-  </script>
   <script>
     (function(){
       var d=document, s='https://tally.so/widgets/embed.js';
