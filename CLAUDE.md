@@ -65,3 +65,10 @@ Seat counts are fetched at runtime from a Google Apps Script Web App (`API_URL`,
 - **Tally.so** — all registration forms (`iscriviti.html` and each auction card in `asta.html`) are embedded Tally forms loaded via `https://tally.so/widgets/embed.js`, referenced only by form ID.
 - **Google Apps Script** — read-only seat-count API for `asta.html`, external to this repo.
 - **PayPal.me** — `donazione.html` redirects to a hardcoded PayPal.me link.
+
+## Hosting and deploy
+
+- **Official address:** https://progetto-esperti-profeta.vercel.app — Vercel project `progetto-esperti-profeta`, git-linked to this repo, deploys on every push to `main` (about 1-2 minutes). An identical mirror is served by GitHub Pages at https://faidu93.github.io/Progetto-Esperti-Profeta/.
+- The backend (`dashboard-esperti-backend`, `api/aste.js`) reads the live aste metadata from the Vercel address, and the pages use it in canonical/Open Graph tags: do not change the domain without updating both.
+- Local preview: `python3 -m http.server 8935` from the repo folder.
+- Map of all projects, services and deadlines: `~/Documents/Progetti/MAPPA-PROGETTI.md` (read it first, update it after structural changes).
