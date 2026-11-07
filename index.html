@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_upward,calendar_month,check_circle,close,emoji_events,forum,gavel,grade,group_work,groups,help,hourglass_empty,hourglass_top,how_to_reg,info,live_tv,lock,newspaper,payments,play_circle,remove,search_off,send,storefront,tune,warning&display=block" rel="stylesheet"/>
 <link href="/assets/tailwind.css?v=20260916" rel="stylesheet"/>
 <style>
   .material-symbols-outlined {
@@ -37,13 +37,18 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    visibility: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out, visibility 0s linear 0.3s;
   }
   #mobile-menu.open {
-    max-height: 200px;
+    visibility: visible;
+    transition-delay: 0s;
+    max-height: 320px;
     opacity: 1;
   }
-  html, body { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; }
+  html { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+  body { overflow-x: clip; max-width: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
   @keyframes loader-fill {
     0% { width: 0%; }
     100% { width: 100%; }
@@ -70,8 +75,12 @@
     }
   }
 </style>
+<link rel="canonical" href="https://progetto-esperti-profeta.vercel.app/">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#131313">
+<noscript><style>.reveal-on-scroll{opacity:1!important;transform:none!important}</style></noscript>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
 
 <!-- Loader iniziale -->
 <div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500 ease-out">
@@ -83,7 +92,8 @@
   </div>
 </div>
 <script>
-  if (sessionStorage.getItem('visited')) {
+  var visitedFlag = false; try { visitedFlag = !!sessionStorage.getItem('visited'); } catch (e) {}
+  if (visitedFlag) {
     document.getElementById('page-loader').style.display = 'none';
   } else {
     (function() {
@@ -91,7 +101,7 @@
       function hideLoader() {
         if (loader && loader.style.opacity !== '0') {
           loader.style.opacity = '0';
-          sessionStorage.setItem('visited', 'true');
+          try { sessionStorage.setItem('visited', 'true'); } catch (e) {}
           setTimeout(() => {
             loader.style.display = 'none';
           }, 500);
@@ -120,7 +130,7 @@
         <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/fantalistone.html">FantaListone</a>
       </div>
     </div>
-    <button id="hamburger" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
+    <button id="hamburger" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
@@ -145,6 +155,7 @@
   hamburger.addEventListener('click', () => {
     mobileMenu.classList.toggle('open');
     const isOpen = mobileMenu.classList.contains('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
     bar1.style.transform = isOpen ? 'translateY(8px) rotate(45deg)' : '';
     bar2.style.opacity = isOpen ? '0' : '1';
     bar3.style.transform = isOpen ? 'translateY(-8px) rotate(-45deg)' : '';
@@ -298,7 +309,7 @@
       <p class="text-sm md:text-base text-on-surface-variant max-w-2xl mx-auto">Seguici su tutti i nostri canali per non perdere nemmeno un'analisi, un video o un consiglio last-minute per la tua rosa.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-5 md:gap-6">
-      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center reveal-on-scroll" href="https://youtube.com/@progettoespertiprofeta?si=FnO4iwX2WroTdoNf" target="_blank" rel="noopener noreferrer">
+      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center reveal-on-scroll" href="https://youtube.com/@progettoespertiprofeta" target="_blank" rel="noopener noreferrer">
         <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-all duration-300">
           <svg viewBox="0 0 24 24" class="w-10 h-10 md:w-12 md:h-12" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -308,7 +319,7 @@
         <p class="text-xs md:text-sm text-on-surface-variant mb-4 md:mb-6">Analisi approfondite, live e focus tattici sui singoli match.</p>
         <span class="text-primary text-sm md:text-base font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Iscriviti Ora <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
       </a>
-      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center reveal-on-scroll delay-100" href="https://www.instagram.com/esperti_profeta_fantacalcio?igsh=N2p1ZXMxbHVmOWow&utm_source=qr" target="_blank" rel="noopener noreferrer">
+      <a class="group p-6 md:p-8 bg-surface-container-low rounded-2xl border border-outline-variant/15 hover:border-primary/50 transition-all duration-300 flex flex-col items-center text-center reveal-on-scroll delay-100" href="https://www.instagram.com/esperti_profeta_fantacalcio" target="_blank" rel="noopener noreferrer">
         <div class="w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-all duration-300">
           <svg viewBox="0 0 24 24" class="w-10 h-10 md:w-12 md:h-12" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.44-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>

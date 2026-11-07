@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_upward,calendar_month,check_circle,close,emoji_events,forum,gavel,grade,group_work,groups,help,hourglass_empty,hourglass_top,how_to_reg,info,live_tv,lock,newspaper,payments,play_circle,remove,search_off,send,storefront,tune,warning&display=block" rel="stylesheet"/>
 <link href="/assets/tailwind.css?v=20260916" rel="stylesheet"/>
 <style>
   .material-symbols-outlined {
@@ -20,13 +20,18 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    visibility: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out, visibility 0s linear 0.3s;
   }
   #mobile-menu.open {
-    max-height: 200px;
+    visibility: visible;
+    transition-delay: 0s;
+    max-height: 320px;
     opacity: 1;
   }
-  html, body { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; }
+  html { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+  body { overflow-x: clip; max-width: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
   .privacy-content h2 { color: #ff6b00; }
   .privacy-content a { color: #ff6b00; text-decoration: underline; }
   @keyframes loader-fill {
@@ -35,8 +40,12 @@
   }
   .animate-loader { animation: loader-fill 0.8s ease-out forwards; }
 </style>
+<link rel="canonical" href="https://progetto-esperti-profeta.vercel.app/privacy.html">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#131313">
+<noscript><style>.reveal-on-scroll{opacity:1!important;transform:none!important}</style></noscript>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
 
 <!-- Loader iniziale -->
 <div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500 ease-out">
@@ -48,7 +57,8 @@
   </div>
 </div>
 <script>
-  if (sessionStorage.getItem('visited')) {
+  var visitedFlag = false; try { visitedFlag = !!sessionStorage.getItem('visited'); } catch (e) {}
+  if (visitedFlag) {
     document.getElementById('page-loader').style.display = 'none';
   } else {
     (function() {
@@ -56,7 +66,7 @@
       function hideLoader() {
         if (loader && loader.style.opacity !== '0') {
           loader.style.opacity = '0';
-          sessionStorage.setItem('visited', 'true');
+          try { sessionStorage.setItem('visited', 'true'); } catch (e) {}
           setTimeout(() => {
             loader.style.display = 'none';
           }, 500);
@@ -84,7 +94,7 @@
         <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/fantalistone.html">FantaListone</a>
       </div>
     </div>
-    <button id="hamburger" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
+    <button id="hamburger" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
@@ -109,6 +119,7 @@
   hamburger.addEventListener('click', () => {
     mobileMenu.classList.toggle('open');
     const isOpen = mobileMenu.classList.contains('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
     bar1.style.transform = isOpen ? 'translateY(8px) rotate(45deg)' : '';
     bar2.style.opacity = isOpen ? '0' : '1';
     bar3.style.transform = isOpen ? 'translateY(-8px) rotate(-45deg)' : '';

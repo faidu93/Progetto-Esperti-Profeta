@@ -44,12 +44,13 @@ Full rules are in `DESIGN.md` — read it before touching styling. Key points:
 
 ## Auction system (`asta.html`)
 
-This is the most dynamic page. Auctions are defined in a hardcoded JS array `const aste = [...]` (around line 215), one object per auction:
+This is the most dynamic page. Auctions are defined in a hardcoded JS array `const aste = [...]` (near the top of the page script, ~line 176), one object per auction:
 
 ```js
-{ id, nome, data, modalita, tallyId, max_posti, quota, sheetName }
+{ id, nome, data, giorno, modalita, tallyId, max_posti, quota, sheetName }
 ```
 
+- `giorno` — ISO date `YYYY-MM-DD` of the auction: the page (`asteVisibili`) only shows auctions whose `giorno` is today or later (Europe/Rome); without it the auction is always shown. The array must stay a plain list of objects (strings/numbers only): `dashboard-esperti-backend` parses it.
 - `id` — stable numeric identifier (keep unique when adding auctions; note the display name in `nome`, e.g. "Asta #11", is independent of `id` and not always sequential — check existing entries before assigning a new one).
 - `tallyId` — the Tally.so form ID embedded in an iframe (`https://tally.so/embed/{tallyId}`) for that auction's registration form. New auctions are sometimes added with a placeholder ID and updated once the real Tally form exists (see commit history).
 - `sheetName` — must exactly match the tab name in the backing Google Sheet; used as the key when reading seat counts back from the API.
@@ -72,3 +73,10 @@ Seat counts are fetched at runtime from a Google Apps Script Web App (`API_URL`,
 - The backend (`dashboard-esperti-backend`, `api/aste.js`) reads the live aste metadata from the Vercel address, and the pages use it in canonical/Open Graph tags: do not change the domain without updating both.
 - Local preview: `python3 -m http.server 8935` from the repo folder.
 - Map of all projects, services and deadlines: `~/Documents/Progetti/MAPPA-PROGETTI.md` (read it first, update it after structural changes).
+
+## Security headers, icons, SEO (added 2026-11-07)
+
+- `vercel.json` sets security headers (nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy, CSP for frame-ancestors/base-uri/object-src, full CSP in **Report-Only**) and a 1-day cache for `/assets/*`. `.vercelignore` keeps `CLAUDE.md`, `DESIGN.md`, `package*.json`, `tailwind*`, `.github` off the public site.
+- Material Symbols is loaded as a subset (`icon_names=` in the Google Fonts link of every page, 30 icons, ~10 KB instead of 1.1 MB). **When you use a new icon, add its name (alphabetical) to that list on every page**, otherwise it shows as text.
+- YouTube embeds use `youtube-nocookie.com`. `robots.txt` and `sitemap.xml` are in the root; each page has a canonical URL on the Vercel address. The GitHub Pages copy is not an equal mirror (absolute `/assets/` paths): the official address is the Vercel one.
+- The sticky nav needs `overflow-x: clip` on `body` (not `overflow-x: hidden` on both `html` and `body`, which breaks `position: sticky`).

@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://tally.so">
 <link rel="preconnect" href="https://script.google.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_upward,calendar_month,check_circle,close,emoji_events,forum,gavel,grade,group_work,groups,help,hourglass_empty,hourglass_top,how_to_reg,info,live_tv,lock,newspaper,payments,play_circle,remove,search_off,send,storefront,tune,warning&display=block" rel="stylesheet"/>
 <link href="/assets/tailwind.css?v=20260916" rel="stylesheet"/>
 <style>
   .material-symbols-outlined {
@@ -35,13 +35,18 @@
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    visibility: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in-out, visibility 0s linear 0.3s;
   }
   #mobile-menu.open {
-    max-height: 200px;
+    visibility: visible;
+    transition-delay: 0s;
+    max-height: 320px;
     opacity: 1;
   }
-  html, body { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; }
+  html { overflow-x: hidden; max-width: 100%; scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+  body { overflow-x: clip; max-width: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
   @keyframes loader-fill {
     0% { width: 0%; }
     100% { width: 100%; }
@@ -68,8 +73,12 @@
     }
   }
 </style>
+<link rel="canonical" href="https://progetto-esperti-profeta.vercel.app/asta.html">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#131313">
+<noscript><style>.reveal-on-scroll{opacity:1!important;transform:none!important}</style></noscript>
 </head>
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary overflow-x-hidden">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
 
 <!-- Loader iniziale -->
 <div id="page-loader" class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-opacity duration-500 ease-out">
@@ -81,7 +90,8 @@
   </div>
 </div>
 <script>
-  if (sessionStorage.getItem('visited')) {
+  var visitedFlag = false; try { visitedFlag = !!sessionStorage.getItem('visited'); } catch (e) {}
+  if (visitedFlag) {
     document.getElementById('page-loader').style.display = 'none';
   } else {
     (function() {
@@ -89,7 +99,7 @@
       function hideLoader() {
         if (loader && loader.style.opacity !== '0') {
           loader.style.opacity = '0';
-          sessionStorage.setItem('visited', 'true');
+          try { sessionStorage.setItem('visited', 'true'); } catch (e) {}
           setTimeout(() => {
             loader.style.display = 'none';
           }, 500);
@@ -117,7 +127,7 @@
         <a class="font-headline font-semibold text-xs tracking-wide text-gray-400 hover:text-white transition-colors" href="/fantalistone.html">FantaListone</a>
       </div>
     </div>
-    <button id="hamburger" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
+    <button id="hamburger" aria-expanded="false" aria-controls="mobile-menu" class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 focus:outline-none" aria-label="Menu">
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar1"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar2"></span>
       <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="bar3"></span>
@@ -142,6 +152,7 @@
   hamburger.addEventListener('click', () => {
     mobileMenu.classList.toggle('open');
     const isOpen = mobileMenu.classList.contains('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
     bar1.style.transform = isOpen ? 'translateY(8px) rotate(45deg)' : '';
     bar2.style.opacity = isOpen ? '0' : '1';
     bar3.style.transform = isOpen ? 'translateY(-8px) rotate(-45deg)' : '';
@@ -163,17 +174,24 @@
   // compreso (tutte già concluse). Per recuperare i dati di una vecchia
   // asta (tallyId, sheetName) sono nella cronologia git di questo file.
   const aste = [
-    { id: 10, nome: "Asta #10 (a 12)", data: "domenica 27 settembre", modalita: "Mantra Euroleghe", tallyId: "dW4OdN", max_posti: 12, quota: "25€", sheetName: "27 Set" },
-    { id: 29, nome: "Asta #29", data: "mercoledì 30 settembre", modalita: "Classic", tallyId: "aQWKpX", max_posti: 10, quota: "25€", sheetName: "30 Set" },
-    { id: 30, nome: "Asta #30", data: "giovedì 1 ottobre", modalita: "Classic", tallyId: "RGpgRK", max_posti: 10, quota: "25€", sheetName: "01 Ott" },
-    { id: 31, nome: "Asta #31", data: "venerdì 2 ottobre", modalita: "Classic", tallyId: "kdqpWo", max_posti: 10, quota: "25€", sheetName: "02 Ott" },
-    { id: 35, nome: "Asta #35", data: "domenica 4 ottobre", modalita: "Classic", tallyId: "QKPz28", max_posti: 10, quota: "25€", sheetName: "04 Ott" },
-    { id: 32, nome: "Asta #32", data: "lunedì 5 ottobre", modalita: "Mantra", tallyId: "RGpgJ4", max_posti: 10, quota: "25€", sheetName: "05 Ott" },
-    { id: 33, nome: "Asta #33", data: "martedì 6 ottobre", modalita: "Classic", tallyId: "WOygMk", max_posti: 10, quota: "25€", sheetName: "06 Ott" },
-    { id: 34, nome: "Asta #34", data: "giovedì 8 ottobre", modalita: "Classic", tallyId: "LZlgJl", max_posti: 10, quota: "25€", sheetName: "08 Ott" },
-    { id: 36, nome: "Asta #36", data: "venerdì 9 ottobre", modalita: "Mantra", tallyId: "Gx8qep", max_posti: 10, quota: "25€", sheetName: "09 Ott" },
-    { id: 37, nome: "Asta #37", data: "lunedì 12 ottobre", modalita: "Mantra Euroleghe", tallyId: "lboML5", max_posti: 10, quota: "25€", sheetName: "12 Ott" }
+    { id: 10, nome: "Asta #10 (a 12)", data: "domenica 27 settembre", giorno: "2026-09-27", modalita: "Mantra Euroleghe", tallyId: "dW4OdN", max_posti: 12, quota: "25€", sheetName: "27 Set" },
+    { id: 29, nome: "Asta #29", data: "mercoledì 30 settembre", giorno: "2026-09-30", modalita: "Classic", tallyId: "aQWKpX", max_posti: 10, quota: "25€", sheetName: "30 Set" },
+    { id: 30, nome: "Asta #30", data: "giovedì 1 ottobre", giorno: "2026-10-01", modalita: "Classic", tallyId: "RGpgRK", max_posti: 10, quota: "25€", sheetName: "01 Ott" },
+    { id: 31, nome: "Asta #31", data: "venerdì 2 ottobre", giorno: "2026-10-02", modalita: "Classic", tallyId: "kdqpWo", max_posti: 10, quota: "25€", sheetName: "02 Ott" },
+    { id: 35, nome: "Asta #35", data: "domenica 4 ottobre", giorno: "2026-10-04", modalita: "Classic", tallyId: "QKPz28", max_posti: 10, quota: "25€", sheetName: "04 Ott" },
+    { id: 32, nome: "Asta #32", data: "lunedì 5 ottobre", giorno: "2026-10-05", modalita: "Mantra", tallyId: "RGpgJ4", max_posti: 10, quota: "25€", sheetName: "05 Ott" },
+    { id: 33, nome: "Asta #33", data: "martedì 6 ottobre", giorno: "2026-10-06", modalita: "Classic", tallyId: "WOygMk", max_posti: 10, quota: "25€", sheetName: "06 Ott" },
+    { id: 34, nome: "Asta #34", data: "giovedì 8 ottobre", giorno: "2026-10-08", modalita: "Classic", tallyId: "LZlgJl", max_posti: 10, quota: "25€", sheetName: "08 Ott" },
+    { id: 36, nome: "Asta #36", data: "venerdì 9 ottobre", giorno: "2026-10-09", modalita: "Mantra", tallyId: "Gx8qep", max_posti: 10, quota: "25€", sheetName: "09 Ott" },
+    { id: 37, nome: "Asta #37", data: "lunedì 12 ottobre", giorno: "2026-10-12", modalita: "Mantra Euroleghe", tallyId: "lboML5", max_posti: 10, quota: "25€", sheetName: "12 Ott" }
   ];
+
+  // Mostra solo le aste di oggi o future (data in fuso Europe/Rome). Il campo
+  // `giorno` (AAAA-MM-GG) va messo in ogni nuova asta; senza, l'asta resta
+  // sempre visibile. L'array `const aste = [...]` sopra deve restare un semplice
+  // elenco di oggetti: lo legge anche il backend (api/aste.js).
+  const oggiRoma = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Rome' }).format(new Date());
+  const asteVisibili = aste.filter(a => !a.giorno || a.giorno >= oggiRoma);
 
   // Barra di caricamento sopra la griglia aste: finché non si vede completarsi
   // non è chiaro se i posti disponibili mostrati sono aggiornati o ancora il
@@ -194,7 +212,7 @@
     }, 200);
     // Attenuo e blocco i click sulla griglia: i posti mostrati sono ancora il
     // placeholder, non voglio che qualcuno scelga un'asta guardando un numero sbagliato.
-    if (grid) { grid.style.opacity = '0.35'; grid.style.pointerEvents = 'none'; }
+    if (grid) { grid.style.opacity = '0.35'; grid.style.pointerEvents = 'none'; grid.inert = true; }
   }
   function asteLoadDone() {
     const bar = document.getElementById('asteLoadBar');
@@ -202,7 +220,7 @@
     const grid = document.getElementById('aste-grid');
     clearInterval(asteLoadInterval);
     asteLoadInterval = null;
-    if (grid) { grid.style.opacity = '1'; grid.style.pointerEvents = ''; }
+    if (grid) { grid.style.opacity = '1'; grid.style.pointerEvents = ''; grid.inert = false; }
     if (!bar || !fill) return;
     fill.style.width = '100%';
     setTimeout(() => { bar.style.display = 'none'; fill.style.width = '0%'; }, 350);
@@ -318,7 +336,7 @@
       return;
     }
 
-    aste.forEach((asta, idx) => {
+    asteVisibili.forEach((asta, idx) => {
       let coloreModalita = '';
       if (asta.modalita === 'Mantra' || asta.modalita === 'Mantra Euroleghe') {
         coloreModalita = 'text-purple-400 bg-purple-400/10 border-purple-400/20';
@@ -390,7 +408,7 @@
                 <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
                 <div class="h-12 w-full bg-primary-container/20 rounded mt-6 border border-primary-container/10"></div>
               </div>
-              <iframe id="iframe-asta-${asta.id}" referrerpolicy="strict-origin-when-cross-origin"
+              <iframe id="iframe-asta-${asta.id}" referrerpolicy="strict-origin-when-cross-origin" title="Modulo di iscrizione ${asta.nome}"
                 data-src="https://tally.so/embed/${asta.tallyId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                 onload="const sk = document.getElementById('tally-skeleton-${asta.id}'); if(sk) { sk.style.opacity='0'; setTimeout(() => sk.remove(), 500); }"
                 loading="lazy" width="100%" height="650" frameborder="0"
@@ -409,11 +427,14 @@
   // fare. Le card piene vengono quindi tolte dalla pagina, non solo nascoste.
   function updateCounts(counts) {
     let visibili = 0;
-    aste.forEach(asta => {
+    asteVisibili.forEach(asta => {
       const card = document.getElementById('asta-card-' + asta.id);
       if (!card) return;
 
-      const posti_occupati = counts ? (counts[asta.sheetName] || 0) : 0;
+      const raw = counts ? counts[asta.sheetName] : undefined;
+      const posti_occupati = Number(raw);
+      // Tab non trovato o valore non numerico: non far credere che sia libera.
+      if (raw === undefined || raw === null || !Number.isFinite(posti_occupati)) { visibili++; return; }
       const piena = posti_occupati >= asta.max_posti;
 
       if (piena) {
@@ -462,7 +483,7 @@
   // tutti liberi — senza dati reali non possiamo sapere quali aste sono
   // piene, quindi restano tutte visibili con un avviso di verifica manuale.
   function showCountsUnavailable() {
-    aste.forEach(asta => {
+    asteVisibili.forEach(asta => {
       const container = document.getElementById('counts-container-' + asta.id);
       if (!container) return;
       container.innerHTML = `
@@ -493,6 +514,7 @@
 
   function aprireOChiudereForm(astaId) {
     const formDiv = document.getElementById('form-asta-' + astaId);
+    if (!formDiv) return;
     const isHidden = formDiv.classList.contains('hidden');
     document.querySelectorAll('[id^="form-asta-"]').forEach(d => d.classList.add('hidden'));
     if (isHidden) {
