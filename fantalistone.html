@@ -16,11 +16,10 @@
 <meta name="twitter:title" content="FantaListone — Progetto Esperti Profeta">
 <meta name="twitter:description" content="La modalità FantaListone Formula 1, riservata agli iscritti al Progetto Esperti.">
 <meta name="twitter:image" content="https://progetto-esperti-profeta.vercel.app/assets/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://tally.so">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&icon_names=add,arrow_back,arrow_downward,arrow_forward,arrow_upward,calendar_month,check_circle,close,emoji_events,forum,gavel,grade,group_work,groups,help,hourglass_empty,hourglass_top,how_to_reg,info,live_tv,lock,newspaper,payments,play_circle,remove,search_off,send,storefront,tune,warning&display=block" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=1">
 <link href="/assets/tailwind.css?v=20260916" rel="stylesheet"/>
 <style>
   .material-symbols-outlined {
@@ -196,7 +195,7 @@
         <p class="text-sm md:text-base text-on-surface-variant max-w-xl mx-auto">Guarda il video di presentazione per capire come si gioca il FantaListone.</p>
       </div>
       <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl editorial-shadow bg-surface-container-lowest reveal-on-scroll delay-100">
-        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" class="w-full h-full" frameborder="0" src="https://www.youtube-nocookie.com/embed/FIGpgvw9LzI?rel=0" title="Come funziona il FantaListone"></iframe>
+        <iframe referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" class="w-full h-full" frameborder="0" src="https://www.youtube-nocookie.com/embed/FIGpgvw9LzI?rel=0" title="Come funziona il FantaListone"></iframe>
       </div>
     </div>
   </section>
