@@ -390,7 +390,7 @@
                 <div class="h-12 w-full bg-white/5 rounded border border-white/5"></div>
                 <div class="h-12 w-full bg-primary-container/20 rounded mt-6 border border-primary-container/10"></div>
               </div>
-              <iframe id="iframe-asta-${asta.id}"
+              <iframe id="iframe-asta-${asta.id}" referrerpolicy="strict-origin-when-cross-origin"
                 data-src="https://tally.so/embed/${asta.tallyId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                 onload="const sk = document.getElementById('tally-skeleton-${asta.id}'); if(sk) { sk.style.opacity='0'; setTimeout(() => sk.remove(), 500); }"
                 loading="lazy" width="100%" height="650" frameborder="0"
