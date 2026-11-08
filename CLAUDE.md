@@ -50,7 +50,7 @@ This is the most dynamic page. Auctions are defined in a hardcoded JS array `con
 { id, nome, data, giorno, modalita, tallyId, max_posti, quota, sheetName }
 ```
 
-- `giorno` — ISO date `YYYY-MM-DD` of the auction: the page (`asteVisibili`) only shows auctions whose `giorno` is today or later (Europe/Rome); without it the auction is always shown. The array must stay a plain list of objects (strings/numbers only): `dashboard-esperti-backend` parses it.
+- `giorno` — ISO date `YYYY-MM-DD` of the auction: the page (`asteVisibili`) only shows auctions whose `giorno` is today or later (Europe/Rome); without it the auction is always shown. The array must stay a plain list of objects (strings/numbers only): `esperti-dashboard-backend` parses it.
 - `id` — stable numeric identifier (keep unique when adding auctions; note the display name in `nome`, e.g. "Asta #11", is independent of `id` and not always sequential — check existing entries before assigning a new one).
 - `tallyId` — the Tally.so form ID embedded in an iframe (`https://tally.so/embed/{tallyId}`) for that auction's registration form. New auctions are sometimes added with a placeholder ID and updated once the real Tally form exists (see commit history).
 - `sheetName` — must exactly match the tab name in the backing Google Sheet; used as the key when reading seat counts back from the API.
@@ -70,7 +70,7 @@ Seat counts are fetched at runtime from a Google Apps Script Web App (`API_URL`,
 ## Hosting and deploy
 
 - **Official address:** https://progetto-esperti-profeta.vercel.app — Vercel project `progetto-esperti-profeta`, git-linked to this repo, deploys on every push to `main` (about 1-2 minutes). The GitHub Pages copy was switched off on 2026-11-07 (it was unstyled because of absolute `/assets/` paths); the Vercel address is the only public one.
-- The backend (`dashboard-esperti-backend`, `api/aste.js`) reads the live aste metadata from the Vercel address, and the pages use it in canonical/Open Graph tags: do not change the domain without updating both.
+- The backend (`esperti-dashboard-backend`, `api/aste.js`) reads the live aste metadata from the Vercel address, and the pages use it in canonical/Open Graph tags: do not change the domain without updating both.
 - Local preview: `python3 -m http.server 8935` from the repo folder.
 - Map of all projects, services and deadlines: `~/Documents/Progetti/MAPPA-PROGETTI.md` (read it first, update it after structural changes).
 
