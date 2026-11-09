@@ -2,12 +2,12 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>Iscriviti al Progetto Esperti Profeta</title>
-<meta name="description" content="Unisciti al gruppo Telegram esclusivo del Progetto Esperti Profeta. Consigli H24, news di mercato e accesso alle aste a soli 15€ all'anno.">
+<meta name="description" content="Unisciti al gruppo Telegram esclusivo del Progetto Esperti Profeta. Consigli H24 e news di mercato a soli 15€ all'anno.">
 <link rel="icon" type="image/png" href="/favicon.png?v=2">
 <link rel="shortcut icon" href="/favicon.ico?v=2">
 <link rel="apple-touch-icon" href="/favicon.png?v=2">
 <meta property="og:title" content="Iscriviti al Progetto Esperti Profeta">
-<meta property="og:description" content="Accesso al gruppo Telegram, 30+ esperti a disposizione e C'è Asta per Te a soli 15€ all'anno.">
+<meta property="og:description" content="Accesso al gruppo Telegram, 29 esperti a disposizione e consigli H24 a soli 15€ all'anno.">
 <meta property="og:image" content="https://progetto-esperti-profeta.vercel.app/assets/logo.png">
 <meta property="og:url" content="https://progetto-esperti-profeta.vercel.app/iscriviti.html">
 <meta property="og:type" content="website">
@@ -240,15 +240,15 @@
               </li>
               <li class="flex items-center gap-4 text-on-surface">
                 <span class="material-symbols-outlined text-primary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                <span class="text-sm">30+ Esperti a disposizione</span>
+                <span class="text-sm">29 Esperti a disposizione</span>
               </li>
               <li class="flex items-center gap-4 text-on-surface">
                 <span class="material-symbols-outlined text-primary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                <span class="text-sm">C'è Asta per Te</span>
+                <span class="text-sm">C'è Asta per Te <span class="text-xs text-on-surface-variant">(aste 2026/27 concluse, tornano la prossima stagione)</span></span>
               </li>
               <li class="flex items-center gap-4 text-on-surface">
                 <span class="material-symbols-outlined text-primary-container text-xl shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                <span class="text-sm">FantaListone</span>
+                <span class="text-sm">FantaListone <span class="text-xs text-on-surface-variant">(iscrizioni di questa stagione chiuse)</span></span>
               </li>
             </ul>
             <div class="space-y-6">
@@ -339,12 +339,12 @@
       }
       function init(){
         if(typeof Tally!=='undefined'){ Tally.loadEmbeds(); }
-        loadIframes();
       }
       if(typeof Tally==='undefined' && d.querySelector('script[src="'+s+'"]')===null){
         var sc=d.createElement('script'); sc.src=s; sc.onload=init; sc.onerror=loadIframes; d.body.appendChild(sc);
       } else { init(); }
-      var tries=0; var iv=setInterval(function(){ loadIframes(); if(++tries>20) clearInterval(iv); }, 400);
+      // Riserva: solo se Tally non è arrivato, altrimenti è lui a caricare e ridimensionare il modulo.
+      setTimeout(function(){ if(typeof Tally==='undefined'){ loadIframes(); } }, 5000);
     })();
   </script>
 </main>
